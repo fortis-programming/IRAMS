@@ -1,0 +1,51 @@
+<div class="login">
+  <div class="divider divider__left">
+    <div class="container title">
+      <img src="../../assets/images/undraw_Lighthouse_frb8 (1).svg" height="300px">
+      <p class="mt-3">R-Space be with you!</p>
+    </div>
+  </div>
+  <div class="divider divider__right">
+    <div class="container">
+      <form #signupForm="ngForm">
+        <div class="form-floating mb-3">
+          <input [(ngModel)]="signupModel.email" name="email" #email="ngModel" pattern="[a-z0-9._%+-]+@tup+\.edu+\.ph$"
+            type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+          <label for="floatingEmail" *ngIf="!hasError(email)">Email address</label>
+          <label for="floatingEmail" *ngIf="hasError(email) && email.errors?.pattern">Email is invalid</label>
+          <label for="floatingEmail" *ngIf="hasError(email) && email.errors?.required">Email is required</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input [(ngModel)]="signupModel.studentId" name="studentId" #studentId="ngModel"
+            pattern="[TUPM, TUPC, TUPB]+-[0-9._%+-]{7}" maxlength="12" minlength="12" type="text" class="form-control"
+            id="floatingStudentId" placeholder="name@example.com" required>
+          <label for="floatingStudentId" *ngIf="!hasError(studentId)">Student ID</label>
+          <label for="floatingStudentId" *ngIf="hasError(studentId) && studentId.errors?.pattern">Student ID is
+            invalid</label>
+          <label for="floatingStudentId" *ngIf="hasError(studentId) && studentId.errors?.required">Student ID
+            required</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input [(ngModel)]="signupModel.password" name="password" #password="ngModel" type="text" class="form-control"
+            id="floatingPassword" placeholder="name@example.com" required>
+          <label for="floatingPassword" *ngIf="!hasError(password)">Password</label>
+          <label for="floatingPassword" *ngIf="hasError(password) && password.errors?.required">Password
+            required</label>
+          <password-strength-meter [password]="signupModel.password"></password-strength-meter>
+        </div>
+        <div class="form-floating mb-3">
+          <input [(ngModel)]="signupModel.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" type="text"
+            class="form-control" id="floatingPassword" placeholder="name@example.com" required>
+          <label for="floatingPassword" *ngIf="!hasError(confirmPassword)">Confirm password</label>
+          <label for="floatingPassword"
+            *ngIf="!confirmPassword.errors?.touched && hasError(confirmPassword) && confirmPassword.errors?.required">Confirm
+            password
+            required</label>
+          <label for="floatingPassword"
+            *ngIf="confirmPassword.touched && signupModel.confirmPassword === signupModel.confirmPassword">Password does
+            not match</label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
