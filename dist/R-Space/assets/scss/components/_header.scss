@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  padding: 5px 17px;
+  border-bottom: 1px solid $border-color;
+  background-color: white;
+
+  .title {
+    font-weight: 600;
+    margin-right: 20px;
+  }
+}
+
+.header>* {
+  margin: auto 0;
+}
