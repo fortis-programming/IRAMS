@@ -1,0 +1,11 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 96vw;
+    
+    &__inner {
+        overflow-y: scroll;
+        height: 91vh;
+        display: flexbox;
+    }
+}
