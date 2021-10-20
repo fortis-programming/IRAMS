@@ -1,0 +1,41 @@
+.form-floating {
+  font-size: 0.855rem;
+
+  label {
+    margin-top: 0.3rem;
+  }
+
+  .form-control {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    border: none;
+    border-bottom: 1px solid $bg-color;
+    border-radius: 0;
+  }
+}
+
+.input-container {
+  padding: 9px 0px;
+  width: 30%;
+  border-radius: 4px;
+  margin: 0px 15px;
+
+  svg {
+    margin: auto 0;
+    height: 24px;
+  }
+
+  input {
+    border: none;
+    width: 100%;
+    margin: auto 8px;
+    padding: 3px;
+    background-color: transparent;
+  }
+}
+
+input {
+  outline: none;
+  font-size: 0.855rem;
+}
