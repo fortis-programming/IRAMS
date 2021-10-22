@@ -17,9 +17,15 @@ export class ExploreItemsComponent implements OnInit {
     college: '',
     keywords: ''
   }
+  
+  openDocument = false;
+  
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  open(status: boolean): void {
+    this.openDocument = status;
+  }
 }

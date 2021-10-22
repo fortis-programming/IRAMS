@@ -1,12 +1,23 @@
 .header {
-  display: flex;
-  padding: 5px 17px;
+  display: grid;
+  padding: 8px 18px;
   border-bottom: 1px solid $border-color;
   background-color: white;
+
+  svg {
+    height: 40px;
+    display: none;
+  }
 
   .title {
     font-weight: 600;
     margin-right: 20px;
+  }
+
+  @media screen and (max-width: 900px) {
+    svg {
+      display: flex;
+    }
   }
 }
 

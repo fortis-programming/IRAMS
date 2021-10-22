@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { WorksComponent } from './works/works.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ExploreItemsComponent } from './explore/explore-items/explore-items.component';
 import { SidenavModule } from './main/sidenav/sidenav.module';
+import { BookmarksComponent } from './bookmarks/bookmarks.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { SidenavModule } from './main/sidenav/sidenav.module';
     SignupComponent,
     ExploreComponent,
     WorksComponent,
-    ExploreItemsComponent
+    ExploreItemsComponent,
+    BookmarksComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { SidenavModule } from './main/sidenav/sidenav.module';
     HttpClientModule,
     SidenavModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderService } from './header.service';
 
 @Component({
@@ -9,9 +10,10 @@ import { HeaderService } from './header.service';
 export class HeaderComponent implements OnInit {
   title = 'Title';
   query = '';
-  
+
   constructor(
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -21,5 +23,9 @@ export class HeaderComponent implements OnInit {
   getTitle(): string {
     return this.headerService.getTitle();
   }
-
+  
+  logout(): void {
+    this.router.navigate(['/login']);
+  }
 }
+
