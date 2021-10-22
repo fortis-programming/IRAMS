@@ -1,11 +1,21 @@
 .main {
-    display: flex;
-    flex-direction: column;
-    width: 96vw;
-    
-    &__inner {
-        overflow-y: scroll;
-        height: 91vh;
-        display: flexbox;
+  display: grid;
+  
+  
+  &__inner {
+    display: block;
+    width: calc(100%-50px);
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  @media screen and (max-width: 999px) {
+    .main {
+        flex-direction: column;
+        width: 100vw;
+      &__inner {
+        width: 100vw;
+      }
     }
+  }
 }

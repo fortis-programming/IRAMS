@@ -1,0 +1,10 @@
+.your-works {
+    display: flex;
+    width: calc(100%-50px);
+    
+    .repository-items {
+        border-radius: 5px;
+        background-color: white;
+        border: 1px solid $border-color;
+    }
+}

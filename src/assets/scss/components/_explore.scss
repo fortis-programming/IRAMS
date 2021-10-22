@@ -1,9 +1,4 @@
-.search-tab {
-  border-bottom: 1px solid $border-color;
-}
-
 .explore {
-  height: max-content;
   height: auto;
   
   .explore-items {
@@ -34,6 +29,32 @@
       .date {
         font-size: 0.8rem;
         margin: auto 0;
+      }
+    }
+    
+    .content-bg {
+      background-color: black;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0.2;
+    }
+    
+    .full-content {
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 95%;
+      border-radius: 5px;
+      
+      svg {
+        height: 24px;
+        cursor: pointer;
       }
     }
   }
