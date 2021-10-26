@@ -1,0 +1,36 @@
+<div class="document-content">
+  <div class="wrapper p-3">
+    <div class="document-content title">
+      <div class="d-flex justify-content-end">
+        <!-- <button class="comment-btn">Read comments</button> -->
+        <a (click)="closeDocument()" class="d-flex flex-row">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      <label>{{documentObject.type}}</label>
+      <h4>{{documentObject.title}}</h4>
+      <div class="author">
+        <p>{{documentObject.author}}</p>
+        <p>{{documentObject.keywords}}</p>
+        <p>Evaluated by {{documentObject.evaluator}}</p>
+        <p>{{documentObject.published}}</p>
+      </div>
+    </div>
+  </div>
+  <main class="p-3">
+    <span class="content-title">Abstract</span>
+    {{documentObject.abstract}}
+    <span class="content-title">Introduction</span>
+    {{documentObject.abstract}}
+    <span class="content-title">Background of the Study</span>
+    {{documentObject.abstract}}
+    <span class="content-title">RRL</span>
+    {{documentObject.abstract}}
+    <span class="content-title">Methods</span>
+    {{documentObject.abstract}}
+  </main>
+</div>

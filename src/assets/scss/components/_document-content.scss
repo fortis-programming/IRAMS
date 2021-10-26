@@ -1,0 +1,74 @@
+.document-content {
+  background-color: white;
+
+
+  a {
+    svg {
+      margin: 0;
+      height: 20px;
+      margin: auto 0;
+    }
+  }
+
+
+  .wrapper {
+    background-color: $header-bg;
+  }
+
+  .wrapper>* {
+    background-color: $header-bg;
+  }
+
+  main {
+    background-color: white;
+    text-align: justify;
+    font-size: 0.855rem;
+    line-height: 1.5rem;
+  }
+
+  .title {
+    label {
+      font-size: 0.80rem;
+      color: $primary;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .author {
+      font-size: 0.80rem;
+      display: flex;
+      flex-direction: row;
+
+      p {
+        margin: auto 0;
+        margin-right: 7px;
+        border-right: 1px solid lightgray;
+        padding-right: 10px;
+      }
+    }
+
+    @media screen and (max-width: 999px) {
+      .author {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          border: none;
+        }
+      }
+    }
+
+  }
+  
+  .comment-btn {
+    background-color: $bg-color;
+    // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+  }
+}

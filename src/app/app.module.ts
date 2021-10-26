@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExploreItemsComponent } from './explore/explore-items/explore-items.component';
 import { SidenavModule } from './main/sidenav/sidenav.module';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
+import { DocumentPreviewComponent } from './explore/document-preview/document-preview.component';
+import { DocumentContentComponent } from './explore/document-preview/document-content/document-content.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
     ExploreComponent,
     WorksComponent,
     ExploreItemsComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    DocumentPreviewComponent,
+    DocumentContentComponent
   ],
   imports: [
     BrowserModule,

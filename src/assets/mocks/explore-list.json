@@ -1,40 +1,48 @@
 {
   "data": [
     {
+      "id": "1",
       "title": "Institutional Repository",
       "author": "John Doe",
       "type": "Developmental",
       "published": "02/14/2021",
       "abstract": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
       "college": "College of Industrial Education",
-      "keywords": "Research, Repository"
+      "keywords": "Research, Repository",
+      "evaluator": "John Doe"
     },
     {
+      "id": "2",
       "title": "IRAMS",
       "author": "Jose Rizal",
       "type": "Developmental",
       "published": "02/14/2021",
       "abstract": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
       "college": "College of Industrial Education",
-      "keywords": "Repository"
+      "keywords": "Repository",
+      "evaluator": "John Doe"
     },
     {
+      "id": "3",
       "title": "IRAMS: Integration of Institutional Repository Archiving Management System",
       "author": "Jose Rizal",
       "type": "Developmental",
       "published": "02/14/2021",
       "abstract": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
       "college": "College of Industrial Education",
-      "keywords": "Repository"
+      "keywords": "Repository",
+      "evaluator": "John Doe"
     },
     {
-      "title": "Tarts",
-      "author": "Jose Rizal",
+      "id": "4",
+      "title": "iRAMS:Development of Institutional Repository and Archiving Management System with Document Collaboration Tools for College of Industrial Education, TUP-Manila",
+      "author": "C. Aplaon, A.J Notarte, E.H Tolentino",
       "type": "Developmental",
       "published": "02/14/2021",
-      "abstract": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+      "abstract": "Scarce in institutional repository has been a present problem to most in the academe. In a research study conducted by Nolan and Costanza (2006), it has been obviously shown that the demand in IRs are shifting rapidly in an academic environment supplementing accessible learning objects and digitized content (such as research journals, theses, and other intellectual outputs) that is available for accessing and and retrieving for future uses. The positive perception on the use and implementation of IRs became convenient enough as it manages and preserves the authenticity of the academic works of the users (faculty, students). Cohen, Kalimi and Nachmias (2013) believed that promoting the use and development of educational repositories can generate a wider scope among the continuous change in the management approach of the institutional repositories and archiving management system.",
       "college": "College of Industrial Education",
-      "keywords": "Repository"
+      "keywords": "Institutional Repository",
+      "evaluator": "Dr. Cherrypyn Barbacena"
     }
   ]
 }

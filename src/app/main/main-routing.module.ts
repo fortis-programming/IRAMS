@@ -6,6 +6,7 @@ import { MainComponent } from './main.component';
 import { routes as ExploreRoutes } from '../explore/explore-routing.module';
 import { routes as WorksRoutes } from '../works/works-routing.module';
 import { routes as BooksmarkRoutes } from '../bookmarks/bookmarks-routing.module';
+import { routes as DocumentRoutes } from '../../app/explore/document-preview/document-preview-routing.module';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'explore', pathMatch: 'full' },
       ...ExploreRoutes,
       ...WorksRoutes,
-      ...BooksmarkRoutes
+      ...BooksmarkRoutes,
+      ...DocumentRoutes
     ]
   }
 ];
