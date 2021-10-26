@@ -1,4 +1,5 @@
 export interface ResearchModel {
+    id: string;
     title: string;
     author: string;
     type: string;
@@ -6,4 +7,5 @@ export interface ResearchModel {
     abstract: string;
     college: string;
     keywords: string;
+    evaluator: string;
 }

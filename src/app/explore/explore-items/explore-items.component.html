@@ -1,31 +1,16 @@
-<div class="explore-items p-3 mb-3">
-
+<div class="explore-items p-3 mb-3" (click)="openDocument(researchItem.id)">
   <div class="head mb-2">{{researchItem.type}}</div>
   <div class="title">{{researchItem.title}}</div>
   <div class="keywords">
     <strong>Keywords:</strong>
     {{researchItem.keywords}}
   </div>
-  <div class="abstract mt-2 mb-3" (click)="open(true)">
+  <div class="abstract mt-2 mb-3">
     <strong>Abstract</strong><br>
     {{researchItem.abstract}}
   </div>
   <div class="authors d-flex justify-content-between">
     <div>{{researchItem.author}}</div>
     <div class="date">{{researchItem.published}}</div>
-  </div>
-  <!--  [attr.data-target]="'#'+researchItem.title" -->
-  <div class="content-bg" *ngIf="openDocument"></div>
-  <div class="full-content p-3" *ngIf="openDocument">
-    <div class="d-flex justify-content-end">
-      <svg (click)="open(false)" class="float-right" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </div>
-    <div>
-      <h4>{{researchItem.title}}</h4>
-      <p>{{researchItem.abstract}}</p>
-    </div>
   </div>
 </div>
