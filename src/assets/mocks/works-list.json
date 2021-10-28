@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "projectId": "123",
+            "title": "Nuclear Power Plant",
+            "type": "Qualitative",
+            "updatedAt": "10/27/2021",
+            "status": "Ongoing",
+            "members": "Allain John Notarte"
+        },
+        {
+            "projectId": "222",
+            "title": "Wireless Keyboard",
+            "type": "Developmental",
+            "updatedAt": "10/27/2021",
+            "status": "Ongoing",
+            "members": "Allain John Notarte"
+        }
+    ]
+}

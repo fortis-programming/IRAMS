@@ -18,18 +18,22 @@ import { SidenavModule } from './main/sidenav/sidenav.module';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { DocumentPreviewComponent } from './explore/document-preview/document-preview.component';
 import { DocumentContentComponent } from './explore/document-preview/document-content/document-content.component';
+import { WorksItemsComponent } from './works/works-items/works-items.component';
+import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SignupComponent,
-    ExploreComponent,
-    WorksComponent,
-    ExploreItemsComponent,
     BookmarksComponent,
     DocumentPreviewComponent,
-    DocumentContentComponent
+    DocumentContentComponent,
+    ExploreComponent,
+    ExploreItemsComponent,
+    ExploreContentComponent,
+    LoginComponent,
+    SignupComponent,
+    WorksComponent,
+    WorksItemsComponent,
   ],
   imports: [
     BrowserModule,

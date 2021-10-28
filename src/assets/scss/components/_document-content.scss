@@ -1,6 +1,13 @@
 .document-content {
   background-color: white;
 
+  .comment-btn {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border: 1px solid $primary;
+  }
 
   a {
     svg {
