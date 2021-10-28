@@ -1,5 +1,6 @@
 <div class="your-works p-3">
-    <div class="empty-state empty-state__button p-3 mb-3 d-flex justify-content-center" >
-        Create Project
-      </div>
+  <app-works-items *ngFor="let repository of yourRepositories" [workItem]="repository"></app-works-items>
+  <div class="empty-state empty-state__button p-3 mb-3 d-flex justify-content-center">
+    Create Project
+  </div>
 </div>

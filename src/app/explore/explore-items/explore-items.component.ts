@@ -29,6 +29,6 @@ export class ExploreItemsComponent implements OnInit {
   }
 
   openDocument(documentId: string): void {
-    this.route.navigate(['../app/preview', documentId]);
+    this.route.navigate(['../app/explore/preview', documentId]);
   }
 }

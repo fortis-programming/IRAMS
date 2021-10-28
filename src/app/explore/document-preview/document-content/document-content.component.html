@@ -1,15 +1,11 @@
 <div class="document-content">
   <div class="wrapper p-3">
     <div class="document-content title">
-      <div class="d-flex justify-content-end">
-        <!-- <button class="comment-btn">Read comments</button> -->
-        <a (click)="closeDocument()" class="d-flex flex-row">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd" />
-          </svg>
-        </a>
+      <div class="d-flex navigation">
+        <button class="comment-btn">Read comments</button>
+        <p>
+          <span (click)="closeDocument()">Explore</span> > {{documentObject.title}}
+        </p>
       </div>
       <label>{{documentObject.type}}</label>
       <h4>{{documentObject.title}}</h4>

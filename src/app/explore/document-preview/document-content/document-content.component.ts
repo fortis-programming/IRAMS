@@ -19,12 +19,13 @@ export class DocumentContentComponent implements OnInit {
     keywords: '',
     evaluator: ''
   }
-  
+
   constructor(
     private route: Router
   ) { }
 
   ngOnInit(): void {
+    return;
   }
 
   closeDocument(): void {
