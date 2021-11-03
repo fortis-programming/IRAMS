@@ -1,27 +1,18 @@
 # RSpace
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+Is web-application that allows Technological University of the Philippines Manila - College of Industrial Education to archive and incubate the academic outputs of our college.
 
-## Development server
+### Functionalities Includes
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Student Collaboration <br>
+Peer Review <br>
+Research Instructor Paper Evaluation <br>
+Scholarly Works Archives <br>
 
-## Code scaffolding
+# System Snapshot
+![image](https://user-images.githubusercontent.com/81663534/140066549-10ccf7d6-aa20-4f43-a702-8f34db99b243.png)
+![image](https://user-images.githubusercontent.com/81663534/140066667-52807b1f-0c7f-4d81-bb3c-91afc9c8fb20.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Click the link to visit the website https://r-space-e74eb.web.app/#/login
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
