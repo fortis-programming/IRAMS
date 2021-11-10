@@ -1,0 +1,23 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+
+  p {
+    margin: auto 0;
+    cursor: pointer;
+  }
+  
+  svg {
+    height: 23px;
+    margin: auto 5px;
+  }
+
+  .nav-title {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}

@@ -13,6 +13,7 @@ export class WorksService {
     private http: HttpClient
   ) { }
   
+  //  GET YOUR WORKS DATA FROM DATABASE
   getWorks(): Observable<BaseResponse<WorksModel[]>> {
     return this.http.get<BaseResponse<WorksModel[]>>('../../assets/mocks/works-list.json');
   }

@@ -28,6 +28,7 @@ export class ExploreItemsComponent implements OnInit {
     return;
   }
 
+  //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
   openDocument(documentId: string): void {
     this.route.navigate(['../app/explore/preview', documentId]);
   }

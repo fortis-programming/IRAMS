@@ -1,10 +1,75 @@
 .your-works {
+  display: flex;
+  width: calc(100%-50px);
+  flex-direction: column;
+
+  .works-header {
     display: flex;
-    width: calc(100%-50px);
-    
-    .repository-items {
-        border-radius: 5px;
-        background-color: white;
-        border: 1px solid $border-color;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    button {
+      padding: 8px 20px;
+      font-size: 0.80rem;
     }
+  }
+
+  .works-header>* {
+    margin: auto 0;
+  }
+
+  .works-container {
+    background-color: white;
+    border-radius: 4px;
+    padding-bottom: 8px;
+
+    .title-header {
+      font-size: 0.75rem;
+      color: $black-1;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 40% 15% 10% 20% 10% 5%;
+    }
+  }
+
+  .repository-items {
+    border: none;
+    border-top: 1px solid $border-color;
+    display: grid;
+    grid-template-columns: 40% 15% 10% 20% 10% 5%;
+    padding: 10px;
+    font-size: 0.855rem;
+
+    &__action {
+      svg {
+        height: 20px;
+        float: right;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .title-header {
+      display: grid;
+      grid-template-columns: 250px 100px 3fr;
+
+      &__members,
+      &__status,
+      &__date {
+        display: none;
+      }
+    }
+
+    .repository-items {
+      display: grid;
+      grid-template-columns: 250px 100px 3fr;
+
+      &__members,
+      &__status,
+      &__date {
+        display: none;
+      }
+    }
+  }
 }

@@ -4,5 +4,5 @@ export interface WorksModel {
     type: string;
     updatedAt: string;
     status: string;
-    memebers: string;
+    members: string;
 }

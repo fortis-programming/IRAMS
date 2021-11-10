@@ -1,1 +1,12 @@
-<p>works-items works!</p>
+<div class="repository-items">
+  <div class="repository-items__title">{{workItem.title}}</div>
+  <div class="repository-items__type">{{workItem.type}}</div>
+  <div class="repository-items__status">{{workItem.status}}</div>
+  <div class="repository-items__members">{{workItem.members}}</div>
+  <div class="repository-items__date">{{workItem.updatedAt}}</div>
+  <div class="repository-items__action">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+    </svg>
+  </div>
+</div>

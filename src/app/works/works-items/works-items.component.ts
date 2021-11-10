@@ -13,7 +13,7 @@ export class WorksItemsComponent implements OnInit {
     type: '',
     updatedAt: '',
     status: '',
-    memebers: ''
+    members: ''
   }
   constructor() { }
 

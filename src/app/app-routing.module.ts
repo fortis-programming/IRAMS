@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
+//  SETUP ROUTING FOR COMPONENT AND CHILDREN
 const routes: Routes = [
   {
     path: '',

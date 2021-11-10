@@ -1,6 +1,17 @@
 <div class="your-works p-3">
-  <app-works-items *ngFor="let repository of yourRepositories" [workItem]="repository"></app-works-items>
-  <div class="empty-state empty-state__button p-3 mb-3 d-flex justify-content-center">
-    Create Project
+  <div class="works-header">
+    <p>Project(s)</p>
+    <button class="btn btn__primary">New project</button>
+  </div>
+  <div class="works-container">
+    <div class="title-header">
+      <div class="title-header__title">Title</div>
+      <div class="title-header__type">Type</div>
+      <div class="title-header__status">Status</div>
+      <div class="title-header__members">Contributors</div>
+      <div class="title-header__date">Days</div>
+      <div class="title-header__action"></div>
+    </div>
+    <app-works-items *ngFor="let repository of yourRepositories" [workItem]="repository"></app-works-items>
   </div>
 </div>

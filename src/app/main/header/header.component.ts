@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   getTitle(): string {
     return this.headerService.getTitle();
   }
-  
+
   logout(): void {
     this.router.navigate(['/login']);
   }

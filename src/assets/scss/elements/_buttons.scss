@@ -12,4 +12,10 @@
             color: white;
         }    
     }
+    
+    &__ghost {
+        background-color: transparent;
+        border: 1px solid $primary;
+        color: $primary;
+    }
 }

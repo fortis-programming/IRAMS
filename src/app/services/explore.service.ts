@@ -12,13 +12,10 @@ export class ExploreService {
   constructor(
     private http: HttpClient
   ) { }
-
+    
+  //  GET RESEARCH ARCHIVE FROM DATABASE
   getResearches(): Observable<BaseResponse<ResearchModel[]>> {
     return this.http.get<BaseResponse<ResearchModel[]>>('../../assets/mocks/explore-list.json');
   }
   
-  getResearchWithId(documentId: string): Observable<BaseResponse<ResearchModel[]>> {
-    return this.http.get<BaseResponse<ResearchModel[]>>('../../assets/mocks/explore-list.json');
-  }
-
 }

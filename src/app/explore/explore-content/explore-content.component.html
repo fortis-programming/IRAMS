@@ -1,5 +1,6 @@
 <div class="explore">
-    <div class="input-container d-flex flex-row mt-2">
+  <div class="input-container d-flex justify-content-between mt-2">
+    <div class="d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -7,11 +8,27 @@
       </svg>
       <input type="text" placeholder="Search for projects" [(ngModel)]="searchQuery" (keyup)="searchProject()">
     </div>
-    <div class="p-3">
-      <app-explore-items *ngFor="let research of researches" [researchItem]="research"></app-explore-items>
-      <div class="empty-state p-3 mb-3" *ngIf="emptyMessage">
-        No repository found.
+    <div>
+      <div class="dropdown filter">
+        <button id="filterDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"> {{filterBy}} <svg
+            xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd" />
+          </svg></button>
+        <ul class="dropdown-menu" aria-labelledby="filterDropdownMenu">
+          <li><a class="dropdown-item" (click)="filter('All')">All</a></li>
+          <li><a class="dropdown-item" (click)="filter('2021')">2021</a></li>
+          <li><a class="dropdown-item" (click)="filter('2020')">2020</a></li>
+          <li><a class="dropdown-item" (click)="filter('2019')">2019</a></li>
+        </ul>
       </div>
     </div>
   </div>
-  <router-outlet></router-outlet>
+  <div class="p-3">
+    <app-explore-items *ngFor="let research of researches" [researchItem]="research"></app-explore-items>
+    <div class="empty-state p-3 mb-3" *ngIf="researches.length === 0">
+      No repository found.
+    </div>
+  </div>
+</div>

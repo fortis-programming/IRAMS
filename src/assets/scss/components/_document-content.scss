@@ -1,14 +1,7 @@
 .document-content {
   background-color: white;
-
-  .comment-btn {
-    position: absolute;
-    bottom: 2%;
-    right: 2%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border: 1px solid $primary;
-  }
-
+  scroll-behavior: smooth;
+  
   a {
     svg {
       margin: 0;
@@ -31,6 +24,14 @@
     text-align: justify;
     font-size: 0.855rem;
     line-height: 1.5rem;
+  }
+  
+  .nav-header {
+    .nav-title {
+      width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
   }
 
   .title {
@@ -78,4 +79,5 @@
     padding: 8px 20px;
     border-radius: 4px;
   }
+
 }

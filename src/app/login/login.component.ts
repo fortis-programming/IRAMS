@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     return;
   }
-  
+
+  //  TO CHECK IF NGMODEL INPUT OR FORM IS VALID OR HAS ERROR
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)
   }
-  
 }

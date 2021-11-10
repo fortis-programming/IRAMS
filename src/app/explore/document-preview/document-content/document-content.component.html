@@ -1,17 +1,20 @@
 <div class="document-content">
   <div class="wrapper p-3">
     <div class="document-content title">
-      <div class="d-flex navigation">
-        <button class="comment-btn">Read comments</button>
-        <p>
-          <span (click)="closeDocument()">Explore</span> > {{documentObject.title}}
-        </p>
+      <div class="navigation">
+        <p (click)="closeDocument()">Explore</p>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clipRule="evenodd" />
+        </svg>
+        <p class="nav-title">{{documentObject.title}}</p>
       </div>
       <label>{{documentObject.type}}</label>
       <h4>{{documentObject.title}}</h4>
       <div class="author">
-        <p>{{documentObject.author}}</p>
-        <p>{{documentObject.keywords}}</p>
+        <p><strong>Author :</strong> {{documentObject.author}}</p>
+        <p><strong>Keywords :</strong> {{documentObject.keywords}}</p>
         <p>Evaluated by {{documentObject.evaluator}}</p>
         <p>{{documentObject.published}}</p>
       </div>
@@ -20,13 +23,16 @@
   <main class="p-3">
     <span class="content-title">Abstract</span>
     {{documentObject.abstract}}
-    <span class="content-title">Introduction</span>
+    <span class="content-title mt-3">Introduction</span>
     {{documentObject.abstract}}
-    <span class="content-title">Background of the Study</span>
+    <span class="content-title mt-3">Background of the Study</span>
     {{documentObject.abstract}}
-    <span class="content-title">RRL</span>
+    <span class="content-title mt-3">RRL</span>
     {{documentObject.abstract}}
-    <span class="content-title">Methods</span>
+    <span class="content-title mt-3">Methods</span>
     {{documentObject.abstract}}
+    <div class="mt-3">
+      <span class="content-title">Comments 20</span>
+    </div>
   </main>
 </div>

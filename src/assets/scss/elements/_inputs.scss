@@ -39,3 +39,20 @@ input {
   outline: none;
   font-size: 0.855rem;
 }
+
+.filter {
+  
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: 0.855rem;
+  }
+  
+  ul {
+    padding: 3px 0px;
+    li {
+      font-size: 0.80rem;
+    }
+  }
+  
+}

@@ -10,7 +10,7 @@ import { SignupRequest } from '../_shared/models/requests/signup.request';
 })
 export class SignupComponent implements OnInit {
   @ViewChild('signupForm') form: NgForm | undefined;
-  
+
   signupModel: SignupRequest = {
     email: '',
     password: '',
@@ -22,7 +22,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     return;
   }
-  
+
+  //  TO CHECK IF INPUT HAS AN ERROR
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)
   }
