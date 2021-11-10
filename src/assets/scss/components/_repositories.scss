@@ -22,52 +22,100 @@
   .works-container {
     background-color: white;
     border-radius: 4px;
-    padding-bottom: 8px;
+    padding: 8px 0px;
 
-    .title-header {
-      font-size: 0.75rem;
-      color: $black-1;
-      padding: 10px;
+    .list {
+      padding: 2px 15px;
       display: grid;
-      grid-template-columns: 40% 15% 10% 20% 10% 5%;
-    }
-  }
+      grid-template-columns: 40% 30% 10% 10% 10%;
+      font-size: 0.75rem;
+      border-bottom: 1px solid whitesmoke;
 
-  .repository-items {
-    border: none;
-    border-top: 1px solid $border-color;
-    display: grid;
-    grid-template-columns: 40% 15% 10% 20% 10% 5%;
-    padding: 10px;
-    font-size: 0.855rem;
-
-    &__action {
-      svg {
-        height: 20px;
-        float: right;
+      &__status {
+        display: flex;
+        justify-content: right;
       }
+    }
+
+    .list-items {
+      font-size: 0.855rem;
+      padding: 10px 15px;
+
+      div {
+        font-size: 0.755rem;
+      }
+
+      .title-container>* {
+        font-size: 0.855rem;
+      }
+
+      &__title {
+        font-weight: 600;
+      }
+
+      &__type {
+        font-size: 0.75rem;
+      }
+
+      &__status {
+        display: flex;
+        justify-content: right;
+
+        svg {
+          display: none;
+        }
+      }
+    }
+
+    .list-items>div {
+      display: flex;
+      margin: auto 0;
     }
   }
 
   @media screen and (max-width: 1000px) {
-    .title-header {
-      display: grid;
-      grid-template-columns: 250px 100px 3fr;
+    .works-container {
+      background-color: transparent;
 
-      &__members,
-      &__status,
-      &__date {
-        display: none;
+      .list {
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 5px 0;
+        background-color: white;
+        border: 1px solid $border-color;
       }
-    }
 
-    .repository-items {
-      display: grid;
-      grid-template-columns: 250px 100px 3fr;
+      .list-items {
+        .members {
+          display: none;
+        }
 
-      &__members,
-      &__status,
-      &__date {
+        &__status {
+          display: flex;
+          justify-content: left;
+
+          svg {
+            height: 15px;
+            margin: auto 0;
+            display: flex;
+          }
+
+          span {
+            margin: auto 0px;
+            font-size: 0.70rem;
+          }
+        }
+
+        .title-container {
+          border-bottom: 1px solid whitesmoke;
+          padding: 8px 0px;
+          margin-bottom: 8px;
+        }
+      }
+
+      .list-header {
         display: none;
       }
     }
