@@ -1,5 +1,5 @@
 .form-floating {
-  font-size: 0.855rem;
+  font-size: 0.82rem;
 
   label {
     margin-top: 0.3rem;
@@ -37,22 +37,37 @@
 
 input {
   outline: none;
-  font-size: 0.855rem;
+  font-size: 0.82rem;
 }
 
 .filter {
-  
+
   button {
     border: none;
     background-color: transparent;
-    font-size: 0.855rem;
+    font-size: 0.82rem;
   }
-  
+
   ul {
     padding: 3px 0px;
+
     li {
       font-size: 0.80rem;
     }
   }
+
+}
+
+.form-select {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: none;
+  border-bottom: 1px solid $bg-color;
+  border-radius: 0;
+  font-size: 0.82rem;
   
+  &:focus {
+    border-bottom: 1px solid $bg-color;
+  }
 }

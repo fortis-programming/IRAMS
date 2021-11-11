@@ -2,26 +2,26 @@
   <div class="wrapper p-3">
     <div class="document-content title">
       <div class="navigation">
-        <p (click)="closeDocument()">Explore</p>
+        <p (click)="closeRepository()">Projects</p>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd"
             d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
             clipRule="evenodd" />
         </svg>
-        <p class="nav-title">{{documentObject.title}}</p>
+        <p class="nav-title">IRS</p>
       </div>
-      <label>{{documentObject.type}}</label>
-      <h4>{{documentObject.title}}</h4>
+      <label>Developmental</label>
+      <h4>IRS</h4>
       <div class="author">
-        <p><strong>Author :</strong> {{documentObject.author}}</p>
+        <!-- <p><strong>Author :</strong> {{documentObject.author}}</p>
         <p><strong>Keywords :</strong> {{documentObject.keywords}}</p>
         <p>Evaluated by {{documentObject.evaluator}}</p>
-        <p>{{documentObject.published}}</p>
+        <p>{{documentObject.published}}</p> -->
       </div>
     </div>
   </div>
   <main class="p-3">
-    <span class="content-title">Abstract</span>
+    <!-- <span class="content-title">Abstract</span>
     {{documentObject.abstract}}
     <span class="content-title mt-3">Introduction</span>
     {{documentObject.abstract}}
@@ -30,6 +30,6 @@
     <span class="content-title mt-3">RRL</span>
     {{documentObject.abstract}}
     <span class="content-title mt-3">Methods</span>
-    {{documentObject.abstract}}
+    {{documentObject.abstract}} -->
   </main>
 </div>

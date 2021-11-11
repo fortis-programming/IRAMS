@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
 @Component({
@@ -15,10 +16,15 @@ export class WorksItemsComponent implements OnInit {
     status: '',
     members: ''
   }
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     return;
   }
-
+  
+  openRepository(repositoryId: string): void {
+    this.router.navigate(['../app/repositories/preview', repositoryId]);
+  }
 }

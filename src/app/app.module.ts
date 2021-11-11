@@ -11,15 +11,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ExploreComponent } from './explore/explore.component';
-import { WorksComponent } from './works/works.component';
+import { WorksComponent } from './repositories/works/works.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ExploreItemsComponent } from './explore/explore-items/explore-items.component';
 import { SidenavModule } from './main/sidenav/sidenav.module';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { DocumentPreviewComponent } from './explore/document-preview/document-preview.component';
 import { DocumentContentComponent } from './explore/document-preview/document-content/document-content.component';
-import { WorksItemsComponent } from './works/works-items/works-items.component';
+import { WorksItemsComponent } from './repositories/works/works-items/works-items.component';
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
+import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
+import { RepositoriesComponent } from './repositories/repositories.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ExploreContentComponent } from './explore/explore-content/explore-conte
     SignupComponent,
     WorksComponent,
     WorksItemsComponent,
+    WorkPreviewComponent,
+    RepositoriesComponent,
   ],
   imports: [
     BrowserModule,
