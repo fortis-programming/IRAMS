@@ -19,3 +19,11 @@
         color: $primary;
     }
 }
+
+.close-btn {
+    cursor: pointer;
+    
+    &:hover {
+        color: $primary;
+    }
+}

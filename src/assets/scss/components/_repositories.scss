@@ -23,6 +23,7 @@
     background-color: white;
     border-radius: 4px;
     padding: 8px 0px;
+    // box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
 
     .list {
       padding: 2px 15px;
@@ -35,26 +36,49 @@
         display: flex;
         justify-content: right;
       }
+      
+      
     }
-
+    
+    .list-header {
+      font-weight: 600;
+      color: $black-1;
+      padding-bottom: 8px;
+      font-size: 0.65rem;
+    }
+    
     .list-items {
       font-size: 0.855rem;
       padding: 10px 15px;
 
+      &:hover {
+        cursor: default;
+        background-color: $primary-light;
+      }
+
       div {
         font-size: 0.755rem;
+      }
+      
+      .title-container {
+        span {
+          font-size: 0.70rem;
+        }
       }
 
       .title-container>* {
         font-size: 0.855rem;
       }
+      
+      
 
       &__title {
         font-weight: 600;
-      }
+        width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-      &__type {
-        font-size: 0.75rem;
       }
 
       &__status {
@@ -76,6 +100,7 @@
   @media screen and (max-width: 1000px) {
     .works-container {
       background-color: transparent;
+      padding: 0px;
 
       .list {
         border-radius: 4px;
@@ -84,7 +109,12 @@
         width: 100%;
         margin: 5px 0;
         background-color: white;
-        border: 1px solid $border-color;
+        border: 1px solid white;
+        
+        &:hover {
+          background-color: white;
+          border: 1px solid $border-color;
+        }
       }
 
       .list-items {
