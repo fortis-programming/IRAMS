@@ -4,6 +4,12 @@
     -webkit-appearance: none;
     box-shadow: none !important;
     
+    &__secondary {
+        background-color: rgb(230, 230, 230);
+        border-radius: 50px;
+        padding: 0;
+    }
+    
     &__primary {
         background-color: $primary;
         color: white;
@@ -11,6 +17,11 @@
         &:hover {
             color: white;
         }    
+    }
+    
+    &__rounded {
+        border-radius: 50px;
+        padding: 0px 20px;
     }
     
     &__ghost {
