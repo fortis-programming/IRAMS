@@ -13,7 +13,7 @@
       <label>{{documentObject.type}}</label>
       <h4>{{documentObject.title}}</h4>
       <div class="author">
-        <p><strong>Author :</strong> {{documentObject.author}}</p>
+        <p><strong>Author :</strong> <span *ngFor="let author of authors" class="p-1">{{author}}</span></p>
         <p><strong>Keywords :</strong> {{documentObject.keywords}}</p>
         <p>Evaluated by {{documentObject.evaluator}}</p>
         <p>{{documentObject.published}}</p>

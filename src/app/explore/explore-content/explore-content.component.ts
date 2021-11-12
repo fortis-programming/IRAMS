@@ -20,9 +20,7 @@ export class ExploreContentComponent implements OnInit {
   //  DEFAULT PAGE SETUP FOR EXPLORE
   ngOnInit(): void {
     this.headerService.setTitle('Explore');
-    if (this.filterBy === 'All') {
-      this.getAllArchive();
-    }
+    if (this.filterBy === 'All') this.getAllArchive();
   }
 
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT
@@ -31,6 +29,7 @@ export class ExploreContentComponent implements OnInit {
       this.researches = response.data;
     });
   }
+  
   //  RETRIEVE ALL RESEARCH ARCHIVE AND SET AS DEFAULT IN UI BEFORE APPLYING FILTER
   searchQuery = '';
   searchProject(): void {
@@ -46,8 +45,6 @@ export class ExploreContentComponent implements OnInit {
           research.published.toLowerCase().includes(this.filterBy.toLowerCase()));
       });
     }
-    
-    
   }
 
   //  FILTER ARCHIVE BASED ON DATE PUBLISHED FOR BETTER DISSEMINATION OF ARCHIVES

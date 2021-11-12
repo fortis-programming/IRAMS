@@ -11,16 +11,15 @@ import { ResearchModel } from 'src/app/_shared/models/research.model';
 export class DocumentPreviewComponent implements OnInit {
   research: ResearchModel[] = [];
   documentId = '';
-  
+
   constructor(
     private exploreService: ExploreService,
     private routeData: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    //  GET URL PARAMETER FOR DOCUMENT ID
     this.routeData.params.subscribe(params => {
-      this.documentId = params['id'];
+      this.documentId = params['id']; //  GET URL PARAMETER FOR DOCUMENT ID
     });
     this.getDocumentData();
   }
@@ -28,7 +27,7 @@ export class DocumentPreviewComponent implements OnInit {
   //  RETRIEVE DOCUMENT DATA FOR PREVIEW
   getDocumentData(): void {
     this.exploreService.getResearches().subscribe((response) => {
-      this.research = response.data.filter((research: ResearchModel) => 
+      this.research = response.data.filter((research: ResearchModel) =>
         research.id.includes(this.documentId));
     })
   }

@@ -18,9 +18,14 @@
       <div class="author">
         <p>Last updated {{repository.updatedAt}}</p>
         <p class="d-flex flex__row">
-          <span style="margin: auto 0;"><strong>Author :</strong> {{repository.members}}</span>
-          <svg xmlns="http://www.w3.org/2000/svg" data-toggle="modal" data-target="#addUserModal" height="25px" class="btn btn__secondary" style="margin-left: 8px;" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+          <span style="margin: auto 0; display: flex; flex-direction: row;"><strong>Author :</strong> <i
+              style="padding: 0px 5px;" *ngFor="let member of membersList">{{member}}</i></span>
+          <svg xmlns="http://www.w3.org/2000/svg" data-toggle="modal" data-target="#addUserModal" height="25px"
+            class="btn btn__secondary" style="margin-left: 8px;" className="h-5 w-5" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fillRule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clipRule="evenodd" />
           </svg>
         </p>
       </div>
@@ -40,20 +45,50 @@
   </main>
 </div>
 
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="modal-title" id="exampleModalLongTitle">Add user</p>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
-          <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+        <p class="modal-title" id="exampleModalLongTitle">Add member</p>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+          <path fillRule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd" />
         </svg>
       </div>
       <div class="modal-body">
-        
+        <div class="search-container">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clipRule="evenodd" />
+          </svg>
+          <input type="text" [(ngModel)]="nameQuery" placeholder="Search by name" (keyup)="getMembers()">
+        </div>
+        <main>
+          <div class="user-list" *ngFor="let user of usersList" [ngClass]="{'selected': user.name === selected}"
+            (click)="selectUser(user.name)">
+            <div>
+              <div class="user-chip">
+                <img src="../../../assets/images/default-profile.jpg">
+              </div>
+              <span>{{user.name}}</span>
+            </div>
+            <div class="check">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </main>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary">Create</button>
+        <button type="button" class="btn btn__primary" data-dismiss="modal" aria-label="Close"
+          (click)="addSelected()">Add</button>
       </div>
     </div>
   </div>

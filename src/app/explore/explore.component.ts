@@ -17,8 +17,7 @@ export class ExploreComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // CHANGE HEADER TITLE
-    this.headerService.setTitle('Explore');
+    this.headerService.setTitle('Explore'); // CHANGE HEADER TITLE
     this.exploreService.getResearches().subscribe((response) => {
       this.researches = response.data;
     });
