@@ -4,3 +4,41 @@
         height: 40px;
     }
 }
+
+.user-list {
+    font-size: 0.82rem;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    div {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    span {
+        margin: auto 8px;
+    }
+    
+    svg {
+        background-color: transparent;
+        color: green;
+        height: 23px;
+        margin: auto 0;
+    }
+    
+    .check {
+        margin: auto 0;
+        float: right;
+        border-radius: 50px;
+        display: none;
+    }
+}
+
+.selected {
+    .check {
+        display: flex;
+    }
+}

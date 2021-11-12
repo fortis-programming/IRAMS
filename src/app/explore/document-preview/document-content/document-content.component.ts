@@ -11,7 +11,7 @@ export class DocumentContentComponent implements OnInit {
   @Input() documentObject: ResearchModel = {
     id: '',
     title: '',
-    author: '',
+    author: [],
     type: '',
     published: '',
     abstract: '',
@@ -20,14 +20,25 @@ export class DocumentContentComponent implements OnInit {
     evaluator: ''
   }
 
+  authors: Array<string> = [];
+
   constructor(
     private route: Router
   ) { }
 
   ngOnInit(): void {
-    return;
+    this.exportAuthor();
   }
 
+  //  EXTRACT AUTHOR
+  exportAuthor(): void {
+    this.documentObject.author.forEach(member => {
+      let data = Object.values(JSON.parse(JSON.stringify(member)))[0];
+      this.authors.push(JSON.parse(JSON.stringify(data)))
+    });
+  }
+
+  //  CLOSE OR REDIRECT TO PREVIOUS PAGE
   closeDocument(): void {
     this.route.navigate(['../app/explore']);
   }

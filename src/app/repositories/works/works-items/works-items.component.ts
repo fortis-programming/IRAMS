@@ -14,17 +14,29 @@ export class WorksItemsComponent implements OnInit {
     type: '',
     updatedAt: '',
     status: '',
-    members: ''
+    members: []
   }
+  
+  members: Array<string> = [];
+  
   constructor(
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    return;
+    this.extractMembers();
   }
   
+  //  OPEN A REPOSITORY PROJECT
   openRepository(repositoryId: string): void {
     this.router.navigate(['../app/repositories/preview', repositoryId]);
+  }
+  
+  // EXTRACT AUTHORS
+  extractMembers(): void {
+    this.workItem.members.forEach(member => {
+      let data = (Object.values(JSON.parse(JSON.stringify(member)))[0]);
+      this.members.push(JSON.parse(JSON.stringify(data)));
+    })
   }
 }

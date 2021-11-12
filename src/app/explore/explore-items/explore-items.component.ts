@@ -11,7 +11,7 @@ export class ExploreItemsComponent implements OnInit {
   @Input() researchItem: ResearchModel = {
     id: '',
     title: '',
-    author: '',
+    author: [],
     type: '',
     published: '',
     abstract: '',
@@ -20,14 +20,24 @@ export class ExploreItemsComponent implements OnInit {
     evaluator: ''
   }
 
+  authors: Array<string> = [];
+  
   constructor(
     private route: Router
   ) { }
 
   ngOnInit(): void {
-    return;
+    this.extractAuthor();
   }
-
+  
+  //  EXTRACT AUTHOR(S)
+  extractAuthor(): void {
+    this.researchItem.author.forEach(members => {
+      let data = Object.values(JSON.parse(JSON.stringify(members)))[0];
+      this.authors.push(JSON.parse(JSON.stringify(data)))
+    });
+  }
+  
   //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
   openDocument(documentId: string): void {
     this.route.navigate(['../app/explore/preview', documentId]);

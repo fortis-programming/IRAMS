@@ -6,7 +6,14 @@
             "type": "Qualitative",
             "updatedAt": "10/27/2021",
             "status": "Ongoing",
-            "members": "Allain John Notarte"
+            "members": [
+                {
+                    "name": "A.J Notarte"
+                },
+                {
+                    "name": "E.H. Tolentino"
+                }
+            ]
         },
         {
             "projectId": "222",
@@ -14,7 +21,11 @@
             "type": "Developmental",
             "updatedAt": "10/27/2021",
             "status": "Completed",
-            "members": "Allain John Notarte"
+            "members": [
+                {
+                    "name": "A.J Notarte"
+                }
+             ]
         }
     ]
 }
