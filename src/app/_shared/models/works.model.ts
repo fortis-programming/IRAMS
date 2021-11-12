@@ -4,5 +4,5 @@ export interface WorksModel {
     type: string;
     updatedAt: string;
     status: string;
-    members: string;
+    members: Array<Object>;
 }

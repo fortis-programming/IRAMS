@@ -1,37 +1,42 @@
 .modal {
-  
+
   .modal-dialog {
     min-width: 60%;
   }
-  
+
   .divider {
     display: grid;
     grid-template-columns: 50% 50%;
   }
-  
-  .divider > * {
+
+  .divider>* {
     margin: 0px 5px;
   }
-  
+
   .modal-footer,
   .modal-header {
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 600;
   }
 }
 
 #addUserModal {
-  
+
   .modal-dialog {
     margin: auto;
   }
-  
+
+  .modal-header {
+    padding: 10px 15px;
+    padding-top: 18px;
+  }
+
   .modal-content {
     max-width: 50%;
     margin: auto;
   }
-  
+
   @media screen and (max-width: 1000px) {
     .modal-content {
       max-width: 97%;

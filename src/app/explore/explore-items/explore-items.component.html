@@ -10,7 +10,7 @@
     {{researchItem.abstract}}
   </div>
   <div class="authors d-flex justify-content-between">
-    <div>{{researchItem.author}}</div>
+    <div><span *ngFor="let author of authors" class="p-1">{{author}}</span></div>
     <div class="date">{{researchItem.published}}</div>
   </div>
 </div>

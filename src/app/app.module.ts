@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { FormsModule } from '@angular/forms';
@@ -46,9 +47,10 @@ import { RepositoriesComponent } from './repositories/repositories.component';
     FormsModule,
     PasswordStrengthMeterModule,
     HttpClientModule,
-    SidenavModule
+    SidenavModule,
+    BrowserAnimationsModule, // required animations module
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
