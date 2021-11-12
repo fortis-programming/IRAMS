@@ -36,17 +36,17 @@
         display: flex;
         justify-content: right;
       }
-      
-      
+
+
     }
-    
+
     .list-header {
       font-weight: 600;
       color: $black-1;
       padding-bottom: 8px;
       font-size: 0.65rem;
     }
-    
+
     .list-items {
       font-size: 0.855rem;
       padding: 10px 15px;
@@ -59,7 +59,7 @@
       div {
         font-size: 0.755rem;
       }
-      
+
       .title-container {
         span {
           font-size: 0.70rem;
@@ -69,8 +69,8 @@
       .title-container>* {
         font-size: 0.855rem;
       }
-      
-      
+
+
 
       &__title {
         font-weight: 600;
@@ -110,10 +110,9 @@
         margin: 5px 0;
         background-color: white;
         border: 1px solid white;
-        
+
         &:hover {
           background-color: white;
-          border: 1px solid $border-color;
         }
       }
 
@@ -136,6 +135,10 @@
             margin: auto 0px;
             font-size: 0.70rem;
           }
+        }
+
+        &__title {
+          width: 100%;
         }
 
         .title-container {

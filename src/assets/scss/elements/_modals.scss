@@ -20,3 +20,21 @@
     font-weight: 600;
   }
 }
+
+#addUserModal {
+  
+  .modal-dialog {
+    margin: auto;
+  }
+  
+  .modal-content {
+    max-width: 50%;
+    margin: auto;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .modal-content {
+      max-width: 97%;
+    }
+  }
+}
