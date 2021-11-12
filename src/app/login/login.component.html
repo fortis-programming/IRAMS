@@ -38,9 +38,9 @@
           </div>
           <a class="light">Forgot password?</a>
         </div>
-        <button class="btn btn__primary p-3 mt-4" [disabled]="!loginForm.valid" routerLink="/app">Sign in</button>
+        <button class="btn btn__primary p-3 mt-4" [disabled]="!loginForm.valid" (click)="signInWithCredentials()">Sign in</button>
         <div class="p-3 d-flex justify-content-center">or</div>
-        <button class="btn">
+        <button class="btn" (click)="loginWithGoogle()">
           <i>
             <img src="../../assets/images/google_icon.png" height="50px">
           </i>
