@@ -21,6 +21,7 @@
     "@angular/router": "~12.2.0",
     "angular-password-strength-meter": "^3.0.1",
     "boostrap": "^2.0.0",
+    "firebase": "^9.4.1",
     "lint": "^0.7.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
