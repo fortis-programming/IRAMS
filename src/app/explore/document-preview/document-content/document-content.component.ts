@@ -11,7 +11,7 @@ export class DocumentContentComponent implements OnInit {
   @Input() documentObject: ResearchModel = {
     id: '',
     title: '',
-    author: [],
+    authors: [],
     type: '',
     published: '',
     abstract: '',
@@ -32,10 +32,9 @@ export class DocumentContentComponent implements OnInit {
 
   //  EXTRACT AUTHOR
   exportAuthor(): void {
-    this.documentObject.author.forEach(member => {
-      let data = Object.values(JSON.parse(JSON.stringify(member)))[0];
-      this.authors.push(JSON.parse(JSON.stringify(data)))
-    });
+    this.documentObject.authors.map(member=> {
+      this.authors.push(member)
+    })
   }
 
   //  CLOSE OR REDIRECT TO PREVIOUS PAGE

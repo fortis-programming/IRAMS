@@ -9,26 +9,12 @@ import { ResearchModel } from '../_shared/models/research.model';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-  researches: ResearchModel[] = [];
 
   constructor(
-    private headerService: HeaderService,
-    private exploreService: ExploreService
+    private headerService: HeaderService
   ) { }
 
   ngOnInit(): void {
-    this.headerService.setTitle('Explore'); // CHANGE HEADER TITLE
-    this.exploreService.getResearches().subscribe((response) => {
-      this.researches = response.data;
-    });
-  }
-
-  //  SEARCH FUNCTION FOR RESEARCH ARCHIVE
-  searchQuery = '';
-  searchProject(): void {
-    this.exploreService.getResearches().subscribe((response) => {
-      this.researches = response.data.filter((research: ResearchModel) =>
-        research.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
-    });
+    this.headerService.setTitle('Explore')
   }
 }
