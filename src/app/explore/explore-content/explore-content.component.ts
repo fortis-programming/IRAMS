@@ -19,32 +19,22 @@ export class ExploreContentComponent implements OnInit {
 
   //  DEFAULT PAGE SETUP FOR EXPLORE
   ngOnInit(): void {
-    this.headerService.setTitle('Explore');
-    if (this.filterBy === 'All') this.getAllArchive();
+  //   this.headerService.setTitle('Explore');
+  //   if (this.filterBy === 'All') this.getAllArchive();
+    this.getAllArchive()
   }
 
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT
   getAllArchive(): void {
-    this.exploreService.getResearches().subscribe((response) => {
-      this.researches = response.data;
+    this.exploreService.getArchive().then(() => {
+      this.researches = this.exploreService.getData();
     });
   }
   
   //  RETRIEVE ALL RESEARCH ARCHIVE AND SET AS DEFAULT IN UI BEFORE APPLYING FILTER
   searchQuery = '';
   searchProject(): void {
-    if(this.filterBy === 'All') {
-      this.exploreService.getResearches().subscribe((response) => {
-        this.researches = response.data.filter((research: ResearchModel) =>
-          research.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
-      });
-    } else {
-      this.exploreService.getResearches().subscribe((response) => {
-        this.researches = (response.data.filter((research: ResearchModel) =>
-        research.title.toLowerCase().includes(this.searchQuery.toLowerCase()))).filter((research: ResearchModel) =>
-          research.published.toLowerCase().includes(this.filterBy.toLowerCase()));
-      });
-    }
+    this.getArchiveWithTitle();
   }
 
   //  FILTER ARCHIVE BASED ON DATE PUBLISHED FOR BETTER DISSEMINATION OF ARCHIVES
@@ -56,9 +46,17 @@ export class ExploreContentComponent implements OnInit {
 
   //  RETRIEVE ARCHIVES BASED ON YEARP PUBLISHED
   getArchiveWithFilter(filter: string): void {
-    this.exploreService.getResearches().subscribe((response) => {
-      this.researches = response.data.filter((research: ResearchModel) =>
-        research.published.toLowerCase().includes(filter.toLowerCase()));
+    this.exploreService.getArchive().then(() => {
+      this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
+        research.title.toLowerCase().includes(filter));
+    });
+  }
+  
+  //  SEARCH FOR ARCHIVE
+  getArchiveWithTitle(): void {
+    this.exploreService.getArchive().then(() => {
+      this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
+        research.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     })
   }
 }

@@ -36,7 +36,7 @@
           <div class="message__error small">
             {{loginMessage}}
           </div>
-          <a class="light">Forgot password?</a>
+          <a class="light" (click)="logoutUser()">Forgot password?</a>
         </div>
         <button class="btn btn__primary p-3 mt-4" [disabled]="!loginForm.valid" (click)="signInWithCredentials()">Sign in</button>
         <div class="p-3 d-flex justify-content-center">or</div>

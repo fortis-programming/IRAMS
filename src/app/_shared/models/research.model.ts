@@ -1,7 +1,7 @@
 export interface ResearchModel {
     id: string;
     title: string;
-    author: Array<Object>;
+    authors: Array<string>;
     type: string;
     published: string;
     abstract: string;

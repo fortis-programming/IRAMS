@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(sessionStorage.getItem('_token'))
     return;
   }
 
