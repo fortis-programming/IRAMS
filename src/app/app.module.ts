@@ -23,6 +23,7 @@ import { WorksItemsComponent } from './repositories/works/works-items/works-item
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { RepositoriesComponent } from './repositories/repositories.component';
     SidenavModule,
     BrowserAnimationsModule, // required animations module
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

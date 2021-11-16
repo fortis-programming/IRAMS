@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem('_token'))
     return;
   }
 
@@ -29,6 +28,11 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+  
+  //  CHECK AUTHENTICATION
+  isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
   }
 }
 

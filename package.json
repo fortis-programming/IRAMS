@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@auth0/angular-jwt": "^5.0.2",
     "angular-password-strength-meter": "^3.0.1",
     "boostrap": "^2.0.0",
     "firebase": "^9.4.1",

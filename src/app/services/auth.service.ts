@@ -19,24 +19,31 @@ export class AuthService {
   constructor(
     private route: Router
   ) { }
-
+    
+  isAuthenticated() {
+    return !!sessionStorage.getItem('_token');
+  }
+    
   //  LOGIN WITH POPUP FEATURE IN FIREBASE
   loginWithPopup(): void {
     signInWithPopup(auth, provider).then((result) => {
       let credential = GoogleAuthProvider.credentialFromResult(result);
+      console.log(GoogleAuthProvider);
       let token = credential?.accessToken;
       const user = result.user;
-      sessionStorage.setItem('uid', user.uid);
-      sessionStorage.setItem('_token', user.refreshToken)
+      console.log(user);
+      sessionStorage.setItem('_name', JSON.stringify(user.displayName));
+      sessionStorage.setItem('_token', user.refreshToken);
       this.route.navigate(['/app']);
     })
   }
   
-
   //  SIGN IN WITH CREDENTIALS
   async loginWithCredentials(email: string, password: string): Promise<boolean> {
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        sessionStorage.setItem('_name', JSON.stringify(userCredential.user.displayName));
+        sessionStorage.setItem('_token', userCredential.user.refreshToken)
         return true;
       }).catch((error) => {
         const errorCode = error.code;
@@ -51,7 +58,7 @@ export class AuthService {
   logout(): void {
     signOut(auth).then(() => {
       // Sign-out successful.
-      console.log('success')
+      sessionStorage.clear();
       this.route.navigate(['/login']);
     }).catch((error) => {
       console.log('failed')
