@@ -27,8 +27,8 @@ export class DocumentPreviewComponent implements OnInit {
 
   //  RETRIEVE DOCUMENT DATA FOR PREVIEW
   getDocumentData(): void {
-    this.research = [];
-    this.research = this.exploreService.getData().filter((research: ResearchModel) => 
-      research.id.includes(this.documentId))
+    this.exploreService.getDocumentData(this.documentId).then((response) => {
+      this.research = response
+    })
   }
 }

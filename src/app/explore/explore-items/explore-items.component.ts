@@ -19,6 +19,8 @@ export class ExploreItemsComponent implements OnInit {
     keywords: '',
     evaluator: ''
   }
+  
+  @Input() docId: string = '';
 
   authors: Array<string> = [];
   
@@ -42,7 +44,7 @@ export class ExploreItemsComponent implements OnInit {
   }
   
   //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
-  openDocument(documentId: string): void {
-    this.route.navigate(['../app/explore/preview', documentId]);
+  openDocument(): void {
+    this.route.navigate(['../app/explore/preview', this.docId]);
   }
 }
