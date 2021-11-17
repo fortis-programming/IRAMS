@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="p-3">
-    <app-explore-items *ngFor="let research of researches" [researchItem]="research"></app-explore-items>
+    <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
     <div class="empty-state p-3 mb-3" *ngIf="researches.length === 0">
       No repository found.
     </div>

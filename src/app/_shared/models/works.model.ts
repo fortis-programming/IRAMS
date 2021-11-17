@@ -5,4 +5,7 @@ export interface WorksModel {
     updatedAt: string;
     status: string;
     members: Array<Object>;
+    validator: string;
+    college: string;
+    data: string;
 }

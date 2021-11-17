@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService } from 'src/app/main/header/header.service';
 import { ExploreService } from 'src/app/services/explore.service';
 
 import { ResearchModel } from 'src/app/_shared/models/research.model';
@@ -11,9 +10,8 @@ import { ResearchModel } from 'src/app/_shared/models/research.model';
 })
 export class ExploreContentComponent implements OnInit {
   researches: ResearchModel[] = [];
-
+  docIds: Array<string> = [];
   constructor(
-    private headerService: HeaderService,
     private exploreService: ExploreService
   ) { }
 
@@ -22,6 +20,7 @@ export class ExploreContentComponent implements OnInit {
   //   this.headerService.setTitle('Explore');
   //   if (this.filterBy === 'All') this.getAllArchive();
     this.getAllArchive()
+    this.docIds = this.exploreService.getDocId();
   }
 
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT

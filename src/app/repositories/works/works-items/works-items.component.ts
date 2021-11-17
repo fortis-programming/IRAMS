@@ -14,8 +14,13 @@ export class WorksItemsComponent implements OnInit {
     type: '',
     updatedAt: '',
     status: '',
-    members: []
+    members: [],
+    validator: '',
+    college: '',
+    data: ''
   }
+  
+  @Input() workId: string = '';
   
   members: Array<string> = [];
   
@@ -34,9 +39,12 @@ export class WorksItemsComponent implements OnInit {
   
   // EXTRACT AUTHORS
   extractMembers(): void {
-    this.workItem.members.forEach(member => {
-      let data = (Object.values(JSON.parse(JSON.stringify(member)))[0]);
-      this.members.push(JSON.parse(JSON.stringify(data)));
+    this.workItem.members.map(member => {
+      this.members.push(JSON.parse(JSON.stringify(member)))
     })
+    // this.workItem.members.forEach(member => {
+    //   let data = (Object.values(JSON.parse(JSON.stringify(member)))[0]);
+    //   this.members.push(JSON.parse(JSON.stringify(data)));
+    // })
   }
 }
