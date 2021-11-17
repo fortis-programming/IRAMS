@@ -10,6 +10,8 @@ import { WorksModel } from '../../_shared/models/works.model';
 })
 export class WorksComponent implements OnInit {
   yourRepositories: WorksModel[] = [];
+  documentIds: Array<string> = [];
+  
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService
@@ -17,8 +19,9 @@ export class WorksComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.setTitle('Repositories');
-    this.worksService.getWorks().subscribe((response) => {
-      this.yourRepositories = response.data;
+    this.worksService.getYourWorks().then(() => {
+      this.yourRepositories = this.worksService.getWorks();
+      this.documentIds = this.worksService.getDocID();
     });
   }
 

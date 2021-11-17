@@ -21,14 +21,14 @@ export class DocumentPreviewComponent implements OnInit {
     this.routeData.params.subscribe(params => {
       this.documentId = params['id']; //  GET URL PARAMETER FOR DOCUMENT ID
     });
+
     this.getDocumentData();
   }
 
   //  RETRIEVE DOCUMENT DATA FOR PREVIEW
   getDocumentData(): void {
-    this.exploreService.getResearches().subscribe((response) => {
-      this.research = response.data.filter((research: ResearchModel) =>
-        research.id.includes(this.documentId));
+    this.exploreService.getDocumentData(this.documentId).then((response) => {
+      this.research = response
     })
   }
 }

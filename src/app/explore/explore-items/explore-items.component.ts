@@ -11,7 +11,7 @@ export class ExploreItemsComponent implements OnInit {
   @Input() researchItem: ResearchModel = {
     id: '',
     title: '',
-    author: [],
+    authors: [],
     type: '',
     published: '',
     abstract: '',
@@ -19,6 +19,8 @@ export class ExploreItemsComponent implements OnInit {
     keywords: '',
     evaluator: ''
   }
+  
+  @Input() docId: string = '';
 
   authors: Array<string> = [];
   
@@ -32,14 +34,17 @@ export class ExploreItemsComponent implements OnInit {
   
   //  EXTRACT AUTHOR(S)
   extractAuthor(): void {
-    this.researchItem.author.forEach(members => {
-      let data = Object.values(JSON.parse(JSON.stringify(members)))[0];
-      this.authors.push(JSON.parse(JSON.stringify(data)))
-    });
+    this.researchItem.authors.map(member=> {
+      this.authors.push(member)
+    })
+    // this.researchItem.author.forEach(members => {
+    //   let data = Object.values(JSON.parse(JSON.stringify(members)))[0];
+    //   this.authors.push(JSON.parse(JSON.stringify(data)))
+    // });
   }
   
   //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
-  openDocument(documentId: string): void {
-    this.route.navigate(['../app/explore/preview', documentId]);
+  openDocument(): void {
+    this.route.navigate(['../app/explore/preview', this.docId]);
   }
 }

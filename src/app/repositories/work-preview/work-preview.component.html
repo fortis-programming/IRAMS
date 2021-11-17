@@ -1,47 +1,55 @@
 <div class="document-content" *ngFor="let repository of repositoryData">
-  <div class="wrapper p-3">
+  <div class="wrapper">
     <div class="document-content title">
-      <div class="navigation mb-2">
-        <p (click)="closeRepository()">Projects</p>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clipRule="evenodd" />
-        </svg>
-        <p class="nav-title">{{repository.title}}</p>
+      <div class="navigation d-flex justify-content-between">
+        <div class="d-flex flex-row">
+          <p (click)="closeRepository()">Projects</p>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clipRule="evenodd" />
+          </svg>
+          <p class="nav-title">{{repository.title}}</p>
+        </div>
+        <div class="action-section">
+          <button>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+        </div>
       </div>
       <label>{{repository.type}}</label>
-      <h4>{{repository.title}}
-        <span class="small"
+      <h4 class="d-flex justify-content-between">
+        {{repository.title}}
+        <span class="small" style="margin: auto 0;"
           [ngClass]="{'ongoing': repository.status === 'Ongoing', 'completed': repository.status === 'Completed'}">{{repository.status}}</span>
       </h4>
       <div class="author">
         <p>Last updated {{repository.updatedAt}}</p>
         <p class="d-flex flex__row">
-          <span style="margin: auto 0; display: flex; flex-direction: row;"><strong>Author :</strong> <i
+          <span style="margin: auto 0; display: flex; flex-direction: row;"><strong>Members :</strong> <i
               style="padding: 0px 5px;" *ngFor="let member of membersList">{{member}}</i></span>
-          <svg xmlns="http://www.w3.org/2000/svg" data-toggle="modal" data-target="#addUserModal" height="25px"
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" data-toggle="modal" data-target="#addUserModal" height="25px"
             class="btn btn__secondary" style="margin-left: 8px;" className="h-5 w-5" viewBox="0 0 20 20"
             fill="currentColor">
             <path fillRule="evenodd"
               d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
               clipRule="evenodd" />
-          </svg>
+          </svg> -->
         </p>
       </div>
     </div>
   </div>
   <main class="p-3">
-    <!-- <span class="content-title">Abstract</span>
-    {{documentObject.abstract}}
-    <span class="content-title mt-3">Introduction</span>
-    {{documentObject.abstract}}
-    <span class="content-title mt-3">Background of the Study</span>
-    {{documentObject.abstract}}
-    <span class="content-title mt-3">RRL</span>
-    {{documentObject.abstract}}
-    <span class="content-title mt-3">Methods</span>
-    {{documentObject.abstract}} -->
+    <!-- <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+    <button (click)="getData()">Save</button> -->
+    <!-- (ngModelChange)="onChange()" -->
+    {{updateFunction()}}
+    <angular-editor [(ngModel)]="htmlContent" (ngModelChange)="onChange()" [config]="editorConfig"></angular-editor>
   </main>
 </div>
 

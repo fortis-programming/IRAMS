@@ -1,7 +1,8 @@
 .document-content {
   background-color: white;
   scroll-behavior: smooth;
-  
+  background-color: red;
+
   a {
     svg {
       margin: 0;
@@ -10,13 +11,26 @@
     }
   }
 
-
-  .wrapper {
-    background-color: $header-bg;
+  .title {
+    padding: 20px;
   }
-
+  
+  .wrapper,
   .wrapper>* {
-    background-color: $header-bg;
+    background-color: white;
+
+    .action-section {
+      button {
+        margin: -10px 0px;
+        border: none;
+        padding: 4px;
+        border-radius: 3px;
+        
+        svg {
+          height: 25px;
+        }
+      }
+    }
   }
 
   main {
@@ -25,16 +39,18 @@
     font-size: 0.855rem;
     line-height: 1.5rem;
   }
-  
+
   .nav-header {
+    
     .nav-title {
-      width: 200px;
+      min-width: 400px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
 
   .title {
+    
     label {
       font-size: 0.80rem;
       color: $primary;
@@ -71,7 +87,7 @@
     }
 
   }
-  
+
   .comment-btn {
     background-color: $bg-color;
     // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);

@@ -3,6 +3,7 @@ import { WorkPreviewComponent } from "./work-preview/work-preview.component";
 
 import { WorksComponent } from "./works/works.component";
 import { RepositoriesComponent } from "./repositories.component";
+import { AuthGuardService } from "../services/auth-guard.service";
 
 export const routes: Routes = [
   {
@@ -10,7 +11,7 @@ export const routes: Routes = [
     component: RepositoriesComponent,
     children: [
       { path: '', redirectTo: 'works', pathMatch: 'full' },
-      { path: 'works', component: WorksComponent },
+      { path: 'works', component: WorksComponent, canActivate: [AuthGuardService] },
       { path: 'preview/:id', component: WorkPreviewComponent } 
     ]
   }

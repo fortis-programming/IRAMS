@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from 'ngx-ckeditor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +25,7 @@ import { WorksItemsComponent } from './repositories/works/works-items/works-item
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -49,8 +52,10 @@ import { RepositoriesComponent } from './repositories/repositories.component';
     HttpClientModule,
     SidenavModule,
     BrowserAnimationsModule, // required animations module
+    CKEditorModule,
+    AngularEditorModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

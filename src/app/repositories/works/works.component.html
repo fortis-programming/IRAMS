@@ -11,7 +11,7 @@
       <div class="list__action"></div>
       <div class="list__status">Status</div>
     </div>
-    <app-works-items *ngFor="let repository of yourRepositories" [workItem]="repository"></app-works-items>
+    <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="documentIds[i]" [workItem]="repository"></app-works-items>
   </div>
 </div>
 

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: ''
   }
+  
   constructor(
     private authService: AuthService,
     private route: Router
@@ -31,17 +32,19 @@ export class LoginComponent implements OnInit {
     return formControl.invalid && (formControl.dirty || formControl.touched)
   }
   
-  //  
+  //  LOGIN WITH SIGN-IN POPUP FROM GOOGLE
   loginWithGoogle(): void {
     this.authService.loginWithPopup();
   }
   
-  //  
-  signInWithCredentials(): void {
-    this.authService.loginWithCredentials(this.loginModel.email, this.loginModel.password).then((response) => {
-      (response === true)? this.route.navigate(['/app']) : this.loginMessage = 'Invalid credentials'
-    }).catch((error) => {
-      
-    })
+  // LOGOUT USER
+  logoutUser(): void {
+    this.authService.logout();
+  }
+  
+  //  SIGN IN WITH LOGIN FORM
+  async signInWithCredentials(): Promise<void> {
+    let response = await this.authService.loginWithCredentials(this.loginModel.email, this.loginModel.password);
+    (response)? this.route.navigate(['/app']) : this.loginMessage = 'Incorrect username or password';
   }
 }
