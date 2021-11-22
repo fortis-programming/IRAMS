@@ -17,7 +17,8 @@ export class WorksItemsComponent implements OnInit {
     members: [],
     validator: '',
     college: '',
-    data: ''
+    data: '',
+    contributors: []
   }
   
   @Input() workId: string = '';

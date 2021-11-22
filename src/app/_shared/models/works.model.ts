@@ -8,4 +8,5 @@ export interface WorksModel {
     validator: string;
     college: string;
     data: string;
+    contributors: Array<Object>;
 }

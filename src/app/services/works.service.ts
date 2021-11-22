@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { firebaseConfig } from 'src/environments/environment';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, onSnapshot, collection, query, setDoc, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, query, where, setDoc, doc, getDocs } from 'firebase/firestore';
 import { WorksModel } from '../_shared/models/works.model';
 
 const app = initializeApp(firebaseConfig);
@@ -11,26 +11,63 @@ const db = getFirestore(app);
 @Injectable({
   providedIn: 'root'
 })
+
 export class WorksService {
-  data: Array<WorksModel> = [];
+  data: WorksModel[] = [];
   docIds: Array<string> = [];
+  constructor() { }
 
-  constructor(
-  ) { }
-
-  //  RETURN ALL OF YOUR WORKS
   docId = '';
-  async getYourWorks(): Promise<any> {
-    const queryFromDb = query(collection(db, 'works'));
-    let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
-      console.log('updating');
-      this.data.splice(0, this.data.length);
-      this.parseEditorData(this.docId);
-      querySnapshot.docs.map((doc) => {
-        this.docIds.push(doc.id);
-        this.data.push(JSON.parse(JSON.stringify(doc.data())));
+  async getYourWorks(): Promise<Array<WorksModel[]>> {
+    const querySnapshot = await getDocs(collection(db, "works"));
+    this.data = [];
+    querySnapshot.forEach((doc) => {
+      this.data.push(JSON.parse(JSON.stringify(doc.data())));
+    });
+    return JSON.parse(JSON.stringify(this.data));
+  }
+
+  /* 
+  =============================================
+  WILL RETURN THE REALTIME UPDATE FROM DATABASE
+  =============================================
+  */
+
+  //  GATHER UPDATES FROM DATABASE
+  databaseUpdate: Array<WorksModel> = [];
+  realTimeUpdate(): void {
+    const q = query(collection(db, "works"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      this.databaseUpdate.splice(0, this.databaseUpdate.length)
+      querySnapshot.forEach((doc) => {
+        if ([[doc.data()][0]['members']].filter((data) => data.includes(JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))).length !== 0) {
+          this.databaseUpdate.push(JSON.parse(JSON.stringify(doc.data())));
+        }
       });
-    })
+    });
+  }
+
+  //  RETRIEVE REALTIME UPDATES AND SEND TO FRONT-END
+  getDatabaseUpdate(): Array<WorksModel> {
+    return this.databaseUpdate;
+  }
+
+  repositoryData: Array<WorksModel> = [];
+  async getRepositoryData(docId: string): Promise<void> {
+    const q = query(collection(db, 'works'));
+    const unsubscribe = await onSnapshot(q, (querySnapshot) => {
+      this.repositoryData.splice(0, this.repositoryData.length)
+      querySnapshot.forEach((doc) => {
+        if ([doc.data()][0]['projectId'] === docId) {
+          this.repositoryData.push(JSON.parse(JSON.stringify(doc.data())));
+        }
+      });
+    });
+  }
+
+  // SEND GATHERED UPDATE FROM DATABASE TO FRONTEND
+  sendRepositoryData(): Array<WorksModel> {
+    return this.repositoryData;
   }
 
   //  RETURN OBJECT
@@ -44,19 +81,25 @@ export class WorksService {
   }
 
   //  RETURN DOCUMENT DATA USING DOCUMENT ID PROVIDED BY FIRESTORE
-  async getWorkData(docId: string): Promise<Array<any>> {
-    this.docId = docId;
-    const docRef = doc(db, 'works', docId);
-    const docSnap = await getDoc(docRef);
-    return [JSON.parse(JSON.stringify(docSnap.data()))];
+  // repositoryData: WorksModel[] = [];
+  async getWorkData(docId: string): Promise<WorksModel[]> {
+    const unsub = await onSnapshot(doc(db, 'works', docId), (doc) => {
+      this.repositoryData = [];
+      this.repositoryData.push(JSON.parse(JSON.stringify(doc.data())));
+    });
+
+    return [JSON.parse(JSON.stringify(this.repositoryData))];
   }
 
   //  [PENDING] UPDATE DOCUMENT CONTENT
+  pendingWrite = '';
   async parseEditorData(docId: string): Promise<void> {
     const queryFromDb = query(collection(db, 'works'));
-    let holder: Array<string> = [];
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
       querySnapshot.docs.map((doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        this.pendingWrite = source;
+        console.log(this.pendingWrite)
         if (doc.id === docId) this.getHtmlDoc([JSON.parse(JSON.stringify(doc.data()))]);
       })
     })
@@ -71,15 +114,14 @@ export class WorksService {
   getHtmlUpdate(): string {
     return this.htmlContent;
   }
-  //  [PENDING] GET UPDATE
-  getUpdates(): Array<any> {
-    return this.data;
+
+  getWriteStatus(): string {
+    return this.pendingWrite;
   }
 
   //  UPDATE DOCUMENT CHANGES TO DATABASE
-  async updateDataField(htmlDoc: Object): Promise<void> {
-    console.log(htmlDoc);
-    const ref = doc(db, 'works', 'WCKq76W2bQPk9MQUIVCl');
+  async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
+    const ref = doc(db, 'works', docId);
     await setDoc(ref, htmlDoc);
   }
 }

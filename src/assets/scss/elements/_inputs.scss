@@ -40,8 +40,14 @@ input {
   font-size: 0.82rem;
 }
 
-.filter {
+.ghost-input {
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  font-size: 1.5rem;
+}
 
+.filter {
   button {
     border: none;
     background-color: transparent;
@@ -79,6 +85,7 @@ input {
   border-radius: 4px;
   display: flex;
   flex-direction: row;
+  margin-top: 5px;
     
   svg {
     height: 20px;
