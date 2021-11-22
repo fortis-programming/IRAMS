@@ -1,7 +1,6 @@
 .document-content {
   background-color: white;
   scroll-behavior: smooth;
-  background-color: red;
 
   a {
     svg {
@@ -13,6 +12,7 @@
 
   .title {
     padding: 20px;
+    padding-bottom: 10px;
   }
   
   .wrapper,
@@ -20,15 +20,10 @@
     background-color: white;
 
     .action-section {
-      button {
-        margin: -10px 0px;
-        border: none;
-        padding: 4px;
-        border-radius: 3px;
-        
-        svg {
-          height: 25px;
-        }
+      svg {
+        height: 20px;
+        margin-bottom: 2px;
+        cursor: pointer;
       }
     }
   }
@@ -38,6 +33,11 @@
     text-align: justify;
     font-size: 0.855rem;
     line-height: 1.5rem;
+    padding: 0px 8px;
+    
+    input {
+      padding-bottom: 8px;
+    }
   }
 
   .nav-header {
@@ -66,18 +66,18 @@
       font-size: 0.80rem;
       display: flex;
       flex-direction: row;
+      margin: 0px;
 
       p {
-        margin: auto 0;
+        margin: 0;
         margin-right: 7px;
-        border-right: 1px solid lightgray;
         padding-right: 10px;
       }
     }
 
     @media screen and (max-width: 999px) {
       .author {
-        display: flex;
+        display: none;
         flex-direction: column;
 
         p {
@@ -87,13 +87,8 @@
     }
 
   }
+}
 
-  .comment-btn {
-    background-color: $bg-color;
-    // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border: none;
-    padding: 8px 20px;
-    border-radius: 4px;
-  }
-
+.NgxEditor__Wrapper {
+  margin: 0px 12px;
 }

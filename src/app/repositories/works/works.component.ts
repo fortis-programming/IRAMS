@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HeaderService } from '../../main/header/header.service';
 import { WorksService } from '../../services/works.service';
 import { WorksModel } from '../../_shared/models/works.model';
@@ -11,18 +11,16 @@ import { WorksModel } from '../../_shared/models/works.model';
 export class WorksComponent implements OnInit {
   yourRepositories: WorksModel[] = [];
   documentIds: Array<string> = [];
-  
+
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService
   ) { }
 
   ngOnInit(): void {
+    let userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))
     this.headerService.setTitle('Repositories');
-    this.worksService.getYourWorks().then(() => {
-      this.yourRepositories = this.worksService.getWorks();
-      this.documentIds = this.worksService.getDocID();
-    });
+    this.worksService.realTimeUpdate();
+    this.yourRepositories = this.worksService.getDatabaseUpdate();
   }
-
 }

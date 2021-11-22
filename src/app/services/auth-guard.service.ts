@@ -14,15 +14,14 @@ export class AuthGuardService implements CanActivate {
     public router: Router
   ) { }
   
+  /*
+    TO CHECK IF USER HAS ALREADY LOGGED IN IF NOT THE USER WILL BE REROUTED TO LOGIN PAGE
+  */
   canActivate() {
-    console.log(this.auth.isAuthenticated());
-    if (this.auth.isAuthenticated()) {
-      return true;
-    } else {
+    if (!this.auth.isAuthenticated()) {
       this.router.navigate(['login']);
-      return false;
+      return false;      
     }
-    
+    return true;
   }
-  
 }

@@ -11,54 +11,72 @@
           </svg>
           <p class="nav-title">{{repository.title}}</p>
         </div>
-        <div class="action-section">
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
+        <div class="action-section d-flex flex-row">
+          <div class="dropdown" style="margin: auto;">
+            <svg xmlns="http://www.w3.org/2000/svg" id="userDropdownMenu" data-bs-toggle="dropdown"
+              aria-expanded="false" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              data-toggle="modal" data-target="#projectSettingsModal">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
             </svg>
-          </button>
+            <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
+              <li><a class="dropdown-item">Request validation</a></li>
+              <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Members</a></li>
+              <li><a class="dropdown-item">Settings</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <label>{{repository.type}}</label>
-      <h4 class="d-flex justify-content-between">
-        {{repository.title}}
-        <span class="small" style="margin: auto 0;"
-          [ngClass]="{'ongoing': repository.status === 'Ongoing', 'completed': repository.status === 'Completed'}">{{repository.status}}</span>
-      </h4>
-      <div class="author">
-        <p>Last updated {{repository.updatedAt}}</p>
+      <!-- <div class="author">
         <p class="d-flex flex__row">
-          <span style="margin: auto 0; display: flex; flex-direction: row;"><strong>Members :</strong> <i
-              style="padding: 0px 5px;" *ngFor="let member of membersList">{{member}}</i></span>
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" data-toggle="modal" data-target="#addUserModal" height="25px"
-            class="btn btn__secondary" style="margin-left: 8px;" className="h-5 w-5" viewBox="0 0 20 20"
-            fill="currentColor">
-            <path fillRule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-              clipRule="evenodd" />
-          </svg> -->
+          <span style="margin: auto 0; display: flex; flex-direction: row;">
+            <p *ngFor="let member of membersList" class="contributor">
+              {{member}}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                height="15px" class="icon" (click)="removeUserFromProject(member)">
+                <path fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd" />
+              </svg>
+            </p>
+            <p class="contributor addbtn" data-toggle="modal" data-target="#addUserModal">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                height="15px">
+                <path fillRule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clipRule="evenodd" />
+              </svg>
+              <span>Add user</span>
+            </p>
+          </span>
         </p>
-      </div>
+      </div> -->
     </div>
   </div>
-  <main class="p-3">
-    <!-- <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
-    <button (click)="getData()">Save</button> -->
-    <!-- (ngModelChange)="onChange()" -->
-    {{updateFunction()}}
-    <angular-editor [(ngModel)]="htmlContent" (ngModelChange)="onChange()" [config]="editorConfig"></angular-editor>
+  <main>
+    <div class="NgxEditor__Wrapper" style="border: none">
+      <span
+        [ngClass]="{'ongoing': repository.status === 'Ongoing', 'completed': repository.status === 'Completed', 'returned': repository.status === 'Returned'}">
+        {{repository.status}}
+      </span>
+      <div style="position: inherit; top: 0; margin-top: 12px;">
+        <input [(ngModel)]="title" (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="email" id="floatingEmail"
+          placeholder="Project Title" class="ghost-input" required>
+      </div>
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+      <ngx-editor [editor]="editor" [(ngModel)]="htmlContent" (keyup)="autoSaveDelay()" [disabled]="false"
+        [placeholder]="'Type here...'"></ngx-editor>
+    </div>
   </main>
 </div>
 
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
+<!-- MODAL -->
+<div class="modal fade bd-example-modal-sm" id="addUserModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="modal-title" id="exampleModalLongTitle">Add member</p>
+        <p class="modal-title" id="exampleModalLongTitle">Member(s)</p>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
           data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
           <path fillRule="evenodd"
@@ -67,6 +85,20 @@
         </svg>
       </div>
       <div class="modal-body">
+        <div class="author">
+          <div *ngFor="let member of membersList" class="user-list">
+            {{member}}
+            <a class="small" (click)="removeUserFromProject(member)">
+              Remove
+            </a>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+              height="15px" class="icon" (click)="removeUserFromProject(member)">
+              <path fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd" />
+            </svg> -->
+          </div>
+        </div>
         <div class="search-container">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd"
@@ -95,8 +127,28 @@
         </main>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" data-dismiss="modal" aria-label="Close"
-          (click)="addSelected()">Add</button>
+        <button type="button" class="btn btn__primary" (click)="addSelected()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

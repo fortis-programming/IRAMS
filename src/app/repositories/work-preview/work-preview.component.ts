@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AngularEditorConfig } from '@kolkov/angular-editor';
-
-import { toDoc, toHTML } from 'ngx-editor';
+import { Editor, Toolbar } from 'ngx-editor';
 
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
@@ -22,135 +20,100 @@ export class WorkPreviewComponent implements OnInit {
   usersList: UsersModel[] = [];
   repositoryId = '';
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    sanitize: false,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    outline: false,
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      { class: 'arial', name: 'Arial' },
-      { class: 'times-new-roman', name: 'Times New Roman' },
-      { class: 'calibri', name: 'Calibri' },
-      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
-  };
-
   htmlContent = '';
+  editor: Editor = new Editor();
+  toolbar: Toolbar = [
+    ["bold", "italic"],
+    ["underline", "strike"],
+    ["ordered_list", "bullet_list"],
+    [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
+    ["link", "image"],
+    ["text_color", "background_color"],
+    ["align_left", "align_center", "align_right", "align_justify"]
+  ];
 
   constructor(
     private router: Router,
     private routeParams: ActivatedRoute,
     private workService: WorksService,
-    private userService: UsersService
+    private userService: UsersService,
   ) { }
 
+  title = '';
   ngOnInit(): void {
     this.routeParams.params.subscribe(params => {
       this.repositoryId = params['id']
     });
-    this.sendLocalchangesToFirestore();
+    this.editor = new Editor();
+    this.updateData();
   }
 
-  //  AUTO SAVE FUNCTION
-  time = 0;
-  autoSave(): void {
-    let timer = setInterval(() => {
-      if (!this.updateTrigger) this.time = this.time + 1;
-      if (this.time >= 10) {
-        this.saveUpdateToDatabase();
-        this.time = 0;
-        this.updateTrigger = true;
-      }
-    }, 1000);
-    if (this.time >= 10) clearInterval(timer);
-  }
-
-  //  AUTO UPDATE FUNCTION
-  updateTrigger = true;
-  updateFunction(): void {
-    if (this.updateTrigger) this.updateDocumentContent();
-  }
-
-  // TRIGGERS FOR AUTO SAVING AND UPDATE
-  onChange(): void {
-    this.time = 0;
-    if (this.updateTrigger) {
-      this.updateTrigger = false;
-      this.autoSave();
+  buttonClicked = false;
+  timer: any = ''
+  autoSaveDelay(): void {
+    if (!this.buttonClicked) {
+      this.buttonClicked = true;
+      clearInterval(this.timer);
+      this.timer = setInterval(() => {
+        this.buttonClicked = false;
+        clearInterval(this.timer);
+        this.onChange();
+      }, 5000);
     }
+  }
+
+  updateData(): void {
+    this.workService.getRepositoryData(this.repositoryId).then(() => {
+      this.repositoryData = this.workService.sendRepositoryData();
+      this.extractDocument();
+      this.extractMembers();
+    });
+  }
+
+  //  DETECT CHANGES
+  onChange(): void {
+    this.saveUpdateToDatabase();
   }
 
   //  EXTRACT AUTHORS
   extractMembers(): void {
     this.repositoryData.map(data => {
-      this.membersList = JSON.parse(JSON.stringify(data.members))
+      this.membersList = JSON.parse(JSON.stringify(data.members));
     })
   }
 
   //  EXTRACT DOCUMENT
   extractDocument(): void {
-    this.repositoryData.map(data =>
-      this.htmlContent = data.data
-    )
+    this.repositoryData.map(data => {
+      this.htmlContent = data.data;
+      this.title = data.title;
+    })
   }
 
   //  RE-ROUTE TO PREVIEW PAGE
   closeRepository(): void {
+    this.saveUpdateToDatabase();
     this.router.navigate(['../app/repositories/works'])
   }
 
   /*============================================
     D A T A B A S E    I N T E R A C T I O N
   ============================================*/
-  
   //  SAVE UPDATE
   saveUpdateToDatabase(): void {
     this.repositoryData.map(data =>
       data.data = this.htmlContent
     );
-    this.workService.updateDataField(this.repositoryData[0]);
-  }
-
-  //  UPDATE DATA/DOCUMENT CONTENT IN DATABASE TO SAVE CHANGE FROM LOCAL
-  sendLocalchangesToFirestore(): void {
-    this.workService.getWorkData(this.repositoryId).then((response) => {
-      this.repositoryData = response;
-      this.workService.getYourWorks();
-      this.extractMembers();
-      this.extractDocument();
+    this.repositoryData.map(data =>
+      data.title = this.title,
+    );
+    this.repositoryData.map(data => {
+      data.members = this.membersList
+    });
+    this.repositoryData.map(data => {
+      data.projectId = this.repositoryId
     })
-  }
-
-  //  UPDATE DOCUMENT CONTENT FROM SERVICE
-  updateDocumentContent(): void {
-    this.htmlContent = this.workService.getHtmlUpdate().toString();
+    this.workService.updateDataField(this.repositoryId, this.repositoryData[0]);
   }
 
   /*================================================
@@ -169,12 +132,25 @@ export class WorkPreviewComponent implements OnInit {
   //  HIGHLIGHT SELECTED USER
   selected = '';
   selectUser(id: string): void {
-    this.selected = id;
+    if (id === this.selected) {
+      this.selected = '';
+    } else {
+      this.selected = id;
+    }
   }
 
   //  ADD SELECTED TO OBJECT/ARRAY
   addSelected(): void {
-    (this.membersList.includes(this.selected)) ? console.log() : this.membersList.push(this.selected)
+    (this.membersList.includes(this.selected)) ? console.log() : this.membersList.push(this.selected);
+    this.selected = '';
+    this.nameQuery = '';
+    this.usersList = [];
+  }
+
+  //  REMOVE USER
+  removeUserFromProject(user: string): void {
+
+    this.membersList.splice(this.membersList.indexOf(user), 1)
   }
 
   //  GET MEMBERS NAME

@@ -11,10 +11,9 @@
       <div class="list__action"></div>
       <div class="list__status">Status</div>
     </div>
-    <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="documentIds[i]" [workItem]="repository"></app-works-items>
+    <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId" [workItem]="repository"></app-works-items>
   </div>
 </div>
-
 <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
