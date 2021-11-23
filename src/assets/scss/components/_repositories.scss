@@ -89,6 +89,11 @@
           display: none;
         }
       }
+      
+      &__contributor {
+        width: auto;
+        white-space: nowrap;
+      }
     }
 
     .list-items>div {

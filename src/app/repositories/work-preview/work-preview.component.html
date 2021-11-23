@@ -1,4 +1,4 @@
-<div class="document-content" *ngFor="let repository of repositoryData">
+<div class="document-content">
   <div class="wrapper">
     <div class="document-content title">
       <div class="navigation d-flex justify-content-between">
@@ -9,7 +9,7 @@
               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
               clipRule="evenodd" />
           </svg>
-          <p class="nav-title">{{repository.title}}</p>
+          <p class="nav-title">{{workItem.title}}</p>
         </div>
         <div class="action-section d-flex flex-row">
           <div class="dropdown" style="margin: auto;">
@@ -22,49 +22,30 @@
             <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
               <li><a class="dropdown-item">Request validation</a></li>
               <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Members</a></li>
-              <li><a class="dropdown-item">Settings</a></li>
+              <li><a class="dropdown-item" (click)="deleteDocument()">Delete project</a></li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- <div class="author">
-        <p class="d-flex flex__row">
-          <span style="margin: auto 0; display: flex; flex-direction: row;">
-            <p *ngFor="let member of membersList" class="contributor">
-              {{member}}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-                height="15px" class="icon" (click)="removeUserFromProject(member)">
-                <path fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd" />
-              </svg>
-            </p>
-            <p class="contributor addbtn" data-toggle="modal" data-target="#addUserModal">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-                height="15px">
-                <path fillRule="evenodd"
-                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                  clipRule="evenodd" />
-              </svg>
-              <span>Add user</span>
-            </p>
-          </span>
-        </p>
-      </div> -->
     </div>
   </div>
   <main>
-    <div class="NgxEditor__Wrapper" style="border: none">
-      <span
-        [ngClass]="{'ongoing': repository.status === 'Ongoing', 'completed': repository.status === 'Completed', 'returned': repository.status === 'Returned'}">
-        {{repository.status}}
+    <div class="NgxEditor__Wrapper border-0">
+      <span *ngIf="workItem.status !== 'Returned'"
+        [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned'}">
+        {{workItem.status}}
       </span>
+      <span style="cursor: pointer;" *ngIf="workItem.status === 'Returned'" class="returned" data-toggle="modal"
+        data-target="#addUserModal">
+        {{workItem.status}}
+      </span>
+      <span *ngIf="workItem.status === 'Returned'" style="margin-left: 8px;">Comments (5)</span>
       <div style="position: inherit; top: 0; margin-top: 12px;">
-        <input [(ngModel)]="title" (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="email" id="floatingEmail"
-          placeholder="Project Title" class="ghost-input" required>
+        <input [(ngModel)]="workItem.title" (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="email"
+          id="floatingEmail" placeholder="Project Title" class="ghost-input" required>
       </div>
       <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-      <ngx-editor [editor]="editor" [(ngModel)]="htmlContent" (keyup)="autoSaveDelay()" [disabled]="false"
+      <ngx-editor [editor]="editor" [(ngModel)]="workItem.metaData" (keyup)="autoSaveDelay()" [disabled]="false"
         [placeholder]="'Type here...'"></ngx-editor>
     </div>
   </main>
@@ -85,18 +66,15 @@
         </svg>
       </div>
       <div class="modal-body">
-        <div class="author">
+        <div class="">
           <div *ngFor="let member of membersList" class="user-list">
             {{member}}
-            <a class="small" (click)="removeUserFromProject(member)">
-              Remove
-            </a>
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-              height="15px" class="icon" (click)="removeUserFromProject(member)">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+              (click)="removeUserFromProject(member)" height="15px" class="close-btn">
               <path fillRule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                 clipRule="evenodd" />
-            </svg> -->
+            </svg>
           </div>
         </div>
         <div class="search-container">
@@ -108,12 +86,9 @@
           <input type="text" [(ngModel)]="nameQuery" placeholder="Search by name" (keyup)="getMembers()">
         </div>
         <main>
-          <div class="user-list" *ngFor="let user of usersList" [ngClass]="{'selected': user.name === selected}"
+          <div class="user-list border-0" *ngFor="let user of usersList" [ngClass]="{'selected': user.name === selected}"
             (click)="selectUser(user.name)">
             <div>
-              <div class="user-chip">
-                <img src="../../../assets/images/default-profile.jpg">
-              </div>
               <span>{{user.name}}</span>
             </div>
             <div class="check">

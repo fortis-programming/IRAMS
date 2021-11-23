@@ -31,10 +31,12 @@ export class DocumentContentComponent implements OnInit {
   }
 
   //  EXTRACT AUTHOR
+  authorString = '';
   exportAuthor(): void {
     this.documentObject.authors.map(member=> {
       this.authors.push(member)
-    })
+    });
+    this.authorString = this.authors.join(', ');
   }
 
   //  CLOSE OR REDIRECT TO PREVIOUS PAGE

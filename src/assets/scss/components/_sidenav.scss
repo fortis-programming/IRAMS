@@ -13,14 +13,12 @@
   }
 
   nav {
-    .logo {
-      
-    }
-    
+    .logo {}
+
     .nav-items {
       font-size: 0.83rem;
       color: $black-1;
-      
+
       &:active,
       .active {
         color: $primary;
@@ -42,21 +40,22 @@
 
 
   @media screen and (max-width: 1000px) {
-      
-      nav {
-        position: fixed;
-        background-color: white;
-        display: grid;
-        grid-template-columns: repeat(3, calc(100% / 3));
-        width: 100%;
-        bottom: 0;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-        border-top: 0.05rem solid $border-color;
-      
-        .logo {
-          display: none;
-        }
+
+    nav {
+      position: absolute;
+      z-index: 1;
+      background-color: white;
+      display: grid;
+      grid-template-columns: repeat(3, calc(100% / 3));
+      width: 100%;
+      bottom: 0;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      border-top: 0.05rem solid $border-color;
+
+      .logo {
+        display: none;
       }
-    
+    }
+
   }
 }

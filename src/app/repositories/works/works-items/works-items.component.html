@@ -3,7 +3,7 @@
     <div class="list-items__title">{{workItem.title}}</div>
     <span class="list-items__type">{{workItem.type}}</span>
   </div>
-  <div class="members list-items__contributor"><span *ngFor="let member of members" class="p-1">{{member}}, </span></div>
+  <div class="members list-items__contributor">{{getMembers()}}</div>
   <div class="list-items__date"></div>
   <div class="list-items__action"></div>
   <div class="list-items__status">
