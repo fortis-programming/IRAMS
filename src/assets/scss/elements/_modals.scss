@@ -10,7 +10,7 @@
   }
 
   .divider>* {
-    margin: 0px 5px;
+    margin: 0px;
   }
 
   .modal-footer,
@@ -22,7 +22,9 @@
 }
 
 #addUserModal {
-
+  button {
+    width: 100%;
+  }
   .modal-dialog {
     margin: auto;
   }

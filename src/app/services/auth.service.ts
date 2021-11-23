@@ -9,46 +9,53 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
-
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(
     private route: Router
   ) { }
-    
+
   isAuthenticated() {
     return !!sessionStorage.getItem('_token');
   }
-    
+
   //  LOGIN WITH POPUP FEATURE IN FIREBASE
-  loginWithPopup(): void {
-    signInWithPopup(auth, provider).then((result) => {
-      let credential = GoogleAuthProvider.credentialFromResult(result);
-      console.log(GoogleAuthProvider);
-      let token = credential?.accessToken;
-      const user = result.user;
-      console.log(user);
-      sessionStorage.setItem('_name', JSON.stringify(user.displayName));
-      sessionStorage.setItem('_token', user.refreshToken);
-      this.route.navigate(['/app']);
-    })
-  }
-  
-  //  SIGN IN WITH CREDENTIALS
-  async loginWithCredentials(email: string, password: string): Promise<boolean> {
-    let process = signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        sessionStorage.setItem('_name', JSON.stringify(userCredential.user.displayName));
-        sessionStorage.setItem('_token', userCredential.user.refreshToken)
+  async loginWithPopup(): Promise<boolean> {
+
+    let process = await signInWithPopup(auth, provider)
+      .then((result) => {
+        let credential = GoogleAuthProvider.credentialFromResult(result);
+        let token = credential?.accessToken;
+        const user = result.user;
+        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
+        this.setSessions([user.refreshToken, JSON.stringify(user.displayName)]);
         return true;
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
+        const email = error.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(credential);
+        return false;
+      })
+
+    return process;
+  }
+
+  //  SIGN IN WITH CREDENTIALS
+  async loginWithCredentials(email: string, password: string): Promise<boolean> {
+    let process = signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)))
+        this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.email))]);
+        return true;
+      }).catch((error) => {
         return false;
       });
     return await process;
@@ -61,8 +68,13 @@ export class AuthService {
       sessionStorage.clear();
       this.route.navigate(['/login']);
     }).catch((error) => {
-      console.log('failed')
       // An error happened.
     });
+  }
+
+  //  SET SESSIONS FOR YOUR SYSTEM TO REUSE IT AGAIN
+  setSessions(user: Array<string>): void {
+    sessionStorage.setItem('_token', user[0]);
+    sessionStorage.setItem('_name', user[1]);
   }
 }

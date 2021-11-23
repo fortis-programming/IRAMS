@@ -10,12 +10,12 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'archives', pathMatch: 'full' },
       {
-        path: 'preview/:id',
-        component: DocumentPreviewComponent
-      },
-      {
         path: 'archives',
         component: ExploreContentComponent
+      },
+      {
+        path: 'preview/:id',
+        component: DocumentPreviewComponent
       }
     ]
   }

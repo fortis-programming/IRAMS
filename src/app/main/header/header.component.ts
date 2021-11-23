@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderService } from './header.service';
@@ -18,7 +18,11 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService
   ) { }
 
+  photo = '';
+  name = '';
   ngOnInit(): void {
+    this.photo = JSON.parse(JSON.stringify(sessionStorage.getItem('photo')));
+    this.name = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
     return;
   }
 

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+
 import { AuthGuardService } from './services/auth-guard.service';
 
 //  SETUP ROUTING FOR COMPONENT AND CHILDREN
@@ -23,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule)
+    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

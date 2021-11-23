@@ -6,12 +6,27 @@
 }
 
 .user-list {
-    font-size: 0.82rem;
+    font-size: 0.89rem;
     padding: 12px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    
+    &:hover {
+        border: 1px solid $bg-color;
+    }
+    
+    &:hover > .close-btn {
+        display: block;
+    }
+    
+    .close-btn {
+        display: none;
+        margin: auto 0;
+    }
     
     div {
         display: flex;
@@ -22,18 +37,18 @@
         margin: auto 8px;
     }
     
-    svg {
-        background-color: transparent;
-        color: green;
-        height: 23px;
-        margin: auto 0;
-    }
-    
     .check {
         margin: auto 0;
         float: right;
         border-radius: 50px;
         display: none;
+        
+        svg {
+            background-color: transparent;
+            color: green;
+            height: 23px;
+            margin: auto 0;
+        }
     }
 }
 

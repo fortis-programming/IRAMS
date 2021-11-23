@@ -7,5 +7,6 @@ export interface WorksModel {
     members: Array<Object>;
     validator: string;
     college: string;
-    data: string;
+    metaData: string;
+    contributors: Array<Object>;
 }
