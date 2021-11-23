@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ProjectModel } from 'src/app/_shared/models/project.model';
 import { HeaderService } from '../../main/header/header.service';
 import { WorksService } from '../../services/works.service';
 import { WorksModel } from '../../_shared/models/works.model';
@@ -12,6 +13,16 @@ export class WorksComponent implements OnInit {
   yourRepositories: WorksModel[] = [];
   documentIds: Array<string> = [];
 
+  projectModel: ProjectModel = {
+    title: '',
+    type: 'Developmental',
+    college: 'Select a college',
+    validator: 'Select a validator',
+    members: [],
+    status: 'Ongoing',
+    projectId: ''
+  }
+  
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService
@@ -22,5 +33,20 @@ export class WorksComponent implements OnInit {
     this.headerService.setTitle('Repositories');
     this.worksService.realTimeUpdate();
     this.yourRepositories = this.worksService.getDatabaseUpdate();
+    this.projectModel.members.push(userEmail)
+  }
+
+  //  TO CHECK IF INPUT HAS AN ERROR
+  hasError(formControl: any): boolean {
+    return formControl.invalid && (formControl.dirty || formControl.touched)
+  }
+  
+  //  CREATE PROJECT 
+  processing = false;
+  createProject(): void {
+    this.processing = true;
+    this.worksService.createProject(this.projectModel).then(() => {
+      this.processing = false;
+    })
   }
 }

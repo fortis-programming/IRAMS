@@ -10,14 +10,23 @@
     width: 100%;
     margin: auto;   
     background-color: white;
-    border: 1px solid $border-color;
-    border-radius: 5px;
     font-size: 0.855rem;
-    
+    justify-content: center;
+    padding-top: 5px;
+        
     &__button {
         color: $primary;
         font-weight: 600;
         border: 1px solid $primary;
         background-color: #0d4b9c07;
+    }
+}
+
+.loading-state {
+    display: flex;
+    justify-content: center;
+    
+    img {
+        height: 30px;    
     }
 }

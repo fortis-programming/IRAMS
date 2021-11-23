@@ -33,10 +33,12 @@ export class ExploreItemsComponent implements OnInit {
   }
   
   //  EXTRACT AUTHOR(S)
+  author = '';
   extractAuthor(): void {
     this.researchItem.authors.map(member=> {
       this.authors.push(member)
     })
+    this.author = this.authors.join(', ');
     // this.researchItem.author.forEach(members => {
     //   let data = Object.values(JSON.parse(JSON.stringify(members)))[0];
     //   this.authors.push(JSON.parse(JSON.stringify(data)))

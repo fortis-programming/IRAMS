@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { firebaseConfig } from 'src/environments/environment';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, onSnapshot, collection, query, where, setDoc, doc, getDocs } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, query, setDoc, doc, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { WorksModel } from '../_shared/models/works.model';
+import { ProjectModel } from '../_shared/models/project.model';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -53,31 +54,10 @@ export class WorksService {
   }
 
   repositoryData: Array<WorksModel> = [];
-  async getRepositoryData(docId: string): Promise<void> {
-    const q = query(collection(db, 'works'));
-    const unsubscribe = await onSnapshot(q, (querySnapshot) => {
-      this.repositoryData.splice(0, this.repositoryData.length)
-      querySnapshot.forEach((doc) => {
-        if ([doc.data()][0]['projectId'] === docId) {
-          this.repositoryData.push(JSON.parse(JSON.stringify(doc.data())));
-        }
-      });
-    });
-  }
-
-  // SEND GATHERED UPDATE FROM DATABASE TO FRONTEND
-  sendRepositoryData(): Array<WorksModel> {
-    return this.repositoryData;
-  }
-
-  //  RETURN OBJECT
-  getWorks(): Array<any> {
-    return this.data;
-  }
-
-  //  RETURN DOC IDs OF WORKS [ORIGIN]: FIRESTORE
-  getDocID(): Array<string> {
-    return this.docIds;
+  async getRepositoryData(docId: string): Promise<Array<WorksModel>> {
+    const docRef = doc(db, 'works', 'pdfw3FjZZNxcErZaVQvt');
+    const docSnap = await getDoc(docRef);
+    return JSON.parse(JSON.stringify(docSnap.data()));
   }
 
   //  RETURN DOCUMENT DATA USING DOCUMENT ID PROVIDED BY FIRESTORE
@@ -91,37 +71,26 @@ export class WorksService {
     return [JSON.parse(JSON.stringify(this.repositoryData))];
   }
 
-  //  [PENDING] UPDATE DOCUMENT CONTENT
-  pendingWrite = '';
-  async parseEditorData(docId: string): Promise<void> {
-    const queryFromDb = query(collection(db, 'works'));
-    let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
-      querySnapshot.docs.map((doc) => {
-        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        this.pendingWrite = source;
-        console.log(this.pendingWrite)
-        if (doc.id === docId) this.getHtmlDoc([JSON.parse(JSON.stringify(doc.data()))]);
-      })
-    })
-  }
-
-  //  [PENDING] SYNCHRONOUSLY UPDATE
-  htmlContent = '';
-  getHtmlDoc(doc: Array<WorksModel>): void {
-    this.htmlContent = doc[0]['data'];
-  }
-
-  getHtmlUpdate(): string {
-    return this.htmlContent;
-  }
-
-  getWriteStatus(): string {
-    return this.pendingWrite;
-  }
-
   //  UPDATE DOCUMENT CHANGES TO DATABASE
   async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
     const ref = doc(db, 'works', docId);
     await setDoc(ref, htmlDoc);
+  }
+
+  /*
+    WRITE PROJECT
+  */
+
+  //  CREATE PROJECT
+  async createProject(project: ProjectModel): Promise<void> {
+    const docRef = await addDoc(collection(db, 'works'), project);
+    const ref = doc(db, 'works', docRef.id);
+    [project][0].projectId = docRef.id;
+    await setDoc(ref, project);
+  }
+  
+  async deleteProject(docId: string): Promise<boolean> {
+    await deleteDoc(doc(db, 'works', docId));
+    return true;
   }
 }

@@ -18,7 +18,11 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService
   ) { }
 
+  photo = '';
+  name = '';
   ngOnInit(): void {
+    this.photo = JSON.parse(JSON.stringify(sessionStorage.getItem('photo')));
+    this.name = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
     return;
   }
 

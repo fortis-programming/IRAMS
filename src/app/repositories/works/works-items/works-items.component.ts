@@ -17,7 +17,7 @@ export class WorksItemsComponent implements OnInit {
     members: [],
     validator: '',
     college: '',
-    data: '',
+    metaData: '',
     contributors: []
   }
   
@@ -42,10 +42,14 @@ export class WorksItemsComponent implements OnInit {
   extractMembers(): void {
     this.workItem.members.map(member => {
       this.members.push(JSON.parse(JSON.stringify(member)))
-    })
+    });
     // this.workItem.members.forEach(member => {
     //   let data = (Object.values(JSON.parse(JSON.stringify(member)))[0]);
     //   this.members.push(JSON.parse(JSON.stringify(data)));
     // })
+  }
+  
+  getMembers(): string {
+    return this.members.join(', ');
   }
 }

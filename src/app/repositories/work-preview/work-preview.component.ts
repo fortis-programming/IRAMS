@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Editor, Toolbar } from 'ngx-editor';
+import { Editor, toHTML, Toolbar } from 'ngx-editor';
 
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
@@ -15,12 +15,23 @@ import { UsersModel } from 'src/app/_shared/models/users.model';
   styleUrls: ['./work-preview.component.scss']
 })
 export class WorkPreviewComponent implements OnInit {
-  repositoryData: WorksModel[] = [];
-  membersList: Array<string> = [];
+  membersList: Array<Object> = [];
   usersList: UsersModel[] = [];
   repositoryId = '';
 
-  htmlContent = '';
+  @Input() workItem: WorksModel = {
+    projectId: '',
+    title: '',
+    type: '',
+    updatedAt: '',
+    status: '',
+    members: [],
+    validator: '',
+    college: '',
+    metaData: '',
+    contributors: []
+  }
+
   editor: Editor = new Editor();
   toolbar: Toolbar = [
     ["bold", "italic"],
@@ -39,13 +50,11 @@ export class WorkPreviewComponent implements OnInit {
     private userService: UsersService,
   ) { }
 
-  title = '';
   ngOnInit(): void {
     this.routeParams.params.subscribe(params => {
-      this.repositoryId = params['id']
+      this.repositoryId = params['id'];
     });
-    this.editor = new Editor();
-    this.updateData();
+    this.updateData(this.repositoryId);
   }
 
   buttonClicked = false;
@@ -62,32 +71,18 @@ export class WorkPreviewComponent implements OnInit {
     }
   }
 
-  updateData(): void {
-    this.workService.getRepositoryData(this.repositoryId).then(() => {
-      this.repositoryData = this.workService.sendRepositoryData();
-      this.extractDocument();
-      this.extractMembers();
+  //  WILL UPDATE THE LOCAL DATA FOR FRONTEND
+  updateData(docId: string): void {
+    this.workService.getRepositoryData(this.repositoryId).then((response) => {
+      this.workItem = JSON.parse(JSON.stringify(response));
+      this.membersList = this.workItem.members;
     });
+    // this.extractMembers();
   }
 
   //  DETECT CHANGES
   onChange(): void {
     this.saveUpdateToDatabase();
-  }
-
-  //  EXTRACT AUTHORS
-  extractMembers(): void {
-    this.repositoryData.map(data => {
-      this.membersList = JSON.parse(JSON.stringify(data.members));
-    })
-  }
-
-  //  EXTRACT DOCUMENT
-  extractDocument(): void {
-    this.repositoryData.map(data => {
-      this.htmlContent = data.data;
-      this.title = data.title;
-    })
   }
 
   //  RE-ROUTE TO PREVIEW PAGE
@@ -101,19 +96,7 @@ export class WorkPreviewComponent implements OnInit {
   ============================================*/
   //  SAVE UPDATE
   saveUpdateToDatabase(): void {
-    this.repositoryData.map(data =>
-      data.data = this.htmlContent
-    );
-    this.repositoryData.map(data =>
-      data.title = this.title,
-    );
-    this.repositoryData.map(data => {
-      data.members = this.membersList
-    });
-    this.repositoryData.map(data => {
-      data.projectId = this.repositoryId
-    })
-    this.workService.updateDataField(this.repositoryId, this.repositoryData[0]);
+    this.workService.updateDataField(this.repositoryId, this.workItem);
   }
 
   /*================================================
@@ -148,8 +131,7 @@ export class WorkPreviewComponent implements OnInit {
   }
 
   //  REMOVE USER
-  removeUserFromProject(user: string): void {
-
+  removeUserFromProject(user: object): void {
     this.membersList.splice(this.membersList.indexOf(user), 1)
   }
 
@@ -157,5 +139,12 @@ export class WorkPreviewComponent implements OnInit {
   nameQuery = '';
   getMembers(): void {
     this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
+  }
+  
+  
+  deleteDocument(): void {
+    this.workService.deleteProject(this.repositoryId).then(() => {
+      this.closeRepository();
+    })
   }
 }

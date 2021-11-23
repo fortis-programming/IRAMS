@@ -9,13 +9,14 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  
+
   constructor(
     private route: Router
   ) { }
@@ -26,15 +27,14 @@ export class AuthService {
 
   //  LOGIN WITH POPUP FEATURE IN FIREBASE
   async loginWithPopup(): Promise<boolean> {
-    
+
     let process = await signInWithPopup(auth, provider)
       .then((result) => {
         let credential = GoogleAuthProvider.credentialFromResult(result);
         let token = credential?.accessToken;
         const user = result.user;
+        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
         this.setSessions([user.refreshToken, JSON.stringify(user.displayName)]);
-        // this.route.navigate(['/app']);
-        // console.log('Logged in')
         return true;
       }).catch((error) => {
         const errorCode = error.code;
@@ -52,6 +52,7 @@ export class AuthService {
   async loginWithCredentials(email: string, password: string): Promise<boolean> {
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)))
         this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.email))]);
         return true;
       }).catch((error) => {
