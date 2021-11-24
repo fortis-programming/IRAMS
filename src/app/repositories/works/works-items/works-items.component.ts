@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { WorksService } from 'src/app/services/works.service';
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
 @Component({
@@ -26,11 +27,12 @@ export class WorksItemsComponent implements OnInit {
   members: Array<string> = [];
   
   constructor(
-    private router: Router
+    private router: Router,
+    private workService: WorksService
   ) { }
 
   ngOnInit(): void {
-    this.extractMembers();
+    this.getDisplayName();
   }
   
   //  OPEN A REPOSITORY PROJECT
@@ -38,15 +40,8 @@ export class WorksItemsComponent implements OnInit {
     this.router.navigate(['../app/repositories/preview', repositoryId]);
   }
   
-  // EXTRACT AUTHORS
-  extractMembers(): void {
-    this.workItem.members.map(member => {
-      this.members.push(JSON.parse(JSON.stringify(member)))
-    });
-    // this.workItem.members.forEach(member => {
-    //   let data = (Object.values(JSON.parse(JSON.stringify(member)))[0]);
-    //   this.members.push(JSON.parse(JSON.stringify(data)));
-    // })
+  getDisplayName(): void {
+    this.members = this.workService.getUsersIcon(JSON.parse(JSON.stringify(this.workItem.members)));
   }
   
   getMembers(): string {

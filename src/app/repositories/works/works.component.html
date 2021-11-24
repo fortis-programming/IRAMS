@@ -72,11 +72,24 @@
             </select>
             <label for="floatingSelect">Validator</label>
           </div>
+          <!-- <div class="container mt-2">
+            <div class="row">
+              <div class="col-sm btn-cards" [ngClass]="{'ongoing': type === 'Ongoing'}">
+                Developmental
+              </div>
+              <div class="col-sm btn-cards">
+                Qualitative
+              </div>
+              <div class="col-sm btn-cards">
+                Quantative
+              </div>
+            </div>
+          </div> -->
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
-          (click)="createProject()">Create</button>
+        <span data-dismiss="modal" aria-label="Close"> <button type="button" class="btn btn__primary"
+            [disabled]="!projectForm.valid || processing" (click)="createProject()">Create</button></span>
       </div>
     </div>
   </div>

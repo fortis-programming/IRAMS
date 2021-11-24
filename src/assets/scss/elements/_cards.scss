@@ -55,3 +55,16 @@
     }
   }
 }
+
+.btn-cards {
+  border: 1px solid $border-color;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.81rem;
+  
+  .selected {
+    color: red;
+  }
+}

@@ -28,6 +28,7 @@ import { ExploreContentComponent } from './explore/explore-content/explore-conte
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { EditorComponent } from './_shared/components/editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     WorksItemsComponent,
     WorkPreviewComponent,
     RepositoriesComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

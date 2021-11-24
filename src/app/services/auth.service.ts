@@ -34,7 +34,7 @@ export class AuthService {
         let token = credential?.accessToken;
         const user = result.user;
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
-        this.setSessions([user.refreshToken, JSON.stringify(user.displayName)]);
+        this.setSessions([user.refreshToken, JSON.parse(JSON.stringify(user.uid))]);
         return true;
       }).catch((error) => {
         const errorCode = error.code;
@@ -53,7 +53,7 @@ export class AuthService {
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)))
-        this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.email))]);
+        this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.uid))]);
         return true;
       }).catch((error) => {
         return false;

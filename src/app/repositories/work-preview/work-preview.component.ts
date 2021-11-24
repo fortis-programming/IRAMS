@@ -18,6 +18,7 @@ export class WorkPreviewComponent implements OnInit {
   membersList: Array<Object> = [];
   usersList: UsersModel[] = [];
   repositoryId = '';
+  edit = false;
 
   @Input() workItem: WorksModel = {
     projectId: '',
@@ -42,6 +43,14 @@ export class WorkPreviewComponent implements OnInit {
     ["text_color", "background_color"],
     ["align_left", "align_center", "align_right", "align_justify"]
   ];
+  
+  toolbar1: Toolbar = [
+    ["bold", "italic"],
+    ["underline", "strike"],
+    ["ordered_list", "bullet_list"],
+    ["align_left", "align_center", "align_right", "align_justify"],
+    [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
+  ];
 
   constructor(
     private router: Router,
@@ -54,8 +63,11 @@ export class WorkPreviewComponent implements OnInit {
     this.routeParams.params.subscribe(params => {
       this.repositoryId = params['id'];
     });
-    this.updateData(this.repositoryId);
+  this.updateData(this.repositoryId);
+    
+    // if([this.workItem].length === 0) alert('empty');
   }
+  
 
   buttonClicked = false;
   timer: any = ''
@@ -75,20 +87,20 @@ export class WorkPreviewComponent implements OnInit {
   updateData(docId: string): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.membersList = this.workItem.members;
+      this.membersList = this.workService.getUsersIcon(JSON.parse(JSON.stringify(this.workItem.members)));
     });
     // this.extractMembers();
   }
 
   //  DETECT CHANGES
   onChange(): void {
-    this.saveUpdateToDatabase();
+    this.saveUpdateToDatabase(); 
   }
 
   //  RE-ROUTE TO PREVIEW PAGE
   closeRepository(): void {
     this.saveUpdateToDatabase();
-    this.router.navigate(['../app/repositories/works'])
+    this.router.navigate(['../app/repositories/works']);
   }
 
   /*============================================
@@ -142,9 +154,7 @@ export class WorkPreviewComponent implements OnInit {
   }
   
   
-  deleteDocument(): void {
-    this.workService.deleteProject(this.repositoryId).then(() => {
-      this.closeRepository();
-    })
+  async deleteDocument(): Promise<void> {
+    await this.workService.deleteDocument(this.repositoryId);
   }
 }

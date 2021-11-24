@@ -43,8 +43,9 @@
   .nav-header {
     
     .nav-title {
-      min-width: 400px;
+      max-width: 100px;
       overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
     }
   }

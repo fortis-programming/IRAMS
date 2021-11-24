@@ -39,3 +39,17 @@
     color: $primary;
   }
 }
+
+.icon-btn {
+  padding: 4px 6px;
+  border-radius: 50px;
+
+  svg {
+    margin: auto;
+    height: 20px;
+  }
+  
+  &:hover {
+    background-color: $bg-color;
+  }
+}
