@@ -35,7 +35,7 @@ export class WorksComponent implements OnInit {
     this.yourRepositories = this.worksService.getDatabaseUpdate();
     this.projectModel.members.push(userEmail)
   }
-
+  
   //  TO CHECK IF INPUT HAS AN ERROR
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)
@@ -48,5 +48,10 @@ export class WorksComponent implements OnInit {
     this.worksService.createProject(this.projectModel).then(() => {
       this.processing = false;
     })
+  }
+  
+  type = 'Developmental';
+  selectProjectType(type: string): void {
+    
   }
 }

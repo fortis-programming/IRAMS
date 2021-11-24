@@ -3,11 +3,14 @@ import { firebaseConfig } from 'src/environments/environment';
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, onSnapshot, collection, query, setDoc, doc, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import { getDatabase, ref, onValue } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { ProjectModel } from '../_shared/models/project.model';
+import { Router } from '@angular/router';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const database = getDatabase();
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +19,9 @@ const db = getFirestore(app);
 export class WorksService {
   data: WorksModel[] = [];
   docIds: Array<string> = [];
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   docId = '';
   async getYourWorks(): Promise<Array<WorksModel[]>> {
@@ -55,7 +60,7 @@ export class WorksService {
 
   repositoryData: Array<WorksModel> = [];
   async getRepositoryData(docId: string): Promise<Array<WorksModel>> {
-    const docRef = doc(db, 'works', 'pdfw3FjZZNxcErZaVQvt');
+    const docRef = doc(db, 'works', docId);
     const docSnap = await getDoc(docRef);
     return JSON.parse(JSON.stringify(docSnap.data()));
   }
@@ -88,9 +93,30 @@ export class WorksService {
     [project][0].projectId = docRef.id;
     await setDoc(ref, project);
   }
-  
-  async deleteProject(docId: string): Promise<boolean> {
-    await deleteDoc(doc(db, 'works', docId));
-    return true;
+
+  deleteDocument(docId: string): Promise<boolean> {
+    const response = new Promise<boolean>((resolve) => {
+      deleteDoc(doc(db, 'works', docId))
+      resolve(true);
+      this.router.navigate(['../app/repositories/works']);
+    })
+
+    return response;
+  }
+
+
+  // USERS
+  userName: Array<string> = [];
+  getUsersIcon(uid: Array<string>): Array<string> {
+    
+    this.userName = [];
+    uid.forEach(data => {
+      const starCountRef = ref(database, 'usersData/' + data);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        this.userName.push(data['displayName']);
+      });
+    })
+    return this.userName;
   }
 }

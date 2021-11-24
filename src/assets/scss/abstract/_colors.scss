@@ -9,3 +9,9 @@ $header-bg: #F1F3F4;
 
 
 $border-color: rgb(233, 233, 233);
+
+.color {
+  &__light {
+    color: $black-1;
+  }
+}
