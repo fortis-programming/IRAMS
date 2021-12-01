@@ -4,6 +4,7 @@ import { getAnalytics } from 'firebase/analytics';
 import { GoogleAuthProvider, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseConfig } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { UsersService } from './users.service';
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -18,7 +19,8 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 export class AuthService {
 
   constructor(
-    private route: Router
+    private route: Router,
+    private usersService: UsersService
   ) { }
 
   isAuthenticated() {

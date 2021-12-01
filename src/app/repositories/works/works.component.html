@@ -18,6 +18,8 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL -->
 <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -33,17 +35,17 @@
       </div>
       <div class="modal-body">
         <form #projectForm="ngForm">
-          <div class="form-floating mb-3">
+          <div class="form-floating mb-2">
             <input [(ngModel)]="projectModel.title" #title="ngModel" name="title" type="email" class="form-control"
               style="font-size: 0.8rem;" id="floatingTitle" placeholder="name@example.com" required>
             <label for="floatingTitle" *ngIf="!hasError(title) && !title.errors?.touched">Project Title</label>
             <label class="message__error" for="floatingTitle" *ngIf="hasError(title) && title.errors?.required">Title is
               required</label>
           </div>
-          <div class="divider">
+          <div class="divider grid-2 mb-2">
             <div class="form-floating">
               <select [(ngModel)]="projectModel.type" name="type" #type="ngModel" class="form-select"
-                id="floatingSelect" aria-label="Floating label select example">
+                id="floatingSelect" aria-label="Floating label select example" required>
                 <option value="Developmental" selected>Developmental</option>
                 <option value="Qualitative">Qualitative</option>
                 <option value="Quantative">Quantative</option>
@@ -60,38 +62,20 @@
                 <option value="CE">CE</option>
               </select>
               <label for="floatingSelect">College</label>
-            </div>
+            </div>  
           </div>
-          <div class="form-floating">
-            <select [(ngModel)]="projectModel.validator" name="validateor" #validator="ngModel" class="form-select"
-              id="floatingSelect" aria-label="Floating label select example">
-              <option selected>Select a validator</option>
-              <option value="Juan Dela Cruz">Juan Dela Cruz</option>
-              <option value="Juan Luna">Juan Luna</option>
-              <option value="Tom Cruz">Tom Cruz</option>
-            </select>
-            <label for="floatingSelect">Validator</label>
-          </div>
-          <!-- <div class="container mt-2">
-            <div class="row">
-              <div class="col-sm btn-cards" [ngClass]="{'ongoing': type === 'Ongoing'}">
-                Developmental
-              </div>
-              <div class="col-sm btn-cards">
-                Qualitative
-              </div>
-              <div class="col-sm btn-cards">
-                Quantative
-              </div>
-            </div>
-          </div> -->
         </form>
       </div>
       <div class="modal-footer">
-        <span data-dismiss="modal" aria-label="Close"> <button type="button" class="btn btn__primary"
-            [disabled]="!projectForm.valid || processing" (click)="createProject()">Create</button></span>
+        <span data-dismiss="modal" aria-label="Close" >
+          <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
+            (click)="createProject()" data-dismiss="modal" aria-label="Close">
+            Create
+          </button>
+        </span>
       </div>
     </div>
   </div>
 </div>
+
 <router-outlet></router-outlet>
