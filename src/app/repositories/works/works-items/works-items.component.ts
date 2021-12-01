@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
 import { WorksService } from 'src/app/services/works.service';
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
@@ -28,7 +29,8 @@ export class WorksItemsComponent implements OnInit {
   
   constructor(
     private router: Router,
-    private workService: WorksService
+    private workService: WorksService,
+    private userService: UsersService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class WorksItemsComponent implements OnInit {
   }
   
   getDisplayName(): void {
-    this.members = this.workService.getUsersIcon(JSON.parse(JSON.stringify(this.workItem.members)));
+    this.members = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
   }
   
   getMembers(): string {

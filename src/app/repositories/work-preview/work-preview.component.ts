@@ -15,8 +15,6 @@ import { UsersModel } from 'src/app/_shared/models/users.model';
   styleUrls: ['./work-preview.component.scss']
 })
 export class WorkPreviewComponent implements OnInit {
-  membersList: Array<Object> = [];
-  usersList: UsersModel[] = [];
   repositoryId = '';
   edit = false;
 
@@ -87,7 +85,7 @@ export class WorkPreviewComponent implements OnInit {
   updateData(docId: string): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.membersList = this.workService.getUsersIcon(JSON.parse(JSON.stringify(this.workItem.members)));
+      this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
     });
     // this.extractMembers();
   }
@@ -117,6 +115,8 @@ export class WorkPreviewComponent implements OnInit {
   ===============================================*/
 
   //  PROCESS FROM DATABASE
+  membersList: Array<Object> = [];
+  usersList: UsersModel[] = [];
   getMembersFromDatabase(): void {
     this.userService.getUsersList().subscribe((response) => {
       this.usersList = response.data.filter((users: UsersModel) =>
@@ -136,23 +136,27 @@ export class WorkPreviewComponent implements OnInit {
 
   //  ADD SELECTED TO OBJECT/ARRAY
   addSelected(): void {
-    (this.membersList.includes(this.selected)) ? console.log() : this.membersList.push(this.selected);
+    (this.membersList.includes(this.selected)) ? console.log() : this.workItem.members.push(this.selected);
+    this.membersList = [];
+    this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
     this.selected = '';
     this.nameQuery = '';
     this.usersList = [];
+    console.log(this.workItem)
   }
 
   //  REMOVE USER
-  removeUserFromProject(user: object): void {
-    this.membersList.splice(this.membersList.indexOf(user), 1)
+  removeUserFromProject(user: object, member: object): void {
+    this.membersList.splice(this.membersList.indexOf(member), 1);
+    this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
   }
 
   //  GET MEMBERS NAME
   nameQuery = '';
   getMembers(): void {
+    console.log('called');
     this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
   }
-  
   
   async deleteDocument(): Promise<void> {
     await this.workService.deleteDocument(this.repositoryId);

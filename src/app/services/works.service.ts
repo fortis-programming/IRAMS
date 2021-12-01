@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { firebaseConfig } from 'src/environments/environment';
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore, onSnapshot, collection, query, setDoc, doc, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore';
-import { getDatabase, ref, onValue } from "firebase/database";
+import { onSnapshot, collection, query, setDoc, doc, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import { ref, onValue } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { ProjectModel } from '../_shared/models/project.model';
 import { Router } from '@angular/router';
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const database = getDatabase();
+import { firestore, database } from './firebase.service';
+
+const firestoreInit = firestore;
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +16,14 @@ const database = getDatabase();
 
 export class WorksService {
   data: WorksModel[] = [];
-  docIds: Array<string> = [];
+  
   constructor(
     private router: Router
-  ) { }
-
+  ) { } 
+    
   docId = '';
   async getYourWorks(): Promise<Array<WorksModel[]>> {
-    const querySnapshot = await getDocs(collection(db, "works"));
+    const querySnapshot = await getDocs(collection(firestoreInit, "works"));
     this.data = [];
     querySnapshot.forEach((doc) => {
       this.data.push(JSON.parse(JSON.stringify(doc.data())));
@@ -42,7 +40,7 @@ export class WorksService {
   //  GATHER UPDATES FROM DATABASE
   databaseUpdate: Array<WorksModel> = [];
   realTimeUpdate(): void {
-    const q = query(collection(db, "works"));
+    const q = query(collection(firestoreInit, "works"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.databaseUpdate.splice(0, this.databaseUpdate.length)
       querySnapshot.forEach((doc) => {
@@ -60,15 +58,14 @@ export class WorksService {
 
   repositoryData: Array<WorksModel> = [];
   async getRepositoryData(docId: string): Promise<Array<WorksModel>> {
-    const docRef = doc(db, 'works', docId);
+    const docRef = doc(firestoreInit, 'works', docId);
     const docSnap = await getDoc(docRef);
     return JSON.parse(JSON.stringify(docSnap.data()));
   }
 
   //  RETURN DOCUMENT DATA USING DOCUMENT ID PROVIDED BY FIRESTORE
-  // repositoryData: WorksModel[] = [];
   async getWorkData(docId: string): Promise<WorksModel[]> {
-    const unsub = await onSnapshot(doc(db, 'works', docId), (doc) => {
+    const unsub = await onSnapshot(doc(firestoreInit, 'works', docId), (doc) => {
       this.repositoryData = [];
       this.repositoryData.push(JSON.parse(JSON.stringify(doc.data())));
     });
@@ -78,45 +75,27 @@ export class WorksService {
 
   //  UPDATE DOCUMENT CHANGES TO DATABASE
   async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
-    const ref = doc(db, 'works', docId);
+    const ref = doc(firestoreInit, 'works', docId);
     await setDoc(ref, htmlDoc);
   }
 
   /*
     WRITE PROJECT
   */
-
   //  CREATE PROJECT
   async createProject(project: ProjectModel): Promise<void> {
-    const docRef = await addDoc(collection(db, 'works'), project);
-    const ref = doc(db, 'works', docRef.id);
+    const docRef = await addDoc(collection(firestoreInit, 'works'), project);
+    const ref = doc(firestoreInit, 'works', docRef.id);
     [project][0].projectId = docRef.id;
     await setDoc(ref, project);
   }
 
   deleteDocument(docId: string): Promise<boolean> {
     const response = new Promise<boolean>((resolve) => {
-      deleteDoc(doc(db, 'works', docId))
+      deleteDoc(doc(firestoreInit, 'works', docId))
       resolve(true);
       this.router.navigate(['../app/repositories/works']);
     })
-
     return response;
-  }
-
-
-  // USERS
-  userName: Array<string> = [];
-  getUsersIcon(uid: Array<string>): Array<string> {
-    
-    this.userName = [];
-    uid.forEach(data => {
-      const starCountRef = ref(database, 'usersData/' + data);
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        this.userName.push(data['displayName']);
-      });
-    })
-    return this.userName;
   }
 }

@@ -17,7 +17,6 @@ export class WorksComponent implements OnInit {
     title: '',
     type: 'Developmental',
     college: 'Select a college',
-    validator: 'Select a validator',
     members: [],
     status: 'Ongoing',
     projectId: ''
