@@ -1,70 +1,74 @@
-.cards {
-  border-radius: 5px;
-  background-color: white;
-  border: 1px solid $border-color;
-
-  .head {
-    font-size: 0.80rem;
-    color: $black-1;
-  }
+.card {
+  font-size: 0.85rem;
 
   .title {
-    font-size: 1.2rem;
-    font-weight: 600;
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+}
+
+.document {
+  overflow: hidden;
+  background-color: white;
+
+  main {
+    height: 85vh;
+    overflow-y: auto;
   }
 
-  .keywords {
+  .wrapper {
+    padding: 18px;
+  }
+
+  .head-navigation {
+    margin: 0px 18px;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    border-bottom: 1px solid $border-color;
     font-size: 0.8rem;
-  }
 
-  .abstract {
-    font-size: 0.855rem;
-  }
-
-  .authors {
-    font-size: 0.8rem;
-    .date {
-      font-size: 0.8rem;
-      margin: auto 0;
-    }
-  }
-  
-  .content-bg {
-    background-color: black;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0.2;
-  }
-  
-  .full-content {
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-    height: 95%;
-    border-radius: 5px;
-    
     svg {
-      height: 24px;
+      height: 20px;
+    }
+
+    .title {
+      max-width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .back {
       cursor: pointer;
     }
   }
 }
 
-.btn-cards {
-  border: 1px solid $border-color;
-  margin: 5px;
-  padding: 8px;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 0.81rem;
-  
-  .selected {
-    color: red;
+.card-list {
+  background-color: white;
+  padding: 8px 15px;
+  display: grid;
+  grid-template-columns: 40% 30% 10% 10% 10%;
+  font-size: 0.75rem;
+  border-bottom: 1px solid whitesmoke;
+
+  &:hover {
+    cursor: default;
+    background-color: $primary-light;
   }
+
+  &__status {
+    display: flex;
+    justify-content: right;
+  }
+  
+  @media screen and (max-width: 900px) {
+    
+  }
+}
+
+.card-list>* {
+  margin: auto 0;
 }

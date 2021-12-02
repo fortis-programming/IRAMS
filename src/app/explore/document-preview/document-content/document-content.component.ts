@@ -17,7 +17,8 @@ export class DocumentContentComponent implements OnInit {
     abstract: '',
     college: '',
     keywords: '',
-    evaluator: ''
+    evaluator: '',
+    status: ''
   }
 
   authors: Array<string> = [];

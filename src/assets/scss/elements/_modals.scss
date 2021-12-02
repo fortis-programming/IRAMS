@@ -26,6 +26,12 @@
       width: 100%;
     }
   }
+  
+  @media screen and (max-width: 1000px) {
+    .btn {
+      padding: 12px;
+    }
+  }
 }
 
 #addUserModal {

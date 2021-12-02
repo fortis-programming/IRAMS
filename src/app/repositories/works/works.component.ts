@@ -16,7 +16,7 @@ export class WorksComponent implements OnInit {
   projectModel: ProjectModel = {
     title: '',
     type: 'Developmental',
-    college: 'Select a college',
+    college: 'CIT',
     members: [],
     status: 'Ongoing',
     projectId: ''

@@ -17,7 +17,8 @@ export class ExploreItemsComponent implements OnInit {
     abstract: '',
     college: '',
     keywords: '',
-    evaluator: ''
+    evaluator: '',
+    status: ''
   }
   
   @Input() docId: string = '';

@@ -1,15 +1,20 @@
 <div class="your-works p-3">
   <div class="works-header">
     <p>Project(s)</p>
-    <button class="btn btn__primary" data-toggle="modal" data-target="#createProjectModal">New project</button>
+    <button class="btn btn__primary" id="createPrjectBtn" data-toggle="modal" data-target="#createProjectModal">New project</button>
+    <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+      </svg>
+    </button>
   </div>
   <div class="works-container">
-    <div class="list-header list ">
-      <div class="list__title">Title</div>
-      <div class="list__contributor">Contributor(s)</div>
-      <div class="list__date"></div>
-      <div class="list__action"></div>
-      <div class="list__status">Status</div>
+    <div class="list-header card-list">
+      <div class="card-list__title">Title</div>
+      <div class="card-list__contributor">Contributor(s)</div>
+      <div class="card-list__date"></div>
+      <div class="card-list__action"></div>
+      <div class="card-list__status">Status</div>
     </div>
     <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId"
       [workItem]="repository"></app-works-items>
