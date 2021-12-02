@@ -15,9 +15,8 @@ import { UsersModel } from 'src/app/_shared/models/users.model';
   styleUrls: ['./work-preview.component.scss']
 })
 export class WorkPreviewComponent implements OnInit {
-  membersList: Array<Object> = [];
-  usersList: UsersModel[] = [];
   repositoryId = '';
+  edit = false;
 
   @Input() workItem: WorksModel = {
     projectId: '',
@@ -42,6 +41,14 @@ export class WorkPreviewComponent implements OnInit {
     ["text_color", "background_color"],
     ["align_left", "align_center", "align_right", "align_justify"]
   ];
+  
+  toolbar1: Toolbar = [
+    ["bold", "italic"],
+    ["underline", "strike"],
+    ["ordered_list", "bullet_list"],
+    ["align_left", "align_center", "align_right", "align_justify"],
+    [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
+  ];
 
   constructor(
     private router: Router,
@@ -54,8 +61,11 @@ export class WorkPreviewComponent implements OnInit {
     this.routeParams.params.subscribe(params => {
       this.repositoryId = params['id'];
     });
-    this.updateData(this.repositoryId);
+  this.updateData(this.repositoryId);
+    
+    // if([this.workItem].length === 0) alert('empty');
   }
+  
 
   buttonClicked = false;
   timer: any = ''
@@ -75,20 +85,20 @@ export class WorkPreviewComponent implements OnInit {
   updateData(docId: string): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.membersList = this.workItem.members;
+      this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
     });
     // this.extractMembers();
   }
 
   //  DETECT CHANGES
   onChange(): void {
-    this.saveUpdateToDatabase();
+    this.saveUpdateToDatabase(); 
   }
 
   //  RE-ROUTE TO PREVIEW PAGE
   closeRepository(): void {
     this.saveUpdateToDatabase();
-    this.router.navigate(['../app/repositories/works'])
+    this.router.navigate(['../app/repositories/works']);
   }
 
   /*============================================
@@ -105,6 +115,8 @@ export class WorkPreviewComponent implements OnInit {
   ===============================================*/
 
   //  PROCESS FROM DATABASE
+  membersList: Array<Object> = [];
+  usersList: UsersModel[] = [];
   getMembersFromDatabase(): void {
     this.userService.getUsersList().subscribe((response) => {
       this.usersList = response.data.filter((users: UsersModel) =>
@@ -124,27 +136,29 @@ export class WorkPreviewComponent implements OnInit {
 
   //  ADD SELECTED TO OBJECT/ARRAY
   addSelected(): void {
-    (this.membersList.includes(this.selected)) ? console.log() : this.membersList.push(this.selected);
+    (this.membersList.includes(this.selected)) ? console.log() : this.workItem.members.push(this.selected);
+    this.membersList = [];
+    this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
     this.selected = '';
     this.nameQuery = '';
     this.usersList = [];
+    console.log(this.workItem)
   }
 
   //  REMOVE USER
-  removeUserFromProject(user: object): void {
-    this.membersList.splice(this.membersList.indexOf(user), 1)
+  removeUserFromProject(user: object, member: object): void {
+    this.membersList.splice(this.membersList.indexOf(member), 1);
+    this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
   }
 
   //  GET MEMBERS NAME
   nameQuery = '';
   getMembers(): void {
+    console.log('called');
     this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
   }
   
-  
-  deleteDocument(): void {
-    this.workService.deleteProject(this.repositoryId).then(() => {
-      this.closeRepository();
-    })
+  async deleteDocument(): Promise<void> {
+    await this.workService.deleteDocument(this.repositoryId);
   }
 }

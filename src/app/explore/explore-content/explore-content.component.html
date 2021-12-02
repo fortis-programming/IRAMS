@@ -1,5 +1,5 @@
 <div class="explore">
-  <div class="input-container d-flex justify-content-between mt-2">
+  <!-- <div class="input-container d-flex justify-content-between mt-2">
     <div class="d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
@@ -9,8 +9,8 @@
       <input type="text" placeholder="Search for projects" [(ngModel)]="searchQuery" (keyup)="searchProject()">
     </div>
     <div>
-      <div class="dropdown filter">
-        <button id="filterDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"> {{filterBy}} <svg
+      <div class="dropdown filter p-1 " style="background-color: white; padding: 2px; width: 170px;">
+        <button id="filterDropdownMenu" class="d-flex justify-content-between w-100 px-2" data-bs-toggle="dropdown" aria-expanded="false"> <span class="my-auto">{{filterBy}}</span> <svg
             xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -22,7 +22,7 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="p-3">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
     <div class="empty-state p-3 mb-3" *ngIf="researches.length === 0">

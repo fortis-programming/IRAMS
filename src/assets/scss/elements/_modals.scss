@@ -1,5 +1,8 @@
 .modal {
-
+  button {
+    width: 100%;  
+  }
+  
   .modal-dialog {
     min-width: 60%;
   }
@@ -18,6 +21,16 @@
     border: none;
     font-size: 1.15rem;
     font-weight: 600;
+    
+    span {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .btn {
+      padding: 12px;
+    }
   }
 }
 

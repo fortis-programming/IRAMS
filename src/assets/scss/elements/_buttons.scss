@@ -3,6 +3,10 @@
   outline: 0px !important;
   -webkit-appearance: none;
   box-shadow: none !important;
+  
+  &:hover {
+    opacity: 0.9;
+  }
 
   &__secondary {
     background-color: rgb(230, 230, 230);
@@ -37,5 +41,19 @@
 
   &:hover {
     color: $primary;
+  }
+}
+
+.icon-btn {
+  padding: 4px 6px;
+  border-radius: 50px;
+
+  svg {
+    margin: auto;
+    height: 20px;
+  }
+  
+  &:hover {
+    background-color: $bg-color;
   }
 }

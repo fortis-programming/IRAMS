@@ -8,4 +8,5 @@ export interface ResearchModel {
     college: string;
     keywords: string;
     evaluator: string;
+    status: string;
 }

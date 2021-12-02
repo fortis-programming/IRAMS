@@ -2,18 +2,19 @@
   height: 100vh;
   background-color: white;
   border-right: 1px solid $border-color;
+  min-width: 7%;
 
   .banner {
     display: flex;
-    height: 57px;
+    height: 56px;
 
-    svg {
+    img {
+      height: 28px;
       margin: auto;
     }
   }
 
   nav {
-    .logo {}
 
     .nav-items {
       font-size: 0.83rem;
@@ -42,7 +43,7 @@
   @media screen and (max-width: 1000px) {
 
     nav {
-      position: absolute;
+      position: fixed;
       z-index: 1;
       background-color: white;
       display: grid;
