@@ -1,18 +1,3 @@
-<!-- <div class="list list-items" (click)="openRepository(workId)">
-  <div class="d-flex flex-column title-container">
-    <div class="list-items__title">{{workItem.title}}</div>
-    <span class="list-items__type">{{workItem.type}}</span>
-  </div>
-  <div class="members list-items__contributor">{{getMembers()}}</div>
-  <div class="list-items__date"></div>
-  <div class="list-items__action"></div>
-  <div class="list-items__status">
-    <span [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed'}">
-      {{workItem.status}}
-    </span>
-  </div>
-</div> -->
-
 <div class="card-list" (click)="openRepository(workId)">
   <div class="d-flex flex-column title-container">
     <div class="card-list__title heavy">{{workItem.title}}</div>

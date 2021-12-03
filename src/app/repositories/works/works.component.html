@@ -1,16 +1,19 @@
 <div class="your-works p-3">
   <div class="works-header">
     <p>Project(s)</p>
-    <button class="btn btn__primary" id="createPrjectBtn" data-toggle="modal" data-target="#createProjectModal">New project</button>
+    <button class="btn btn__primary" id="createPrjectBtn" data-toggle="modal" data-target="#createProjectModal">New
+      project</button>
     <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+        <path fillRule="evenodd"
+          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+          clipRule="evenodd" />
       </svg>
     </button>
   </div>
   <div class="works-container">
     <div class="list-header card-list">
-      <div class="card-list__title">Title</div>
+      <div class="card-list__title title">Title</div>
       <div class="card-list__contributor">Contributor(s)</div>
       <div class="card-list__date"></div>
       <div class="card-list__action"></div>
@@ -18,7 +21,9 @@
     </div>
     <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId"
       [workItem]="repository"></app-works-items>
-    <div class="empty-state" *ngIf="yourRepositories.length === 0">
+
+    <app-loading *ngIf="yourRepositories.length === 0"></app-loading>
+    <div class="empty-state" *ngIf="yourRepositories === null">
       No project yet
     </div>
   </div>
@@ -42,7 +47,7 @@
         <form #projectForm="ngForm">
           <div class="form-floating mb-2">
             <input [(ngModel)]="projectModel.title" #title="ngModel" name="title" type="email" class="form-control"
-              style="font-size: 0.8rem;" id="floatingTitle" placeholder="name@example.com" required>
+              id="floatingTitle" placeholder="name@example.com" required>
             <label for="floatingTitle" *ngIf="!hasError(title) && !title.errors?.touched">Project Title</label>
             <label class="message__error" for="floatingTitle" *ngIf="hasError(title) && title.errors?.required">Title is
               required</label>
@@ -67,12 +72,12 @@
                 <option value="CE">CE</option>
               </select>
               <label for="floatingSelect">College</label>
-            </div>  
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <span data-dismiss="modal" aria-label="Close" >
+        <span data-dismiss="modal" aria-label="Close">
           <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
             (click)="createProject()" data-dismiss="modal" aria-label="Close">
             Create
@@ -82,5 +87,4 @@
     </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>

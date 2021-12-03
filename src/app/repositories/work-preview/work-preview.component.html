@@ -7,18 +7,18 @@
           d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
           clipRule="evenodd" />
       </svg>
-      <p class="nav-title">{{workItem.title}}</p>
+      <p class="title">{{workItem.title}}</p>
     </div>
     <div class="action-section d-flex flex-row">
       <div class="dropdown">
         <svg xmlns="http://www.w3.org/2000/svg" id="userDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"
-          className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" data-toggle="modal"
-          data-target="#projectSettingsModal">
+          className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
             d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
         </svg>
         <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
           <li><a class="dropdown-item">Request validation</a></li>
+          <li><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Settings</a></li>
           <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Members</a></li>
           <li><a class="dropdown-item" (click)="deleteDocument()">Delete project</a></li>
         </ul>
@@ -27,46 +27,41 @@
   </div>
   <main>
     <div class="wrapper">
-      <div class="NgxEditor__Wrapper border-0" style="overflow: hidden;">
-        <span *ngIf="workItem.status !== 'Returned'"
-          [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned'}">
-          {{workItem.status}}
-        </span>
-        <div style="float: right;">
-          <div class="icon-btn">
-            <svg (click)="edit = true;" *ngIf="!edit" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"
-              viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-            </svg>
+      <div class="NgxEditor__Wrapper border-0">
+        <div class="p-3 px-0 pt-0">
+          <span *ngIf="workItem.status !== 'Returned'"
+            [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned'}">
+            {{workItem.status}}
+          </span>
+          <div style="float: right;">
+            <div class="icon-btn" *ngIf="!edit" (click)="edit = true;">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path
+                  d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+            </div>
+            <div class="icon-btn" *ngIf="edit" (click)="edit = false;">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </div>
           </div>
-          <span class="p-2 icon-btn" *ngIf="edit" (click)="edit = false;">Done</span>
         </div>
-        <span *ngIf="buttonClicked" class="p-2 small"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"
-            height="15px" class="color__light" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd"
-              d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-              clipRule="evenodd" />
-          </svg><label class="color__light" style="margin-left: 4px;">Saving...</label></span>
-        <span style="cursor: pointer;" *ngIf="workItem.status === 'Returned'" class="returned" data-toggle="modal"
+        <span *ngIf="workItem.status === 'Returned'" class="returned" data-toggle="modal"
           data-target="#addUserModal">
           {{workItem.status}}
         </span>
         <span *ngIf="workItem.status === 'Returned'" style="margin-left: 8px;">Comments (5)</span>
-        <div style="position: inherit; top: 0; margin-top: 12px;">
-          <input [disabled]="!edit" style="background-color: transparent;" [(ngModel)]="workItem.title"
-            (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="text" placeholder="Project Title"
-            class="ghost-input heavy" required>
-        </div>
         <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar1"></ngx-editor-menu>
         <ngx-editor [editor]="editor" [(ngModel)]="workItem.metaData" (keyup)="autoSaveDelay()" [disabled]="!edit"
-          [placeholder]="'Type here...'"></ngx-editor>
+          [placeholder]="''"></ngx-editor>
       </div>
     </div>
   </main>
 </div>
 
-<!-- MODAL -->
+<!-- ADDING USER MODAL -->
 <div class="modal fade bd-example-modal-sm" id="addUserModal" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -81,7 +76,7 @@
         </svg>
       </div>
       <div class="modal-body">
-        <div class="">
+        <!-- <div class="">
           <div *ngFor="let member of membersList; let id = index" class="user-list">
             {{member}}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
@@ -91,7 +86,7 @@
                 clipRule="evenodd" />
             </svg>
           </div>
-        </div>
+        </div> -->
         <div class="search-container">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd"
@@ -101,8 +96,8 @@
           <input type="text" [(ngModel)]="nameQuery" placeholder="Search by name" (keyup)="getMembers()">
         </div>
         <main>
-          <div class="user-list border-0" *ngFor="let user of usersList" [ngClass]="{'selected': user.uid === selected}"
-            (click)="selectUser(user.uid)">
+          <div class="user-list w-100 mb-0 my-2 " *ngFor="let user of usersList"
+            [ngClass]="{'selected': user.uid === selected}" (click)="selectUser(user.uid)">
             <div>
               <span>{{user.name}}</span>
             </div>
@@ -123,22 +118,50 @@
   </div>
 </div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="projectSettingsModal" tabindex="-1" role="dialog" aria-labelledby="projectSettingsModal"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <p class="modal-title" id="exampleModalLongTitle">Project setings</p>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+          <path fillRule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd" />
+        </svg>
       </div>
       <div class="modal-body">
-        ...
+        <div class="section-title">Update project title, abstract and members.</div>
+        <div class="form-floating mb-2">
+          <input [(ngModel)]="workItem.title" (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="text"
+            class="form-control" id="floatingTitle" placeholder="Type your title here" required>
+          <label for="floatingTitle">Project Title</label>
+          <!-- <label class="message__error" for="floatingTitle">Title is
+            required</label> -->
+        </div>
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+          <label for="floatingTextarea">Abstract</label>
+        </div>
+        <div class="section-title mt-3">
+          <label class="heavy">Collaborator(s)</label>
+        </div>
+        <div style="float: left;">
+          <div *ngFor="let member of membersList; let id = index" class="user-list">
+            <span class="mr-2">{{member}}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+              (click)="removeUserFromProject(workItem.members[id], member)" height="15px" class="close-btn">
+              <path fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd" />
+            </svg>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn__primary" (click)="saveUpdateToDatabase()" data-dismiss="modal">Save
+          changes</button>
       </div>
     </div>
   </div>

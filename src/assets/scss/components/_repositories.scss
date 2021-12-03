@@ -45,6 +45,10 @@
       color: $black-1;
       padding-bottom: 8px;
       font-size: 0.65rem;
+      
+      &:hover {
+        background-color: transparent;
+      }
     }
 
     .list-items {
@@ -78,7 +82,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
       }
 
       &__status {
@@ -107,11 +110,16 @@
   }
 
   @media screen and (max-width: 1000px) {
+    
     #createPrjectBtn {
       display: none;
     }
     
-    .members {
+    .list-header {
+      display: none;
+    }
+    
+    .members, .card-list__contributor {
       display: none;
     }
     
@@ -129,7 +137,7 @@
         height: 30px;
         margin: auto;
       }
-      
+      s
       span {
         display: none;
       }
@@ -137,8 +145,8 @@
     }
     
     .works-container {
-      background-color: transparent;
       padding: 0px;
+      background-color: transparent;
 
       .list {
         border-radius: 4px;
@@ -152,42 +160,6 @@
         &:hover {
           background-color: white;
         }
-      }
-
-      .list-items {
-        .members {
-          display: none;
-        }
-
-        &__status {
-          display: flex;
-          justify-content: left;
-
-          svg {
-            height: 15px;
-            margin: auto 0;
-            display: flex;
-          }
-
-          span {
-            margin: auto 0px;
-            font-size: 0.70rem;
-          }
-        }
-
-        &__title {
-          width: 100%;
-        }
-
-        .title-container {
-          border-bottom: 1px solid whitesmoke;
-          padding: 8px 0px;
-          margin-bottom: 8px;
-        }
-      }
-
-      .list-header {
-        display: none;
       }
     }
   }
