@@ -31,6 +31,7 @@ import { WorksItemsComponent } from './repositories/works/works-items/works-item
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { RepositoriesComponent } from './repositories/repositories.component';
     WorksComponent,
     WorksItemsComponent,
     WorkPreviewComponent,
-    RepositoriesComponent
+    RepositoriesComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

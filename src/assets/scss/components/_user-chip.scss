@@ -1,59 +1,57 @@
 .user-chip {
-    img {
-        border-radius: 50%;
-        height: 30px;
-    }
+  img {
+    border-radius: 50%;
+    height: 30px;
+  }
 }
 
 .user-list {
-    font-size: 0.89rem;
-    padding: 12px;
-    cursor: pointer;
+  font-size: 0.89rem;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  border: 1px solid $bg-color;
+  margin: 2px;
+  float: left;
+
+  // &:hover > .close-btn {
+  //     display: block;
+  // }
+
+  .close-btn {
+    display: flex;
+    margin: auto 0;
+  }
+
+  div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    
-    &:hover {
-        border: 1px solid $bg-color;
+  }
+
+  span {
+    margin: auto 8px;
+  }
+
+  .check {
+    margin: auto 0;
+    float: right;
+    border-radius: 50px;
+    display: none;
+
+    svg {
+      background-color: transparent;
+      color: green;
+      height: 20px;
+      margin: auto 0;
     }
-    
-    &:hover > .close-btn {
-        display: block;
-    }
-    
-    .close-btn {
-        display: none;
-        margin: auto 0;
-    }
-    
-    div {
-        display: flex;
-        flex-direction: row;
-    }
-    
-    span {
-        margin: auto 8px;
-    }
-    
-    .check {
-        margin: auto 0;
-        float: right;
-        border-radius: 50px;
-        display: none;
-        
-        svg {
-            background-color: transparent;
-            color: green;
-            height: 23px;
-            margin: auto 0;
-        }
-    }
+  }
 }
 
 .selected {
-    .check {
-        display: flex;
-    }
+  .check {
+    display: flex;
+  }
 }

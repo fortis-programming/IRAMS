@@ -31,10 +31,11 @@
 
     svg {
       height: 20px;
+      margin-top: 0;
     }
 
     .title {
-      max-width: 300px;
+      max-width: 50vw;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -48,11 +49,12 @@
 
 .card-list {
   background-color: white;
-  padding: 8px 15px;
+  padding: 15px;
   display: grid;
   grid-template-columns: 40% 30% 10% 10% 10%;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   border-bottom: 1px solid whitesmoke;
+  border-radius: 4px;
 
   &:hover {
     cursor: default;
@@ -63,9 +65,41 @@
     display: flex;
     justify-content: right;
   }
+
+  &__title {
+    max-width: 450px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .document {
+    .wrapper {
+      padding: 8px;
+    }  
+  }
   
-  @media screen and (max-width: 900px) {
-    
+  .card-list {
+    border: 1px solid $border-color;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+
+    &__title {
+      max-width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    &__status {
+      display: flex;
+      padding-top: 8px;
+      justify-content: left;
+    }
   }
 }
 
