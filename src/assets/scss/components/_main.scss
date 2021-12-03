@@ -1,26 +1,20 @@
 .main {
-  display: grid;
-  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  background-color: $bg-color;
+  overflow: hidden;
   
-  &__inner {
-    display: block;
-    width: calc(100%-50px);
-    height: 92vh;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: hidden;
   }
+}
 
-  @media screen and (max-width: 999px) {
-    .main {
-        flex-direction: column;
-        width: 100vw;
-        scroll-behavior: smooth;
-        
-      &__inner {
-        width: 100vw;
-        height: 85vh;
-        scroll-behavior: smooth;
-      }
-    }
+@media screen and (max-width: 1000px) {
+  .main {
+    display: flex;
   }
 }

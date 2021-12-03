@@ -17,7 +17,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'explore', pathMatch: 'full' },
       ...ExploreRoutes,
-      ...RepositoryRoutes
+      ...RepositoryRoutes,
+    
     ],
     canActivate: [AuthGuardService]
   }

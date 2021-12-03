@@ -1,6 +1,9 @@
-<div class="cards p-3 mb-3" (click)="openDocument()">
-  <div class="head mb-2">{{researchItem.type}}</div>
-  <div class="title">{{researchItem.title}}</div>
+<div class="card p-3 mb-3" (click)="openDocument()">
+  <!-- <small class="">
+    <span class="verified">{{researchItem.status}}</span>
+    {{researchItem.type}}
+  </small> -->
+  <div class="title heavy">{{researchItem.title}}</div>
   <div class="keywords">
     <strong>Keywords:</strong>
     {{researchItem.keywords}}

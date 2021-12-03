@@ -3,6 +3,20 @@
     width: 100%;  
   }
   
+  .modal-title {
+    p {
+      margin: 0;
+    }
+    small {
+      font-weight: 500;
+    }  
+  }
+  
+  .section-title {
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+  }
+  
   .modal-dialog {
     min-width: 60%;
   }
@@ -16,14 +30,22 @@
     margin: 0px;
   }
 
-  .modal-footer,
+  .modal-footer {
+    border: none;  
+  }
+  
   .modal-header {
-    border: none;
     font-size: 1.15rem;
     font-weight: 600;
-    
+    border-bottom: 1px solid $border-color;
     span {
       width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .btn {
+      padding: 12px;
     }
   }
 }

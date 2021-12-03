@@ -1,83 +1,56 @@
 .login {
-    height: 100vh;
-    background-color: white;
-    
-    button {
-        width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  height: 100vh;
+  width: 100vw;
+
+  .container {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+      width: 80%;
+      padding: 15px;
     }
-    
-    .divider {
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        float: left;
-        
-        &__left {
-            width: 60%;
-            background-color: $bg-color;
-        }
-        
-        &__right {
-            width: 40%;
-        }
-        
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
-        form {
-            width: 80%;
-            padding: 8px;
-        }
-        
-        .banner {
-            
-            span {
-                color: $primary;
-            }
-            
-            h3 {
-                font-weight: 500;
-            }
-            
-            p {
-                font-size: 0.8rem;
-            }
-        }
-        
-        
+  }
+  
+  .banner {
+    display: flex;
+    flex-direction: column;
+  
+    span {
+      color: $primary;
     }
-    
-    @media screen and (max-width: 900px) {
-        .divider {
-            flex-direction: column;
-            width: 100%;
-            
-            &__left {
-                display: none;
-            }
-            
-            &__right {
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-            }
-            
-            
-            .title {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-            }
-            
-            form {
-                width: 95%;
-            }
-        }
+  }
+  
+  // MEDIA QUERIES
+  @media screen and (max-width: 1100px) {
+    .left {
+      display: none;
     }
+  }
+}
+
+// MEDIA QUERIES
+@media screen and (max-width: 1100px) {
+  .login {
+    display: flex;
+    grid-template-columns: 100%;
+    
+    .container {
+      padding: 8px;
+    
+      form {
+        width: 90%;
+        margin: auto;
+        padding: 5px;
+      }
+    }
+  }
+}
+
+.left {
+    background-color: $bg-color;
 }

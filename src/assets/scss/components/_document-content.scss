@@ -1,95 +1,95 @@
-.document-content {
-  background-color: white;
-  scroll-behavior: smooth;
+// .document-content {
+//   background-color: white;
+//   scroll-behavior: smooth;
 
-  a {
-    svg {
-      margin: 0;
-      height: 20px;
-      margin: auto 0;
-    }
-  }
+//   a {
+//     svg {
+//       margin: 0;
+//       height: 20px;
+//       margin: auto 0;
+//     }
+//   }
 
-  .title {
-    padding: 20px;
-    padding-bottom: 10px;
-  }
+//   .title {
+//     padding: 20px;
+//     padding-bottom: 10px;
+//   }
   
-  .wrapper,
-  .wrapper>* {
-    background-color: white;
+//   .wrapper,
+//   .wrapper>* {
+//     background-color: white;
 
-    .action-section {
-      svg {
-        height: 20px;
-        margin-bottom: 2px;
-        cursor: pointer;
-      }
-    }
-  }
+//     .action-section {
+//       svg {
+//         height: 20px;
+//         margin-bottom: 2px;
+//         cursor: pointer;
+//       }
+//     }
+//   }
 
-  main {
-    background-color: white;
-    text-align: justify;
-    font-size: 0.855rem;
-    line-height: 1.5rem;
-    padding: 0px 8px;
+//   main {
+//     background-color: white;
+//     text-align: justify;
+//     font-size: 0.855rem;
+//     line-height: 1.5rem;
+//     padding: 0px 8px;
     
-    input {
-      padding-bottom: 8px;
-    }
-  }
+//     input {
+//       padding-bottom: 8px;
+//     }
+//   }
 
-  .nav-header {
+//   .nav-header {
     
-    .nav-title {
-      max-width: 100px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  }
+//     .nav-title {
+//       max-width: 100px;
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//     }
+//   }
 
-  .title {
+//   .title {
     
-    label {
-      font-size: 0.80rem;
-      color: $primary;
-      font-weight: 600;
-    }
+//     label {
+//       font-size: 0.80rem;
+//       color: $primary;
+//       font-weight: 600;
+//     }
 
-    h4 {
-      font-weight: 600;
-      font-size: 1.3rem;
-    }
+//     h4 {
+//       font-weight: 600;
+//       font-size: 1.3rem;
+//     }
 
-    .author {
-      font-size: 0.80rem;
-      display: flex;
-      flex-direction: row;
-      margin: 0px;
+//     .author {
+//       font-size: 0.80rem;
+//       display: flex;
+//       flex-direction: row;
+//       margin: 0px;
 
-      p {
-        margin: 0;
-        margin-right: 7px;
-        padding-right: 10px;
-      }
-    }
+//       p {
+//         margin: 0;
+//         margin-right: 7px;
+//         padding-right: 10px;
+//       }
+//     }
 
-    @media screen and (max-width: 999px) {
-      .author {
-        display: none;
-        flex-direction: column;
+//     @media screen and (max-width: 999px) {
+//       .author {
+//         display: none;
+//         flex-direction: column;
 
-        p {
-          border: none;
-        }
-      }
-    }
+//         p {
+//           border: none;
+//         }
+//       }
+//     }
 
-  }
-}
+//   }
+// }
 
-.NgxEditor__Wrapper {
-  margin: 0px 12px;
-}
+// .NgxEditor__Wrapper {
+//   margin: 0px 12px;
+// }

@@ -1,5 +1,5 @@
 <div class="explore">
-  <div class="input-container d-flex justify-content-between mt-2">
+  <!-- <div class="input-container d-flex justify-content-between mt-2">
     <div class="d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
@@ -22,7 +22,7 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="p-3">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
     <div class="empty-state p-3 mb-3" *ngIf="researches.length === 0">
