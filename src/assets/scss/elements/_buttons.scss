@@ -1,5 +1,5 @@
 .btn {
-  font-size: 0.855rem;
+  font-size: 0.80rem;
   outline: 0px !important;
   -webkit-appearance: none;
   box-shadow: none !important;
@@ -12,6 +12,10 @@
     background-color: rgb(230, 230, 230);
     border-radius: 50px;
     padding: 0;
+  }
+  
+  &__secondary-1 {
+    background-color: rgb(230, 230, 230);
   }
 
   &__primary {
@@ -34,13 +38,23 @@
     border: 1px solid $primary;
     color: $primary;
   }
+  
+  &__ghost {
+    background-color: transparent;
+    border: 1px solid rgb(160, 160, 175);
+    color: $primary;
+  }
 }
 
 .close-btn {
   cursor: pointer;
-
+  border-radius: 50%;
+  padding: 5px;
+  height: 30px;
+  
   &:hover {
     color: $primary;
+    background-color: $primary-1;
   }
 }
 

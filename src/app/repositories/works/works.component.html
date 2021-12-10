@@ -1,17 +1,17 @@
 <div class="your-works p-3">
-  <div class="works-header">
+  <div class="works-header" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
     <p>Project(s)</p>
-    <button class="btn btn__primary" id="createPrjectBtn" data-toggle="modal" data-target="#createProjectModal">New
+    <button class="btn btn__primary" id="" data-toggle="modal" data-target="#createProjectModal">New
       project</button>
-    <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
+    <!-- <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
           d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
           clipRule="evenodd" />
       </svg>
-    </button>
+    </button> -->
   </div>
-  <div class="works-container">
+  <div class="works-container" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
     <div class="list-header card-list">
       <div class="card-list__title title">Title</div>
       <div class="card-list__contributor">Contributor(s)</div>
@@ -21,11 +21,21 @@
     </div>
     <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId"
       [workItem]="repository"></app-works-items>
-
-    <app-loading *ngIf="yourRepositories.length === 0"></app-loading>
-    <div class="empty-state" *ngIf="yourRepositories === null">
-      No project yet
-    </div>
+    <app-loading *ngIf="getLoadingStatus()"></app-loading>
+  </div>
+  <div class="empty-state p-4" *ngIf="yourRepositories.length === 0 && !getLoadingStatus()">
+    <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+    <p>
+      <strong>No projects found</strong>
+    </p>
+    <p class="small">
+      Any projects that includes you will appear here
+    </p>
+    <button class="btn btn__primary mt-3" data-toggle="modal" data-target="#createProjectModal">Create new project</button>
   </div>
 </div>
 
@@ -77,7 +87,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <span data-dismiss="modal" aria-label="Close">
+        <span data-dismiss="modal" aria-label="Close" class="w-100">
           <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
             (click)="createProject()" data-dismiss="modal" aria-label="Close">
             Create

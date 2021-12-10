@@ -32,6 +32,9 @@ import { ExploreContentComponent } from './explore/explore-content/explore-conte
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
 import { LoadingComponent } from './loading/loading.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { GeneralSettingsComponent } from './account-settings/general-settings/general-settings.component';
+import { SecuritySettingsComponent } from './account-settings/security-settings/security-settings.component';
 
 
 @NgModule({
@@ -49,7 +52,10 @@ import { LoadingComponent } from './loading/loading.component';
     WorksItemsComponent,
     WorkPreviewComponent,
     RepositoriesComponent,
-    LoadingComponent
+    LoadingComponent,
+    AccountSettingsComponent,
+    GeneralSettingsComponent,
+    SecuritySettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,32 +1,41 @@
+<div class="d-flex justify-content-center p-3" *ngIf="loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
 <div class="explore">
-  <!-- <div class="input-container d-flex justify-content-between mt-2">
-    <div class="d-flex">
+  <div class="input-container d-flex justify-content-between">
+    <div class="input-wrapper d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
           clipRule="evenodd" />
       </svg>
-      <input type="text" placeholder="Search for projects" [(ngModel)]="searchQuery" (keyup)="searchProject()">
+      <input type="text" placeholder="Search" class="small" [(ngModel)]="searchQuery" (keyup)="searchProject()">
     </div>
     <div>
-      <div class="dropdown filter p-1 " style="background-color: white; padding: 2px; width: 170px;">
-        <button id="filterDropdownMenu" class="d-flex justify-content-between w-100 px-2" data-bs-toggle="dropdown" aria-expanded="false"> <span class="my-auto">{{filterBy}}</span> <svg
-            xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd" />
-          </svg></button>
+      <div class="dropdown filter p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" data-bs-toggle="dropdown" aria-expanded="false" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
         <ul class="dropdown-menu" aria-labelledby="filterDropdownMenu">
           <li><a class="dropdown-item" (click)="filter('All')">All</a></li>
           <li><a class="dropdown-item" (click)="filter('keywords')">Keywords</a></li>
         </ul>
       </div>
     </div>
-  </div> -->
+  </div>
   <div class="p-3">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
-    <div class="empty-state p-3 mb-3" *ngIf="researches.length === 0">
-      No repository found.
+    <div class="empty-state p-4" *ngIf="researches.length === 0 && !getLoadingStatus()">
+      <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <p>
+        <strong>Archive not found</strong>
+      </p>
     </div>
   </div>
 </div>

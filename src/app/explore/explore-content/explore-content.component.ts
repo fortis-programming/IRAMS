@@ -22,11 +22,17 @@ export class ExploreContentComponent implements OnInit {
     this.getAllArchive()
     this.docIds = this.exploreService.getDocId();
   }
-
+  
+  getLoadingStatus(): boolean {
+    return this.exploreService.loading;
+  }
+  
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT
+  loading = true;
   getAllArchive(): void {
     this.exploreService.getArchive().then(() => {
       this.researches = this.exploreService.getData();
+      this.loading = false;
     });
   }
   

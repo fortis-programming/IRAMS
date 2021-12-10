@@ -14,14 +14,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private headerService: HeaderService,
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   photo = '';
   name = '';
   ngOnInit(): void {
-    this.photo = JSON.parse(JSON.stringify(sessionStorage.getItem('photo')));
+    this.photo = ((JSON.parse(JSON.stringify(sessionStorage.getItem('photo'))) == ''))? JSON.parse(JSON.stringify(sessionStorage.getItem('photo'))) : '../../assets/images/user.png'; 
     this.name = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
     return;
   }
@@ -37,6 +37,10 @@ export class HeaderComponent implements OnInit {
   //  CHECK AUTHENTICATION
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
+  }
+  
+  routeToAccountSettings(): void {
+    this.router.navigate(['../app/account-settings']);
   }
 }
 
