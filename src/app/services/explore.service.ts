@@ -18,6 +18,7 @@ export class ExploreService {
   constructor() { }
 
   //  GET ALL ARCHIVES
+  loading = true;
   async getArchive(): Promise<any> {
     const queryFromDb = query(collection(db, 'archive'));
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
@@ -26,6 +27,7 @@ export class ExploreService {
         this.docId.push(doc.id);
         this.data.push(JSON.parse(JSON.stringify(doc.data())));
       })
+      this.loading = false;
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { SignUpService } from '../services/sign-up.service';
 
 import { SignupRequest } from '../_shared/models/requests/signup.request';
 
@@ -15,9 +16,12 @@ export class SignupComponent implements OnInit {
     email: '',
     password: '',
     confirmPassword: '',
-    studentId: ''
+    studentId: '',
+    name: ''
   }
-  constructor() { }
+  constructor(
+    private signupService: SignUpService
+  ) { }
 
   ngOnInit(): void {
     return;
@@ -26,5 +30,9 @@ export class SignupComponent implements OnInit {
   //  TO CHECK IF INPUT HAS AN ERROR
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)
+  }
+  
+  createYourAccount(): void {
+    this.signupService.createAccount(this.signupModel);
   }
 }

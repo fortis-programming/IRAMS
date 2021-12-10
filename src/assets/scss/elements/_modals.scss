@@ -1,8 +1,7 @@
 .modal {
   button {
-    width: 100%;  
+    float: right;
   }
-  
   .modal-title {
     p {
       margin: 0;
@@ -31,7 +30,8 @@
   }
 
   .modal-footer {
-    border: none;  
+    border: none;
+    width: 100%;  
   }
   
   .modal-header {
@@ -45,7 +45,7 @@
   
   @media screen and (max-width: 1000px) {
     .btn {
-      padding: 12px;
+      width: 100%;
     }
   }
 }

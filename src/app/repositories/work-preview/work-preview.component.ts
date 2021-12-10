@@ -82,10 +82,12 @@ export class WorkPreviewComponent implements OnInit {
   }
 
   //  WILL UPDATE THE LOCAL DATA FOR FRONTEND
+  loading = true;
   updateData(docId: string): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
       this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
+      this.loading = false;
     });
     // this.extractMembers();
   }

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   //  LOGIN WITH SIGN-IN POPUP FROM GOOGLE
   async loginWithGoogle(): Promise<void> {
     let response = await this.authService.loginWithPopup();
-    (response)? this.route.navigate(['/app']) : console.log(0);
+    (response)? this.route.navigate(['/app']) : this.route.navigate(['login']);
   }
   
   // LOGOUT USER

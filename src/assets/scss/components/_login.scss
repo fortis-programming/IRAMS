@@ -13,16 +13,26 @@
     form {
       width: 80%;
       padding: 15px;
+      
+      .banner {
+        text-align: left;
+      }
     }
   }
   
   .banner {
     display: flex;
     flex-direction: column;
+    text-align: center;
   
     span {
       color: $primary;
     }
+    
+    p {
+      font-size: 0.82rem;
+    }
+    
   }
   
   // MEDIA QUERIES
