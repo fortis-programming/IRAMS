@@ -12,7 +12,7 @@ import { WorksModel } from '../../_shared/models/works.model';
 export class WorksComponent implements OnInit {
   yourRepositories: WorksModel[] = [];
   documentIds: Array<string> = [];
-
+  
   projectModel: ProjectModel = {
     title: '',
     type: 'Developmental',
@@ -31,8 +31,16 @@ export class WorksComponent implements OnInit {
     let userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))
     this.headerService.setTitle('Repositories');
     this.worksService.realTimeUpdate();
-    this.yourRepositories = this.worksService.getDatabaseUpdate();
+    this.worksService.getDatabaseUpdate().then((data) => {
+      this.yourRepositories = data;
+    }).catch((error) => {
+      console.log(error)
+    })
     this.projectModel.members.push(userEmail)
+  }
+  
+  getLoadingStatus(): boolean {
+    return this.worksService.loading;
   }
   
   //  TO CHECK IF INPUT HAS AN ERROR

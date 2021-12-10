@@ -3,4 +3,5 @@ export interface SignupRequest {
     studentId: string;
     password: string;
     confirmPassword: string;
+    name: string;
 }

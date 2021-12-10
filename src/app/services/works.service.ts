@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { onSnapshot, collection, query, setDoc, doc, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore';
-import { ref, onValue } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { ProjectModel } from '../_shared/models/project.model';
 import { Router } from '@angular/router';
 
-import { firestore, database } from './firebase.service';
+import { firestore } from './firebase.service';
 
 const firestoreInit = firestore;
 
@@ -38,6 +37,7 @@ export class WorksService {
   */
 
   //  GATHER UPDATES FROM DATABASE
+  loading = true;
   databaseUpdate: Array<WorksModel> = [];
   realTimeUpdate(): void {
     const q = query(collection(firestoreInit, "works"));
@@ -48,11 +48,12 @@ export class WorksService {
           this.databaseUpdate.push(JSON.parse(JSON.stringify(doc.data())));
         }
       });
+      this.loading = false;
     });
   }
-
+  
   //  RETRIEVE REALTIME UPDATES AND SEND TO FRONT-END
-  getDatabaseUpdate(): Array<WorksModel> {
+  async getDatabaseUpdate(): Promise<Array<WorksModel>> {
     return this.databaseUpdate;
   }
 

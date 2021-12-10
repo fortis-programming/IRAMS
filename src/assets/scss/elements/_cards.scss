@@ -1,9 +1,19 @@
 .card {
   font-size: 0.85rem;
+  cursor: default;
 
   .title {
     margin: 8px 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .keywords {
+    font-size: 0.80rem;
+    color: $black-1;
+  }
+  
+  .abstract {
+    line-height: 1.3rem;
   }
 }
 
@@ -87,6 +97,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
+    
+    &:hover {
+      background-color: white;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
+    }
 
     &__title {
       max-width: 300px;

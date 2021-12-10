@@ -9,16 +9,29 @@
     display: flex;
     width: 100%;
     margin: auto;   
-    background-color: white;
     font-size: 0.855rem;
     justify-content: center;
     padding-top: 5px;
+    background-color: transparent;
+    align-items: center;
+    flex-direction: column;
         
+    svg {
+        margin: 15px;
+        margin-bottom: 0px;
+        color: $black-1;
+        height: 150px;
+    }
+    
     &__button {
         color: $primary;
         font-weight: 600;
         border: 1px solid $primary;
         background-color: #0d4b9c07;
+    }
+    
+    p {
+        margin: 0px;
     }
 }
 

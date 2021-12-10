@@ -1,5 +1,5 @@
 <div class="document">
-  <div class="head-navigation d-flex justify-content-between">
+  <div class="head-navigation d-flex justify-content-between" *ngIf="!loading">
     <div class="d-flex flex-row">
       <p (click)="closeRepository()" class="back">Projects</p>
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -17,7 +17,7 @@
             d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
         </svg>
         <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-          <li><a class="dropdown-item">Request validation</a></li>
+          <li><a class="dropdown-item" data-toggle="modal" data-target="#requestValidationModal">Request validation</a></li>
           <li><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Settings</a></li>
           <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Members</a></li>
           <li><a class="dropdown-item" (click)="deleteDocument()">Delete project</a></li>
@@ -26,7 +26,12 @@
     </div>
   </div>
   <main>
-    <div class="wrapper">
+    <div class="d-flex justify-content-center p-3" *ngIf="loading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+    <div class="wrapper" *ngIf="!loading">
       <div class="NgxEditor__Wrapper border-0">
         <div class="p-3 px-0 pt-0">
           <span *ngIf="workItem.status !== 'Returned'"
@@ -76,17 +81,6 @@
         </svg>
       </div>
       <div class="modal-body">
-        <!-- <div class="">
-          <div *ngFor="let member of membersList; let id = index" class="user-list">
-            {{member}}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-              (click)="removeUserFromProject(workItem.members[id], member)" height="15px" class="close-btn">
-              <path fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd" />
-            </svg>
-          </div>
-        </div> -->
         <div class="search-container">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd"
@@ -162,6 +156,35 @@
       <div class="modal-footer">
         <button type="button" class="btn btn__primary" (click)="saveUpdateToDatabase()" data-dismiss="modal">Save
           changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm" id="requestValidationModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLongTitle">Request validation</p>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+          <path fillRule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd" />
+        </svg>
+      </div>
+      <div class="modal-body">
+        <main>
+          <div class="form-floating mb-3">
+            <input type="text"
+              class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword">Request message</label>
+          </div>
+        </main>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn__primary" (click)="addSelected()">Send request</button>
       </div>
     </div>
   </div>

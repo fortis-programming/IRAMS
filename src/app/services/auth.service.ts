@@ -36,8 +36,14 @@ export class AuthService {
         let token = credential?.accessToken;
         const user = result.user;
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
+        sessionStorage.setItem('email', JSON.parse(JSON.stringify(user.email)));
         this.setSessions([user.refreshToken, JSON.parse(JSON.stringify(user.uid))]);
-        return true;
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+        console.log(email + '-' + emailVerified)
+        return false;
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -46,15 +52,17 @@ export class AuthService {
         console.log(credential);
         return false;
       })
-
     return process;
   }
+  
+  
 
   //  SIGN IN WITH CREDENTIALS
   async loginWithCredentials(email: string, password: string): Promise<boolean> {
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)))
+        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)));
+        sessionStorage.setItem('email', JSON.parse(JSON.stringify(userCredential.user.email)));
         this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.uid))]);
         return true;
       }).catch((error) => {
