@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
-import { ref, set, getDatabase } from 'firebase/database';
+import { ref, set } from 'firebase/database';
 import { AccountModel } from '../_shared/models/account.model';
 
 import { SignupRequest } from '../_shared/models/requests/signup.request';
 import { database } from './firebase.service';
-
-const databaseReference = ref(getDatabase());
 
 @Injectable({
   providedIn: 'root'

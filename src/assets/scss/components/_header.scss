@@ -13,11 +13,16 @@
     font-weight: 600;
     margin-right: 20px;
   }
+}
 
-  @media screen and (max-width: 900px) {
-    svg {
-      display: flex;
-    }
+
+@media screen and (max-width: 900px) {
+  svg {
+    display: flex;
+  }
+  
+  .header {
+    padding: 15px 18px;
   }
 }
 

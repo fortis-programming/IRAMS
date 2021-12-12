@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/main/header/header.service';
+import { SignUpService } from 'src/app/services/sign-up.service';
 import { UsersService } from 'src/app/services/users.service';
 import { AccountModel } from 'src/app/_shared/models/account.model';
 
@@ -37,6 +38,12 @@ export class GeneralSettingsComponent implements OnInit {
   
   closeAccountSettings(): void {
     this.router.navigate(['../app/explore']);
+  }
+  
+  changesSaved = false;
+  saveAccountChanges(): void {
+    this.userService.saveAccountChanges(this.user);
+    this.changesSaved = false;
   }
 
 }

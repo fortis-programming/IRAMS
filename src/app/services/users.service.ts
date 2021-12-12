@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../_shared/models/responses/base-response.model';
 import { UsersModel } from '../_shared/models/users.model';
-import { ref, onValue, get, child, getDatabase } from "firebase/database";
+import { ref, set, onValue, get, child, getDatabase } from "firebase/database";
 import { database } from "../services/firebase.service";
+
 import { AccountModel } from '../_shared/models/account.model';
 
 const dbRef = ref(getDatabase());
@@ -45,5 +46,11 @@ export class UsersService {
       }
     });
     return this.usermetaData;
+  }
+  
+  saveAccountChanges(account: AccountModel): void {
+    const uid = sessionStorage.getItem('_name');
+    const userRef = ref(database, 'usersData/'+ uid);
+    set(userRef, account);
   }
 }

@@ -17,7 +17,8 @@
             d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
         </svg>
         <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-          <li><a class="dropdown-item" data-toggle="modal" data-target="#requestValidationModal">Request validation</a></li>
+          <li><a class="dropdown-item" data-toggle="modal" data-target="#requestValidationModal">Request validation</a>
+          </li>
           <li><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Settings</a></li>
           <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Members</a></li>
           <li><a class="dropdown-item" (click)="deleteDocument()">Delete project</a></li>
@@ -40,27 +41,27 @@
           </span>
           <div style="float: right;">
             <div class="icon-btn" *ngIf="!edit" (click)="edit = true;">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20"
-                fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
               </svg>
             </div>
             <div class="icon-btn" *ngIf="edit" (click)="edit = false;">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <path fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd" />
               </svg>
             </div>
           </div>
         </div>
-        <span *ngIf="workItem.status === 'Returned'" class="returned" data-toggle="modal"
-          data-target="#addUserModal">
+        <span *ngIf="workItem.status === 'Returned'" class="returned" data-toggle="modal" data-target="#addUserModal">
           {{workItem.status}}
         </span>
         <span *ngIf="workItem.status === 'Returned'" style="margin-left: 8px;">Comments (5)</span>
-        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar1"></ngx-editor-menu>
         <ngx-editor [editor]="editor" [(ngModel)]="workItem.metaData" (keyup)="autoSaveDelay()" [disabled]="!edit"
           [placeholder]="''"></ngx-editor>
+        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar1"></ngx-editor-menu>
       </div>
     </div>
   </main>
@@ -176,15 +177,53 @@
       </div>
       <div class="modal-body">
         <main>
-          <div class="form-floating mb-3">
-            <input type="text"
-              class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword">Request message</label>
-          </div>
+          <form #validationForm="ngForm">
+            <div class="form-floating mb-2">
+              <select [(ngModel)]="requestValidation.validator" name="validator" #validator="ngModel" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <option selected>Select a validator</option>
+                <option value="1">Research Instructor A</option>
+                <option value="2">Research Instructor B</option>
+                <option value="3">Research Instructor c</option>
+              </select>
+              <label for="floatingSelect">College</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" [(ngModel)]="requestValidation.message" name="mesage" #message="ngModel"
+                class="form-control" id="floatingPassword" placeholder="Name" required>
+              <label for="floatingPassword" *ngIf="!hasError(message)">Request message</label>
+              <label for="floatingPassword" class="message__error" *ngIf="message.errors?.required && hasError(message)">Request message is required</label>
+            </div>
+          </form>
         </main>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" (click)="addSelected()">Send request</button>
+        <button type="button" class="btn btn__primary" [disabled]="!validationForm.valid" (click)="createValidationRequest()" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#successMessageModal">Send request</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal" id="successMessageModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content d-flex justify-content-center m-auto" id="successModal">
+      <!-- <div class="modal-header">
+        <p class="modal-title" id="exampleModalLongTitle">Request validation</p>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+          <path fillRule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd" />
+        </svg>
+      </div> -->
+      <div class="modal-body">
+        <main class="d-flex flex-column justify-content-center">
+          <img class="p-2" src="../../../assets/images/undraw_winners_re_wr1l.svg" height="300px">
+          <div class="p-2 text-center">Request was successfuly sent.</div>
+        </main>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a data-dismiss="modal" aria-label="Close" class="close-btn heavy">Go back</a>
       </div>
     </div>
   </div>
