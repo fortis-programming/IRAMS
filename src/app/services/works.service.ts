@@ -6,6 +6,7 @@ import { ProjectModel } from '../_shared/models/project.model';
 import { Router } from '@angular/router';
 
 import { firestore } from './firebase.service';
+import { ValidationRequest } from '../_shared/models/requests/validation.request';
 
 const firestoreInit = firestore;
 
@@ -98,5 +99,9 @@ export class WorksService {
       this.router.navigate(['../app/repositories/works']);
     })
     return response;
+  }
+  
+  async createRequestValidation(request: ValidationRequest): Promise<void> {
+    const docRef = await addDoc(collection(firestoreInit, 'validationRequests'), request);
   }
 }

@@ -8,6 +8,7 @@ import { WorksModel } from 'src/app/_shared/models/works.model';
 import { UsersService } from 'src/app/services/users.service';
 import { WorksService } from 'src/app/services/works.service';
 import { UsersModel } from 'src/app/_shared/models/users.model';
+import { ValidationRequest } from 'src/app/_shared/models/requests/validation.request';
 
 @Component({
   selector: 'app-work-preview',
@@ -29,6 +30,13 @@ export class WorkPreviewComponent implements OnInit {
     college: '',
     metaData: '',
     contributors: []
+  }
+  
+  requestValidation: ValidationRequest = {
+    validator: 'Select a validator',
+    message: '',
+    metaData: '',
+    sender: ''
   }
 
   editor: Editor = new Editor();
@@ -89,7 +97,6 @@ export class WorkPreviewComponent implements OnInit {
       this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
       this.loading = false;
     });
-    // this.extractMembers();
   }
 
   //  DETECT CHANGES
@@ -156,11 +163,20 @@ export class WorkPreviewComponent implements OnInit {
   //  GET MEMBERS NAME
   nameQuery = '';
   getMembers(): void {
-    console.log('called');
     this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
   }
   
   async deleteDocument(): Promise<void> {
     await this.workService.deleteDocument(this.repositoryId);
+  }
+  
+  createValidationRequest(): void {
+    this.requestValidation.metaData = this.workItem.metaData;
+    this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
+    this.workService.createRequestValidation(this.requestValidation);
+  }
+  
+  hasError(formControl: any): boolean {
+    return formControl.invalid && (formControl.dirty || formControl.touched)
   }
 }

@@ -6,8 +6,8 @@
     </div>
     <main *ngIf="!loading">
       <div class="general-settings__header">
-        <svg xmlns="http://www.w3.org/2000/svg" (click)="closeAccountSettings()" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" (click)="closeAccountSettings()" className="h-5 w-5" viewBox="0 0 20 20"
+          fill="currentColor" data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
           <path fillRule="evenodd"
             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
             clipRule="evenodd" />
@@ -23,24 +23,29 @@
         </div>
       </div>
       <div class="bio p-2">
-        <div class="form-wrapper">
-          <div class="form-floating mb-3">
-            <input [(ngModel)]="user.displayName" name="displayName" #displayName="ngModel" type="text"
-              class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword">Display name</label>
-            <label for="floatingPassword" *ngIf="displayName.errors?.required" class="message__error">Display name is
-              required</label>
+
+        <form #accountForm="ngForm">
+          <div class="form-wrapper">
+            <div class="form-floating mb-3">
+              <input [(ngModel)]="user.displayName" name="displayName" #displayName="ngModel" type="text"
+                (ngModelChange)="changesSaved = true" class="form-control" id="floatingPassword" placeholder="Name"
+                required>
+              <label for="floatingPassword">Display name</label>
+              <label for="floatingPassword" *ngIf="displayName.errors?.required" class="message__error">Display name is
+                required</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input [(ngModel)]="user.email" name="email" #email="ngModel" type="text"
+                (ngModelChange)="changesSaved = true" class="form-control" id="floatingPassword" placeholder="Name"
+                required>
+              <label for="floatingPassword">Email</label>
+              <label for="floatingPassword" *ngIf="displayName.errors?.required" class="message__error">Email name is
+                required</label>
+            </div>
           </div>
-          
-          <div class="form-floating mb-3">
-            <input [(ngModel)]="user.email" name="displayName" #displayName="ngModel" type="text"
-              class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword">Email</label>
-            <label for="floatingPassword" *ngIf="displayName.errors?.required" class="message__error">Email name is
-              required</label>
-          </div>
-        </div>
-        
+        </form>
+
         <div class="change-password__container p-2 mb-3">
           <small><strong>Change password</strong></small>
           <p>
@@ -48,9 +53,8 @@
           </p>
           <button class="btn btn__secondary-1">Change password</button>
         </div>
-
-        <div class="action-container">
-          <button class="btn btn__primary">Save changes</button>
+        <div class="action-container" (click)="saveAccountChanges()">
+          <button class="btn btn__primary" *ngIf="changesSaved">Save changes</button>
         </div>
       </div>
     </main>
