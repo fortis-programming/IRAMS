@@ -1,8 +1,9 @@
 .form-floating {
-  font-size: 0.82rem;
+  font-size: 12px;
 
   label {
     margin-top: 0.2rem;
+    font-size: 0.82rem;;
   }
 
   .form-control {
@@ -12,10 +13,6 @@
     border: none;
     border: 1px solid $bg-color;
     border-radius: 3px;
-  }
-  
-  input {
-    font-size: 0.8rem;
   }
 }
 
@@ -36,18 +33,19 @@
     margin: auto 8px;
     padding: 3px;
     background-color: transparent;
+    font-size: 12px;
   }
 }
 
 input {
   outline: none;
+  font-size: 11px;
 }
 
 .ghost-input {
   border: none;
   width: 100%;
   border: 0px solid lightgray;
-  font-size: 1.2rem;
   padding-top: 5px;
   word-break: break-all;
 }
@@ -114,5 +112,35 @@ span {
   cursor: pointer;
 }
 
-.filter {
+.search-bar {
+  display: flex;
+  padding: 8px;
+  margin: 15px;
+  background-color: #f2f2f2bb;
+  border-radius: 4px;
+  justify-content: space-between;
+  width: 50%;
+  
+  input {
+    background: none;
+    border: none;
+    margin: auto 8px;
+    width: 100%;
+  }
+  
+  svg {
+    color: gray;
+    height: 22px;
+    margin: auto 0;
+  }
+  
+  div {
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .search-bar {
+    width: 95%;
+  }
 }

@@ -4,9 +4,9 @@ export interface WorksModel {
     type: string;
     updatedAt: string;
     status: string;
-    members: Array<Object>;
+    members: Array<string>;
     validator: string;
     college: string;
     metaData: string;
-    contributors: Array<Object>;
+    contributors: Array<string>;
 }

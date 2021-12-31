@@ -1,6 +1,6 @@
 .sidenav {
   height: 100vh;
-  background-color: white;
+  background-color: whitesmoke;
   border-right: 1px solid $border-color;
   min-width: 7%;
 
@@ -18,45 +18,103 @@
 
     .nav-items {
       font-size: 0.83rem;
-      color: $black-1;
+      color: #B1B1B1;
 
       &:active,
       .active {
         color: $primary;
-        background-color: #0d4b9c21;
+        // background-color: #0d4b9c21;
+
+        label {
+          color: $primary;
+        }
       }
 
       div {
         display: flex;
+        flex-direction: column;
         outline: none;
         padding: 15px;
+        align-items: center;
 
         svg {
           margin: auto;
           height: 24px;
         }
+
+        label {
+          color: #B1B1B1;
+          font-size: 0.755rem;
+          display: none;
+          font-weight: 600;
+        }
       }
     }
   }
+}
 
+@media screen and (max-width: 999px) {
 
-  @media screen and (max-width: 1000px) {
-
+  .sidenav {
+    position: absolute;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border: 1px solid $border-color;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    
     nav {
-      position: fixed;
-      z-index: 1;
-      background-color: white;
-      display: grid;
-      grid-template-columns: repeat(3, calc(100% / 3));
-      width: 100%;
-      bottom: 0;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      border-top: 0.05rem solid $border-color;
-
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      width: 95%;
+      margin: auto;
+      justify-content: space-evenly;
+      gap: 30px;
+      
+      .nav-items {
+        margin: 5px;
+        
+        .active {
+          background-color: $bg-color;
+          border-radius: 50%;
+        }
+        
+      }
+      
+      label {
+        display: flex;
+      }
+      
       .logo {
         display: none;
       }
+      
     }
-
   }
+  // .sidenav {
+  //   background-color: red;
+    
+  //   nav {
+  //     position: fixed;
+  //     z-index: 1;
+  //     display: grid;
+  //     grid-template-columns: repeat(3, calc(100% / 3));
+  //     width: 100%;
+  //     bottom: 0;
+  //     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  //     border-top: 0.05rem solid $border-color;
+            
+  //     .logo {
+  //       display: none;
+  //     }
+    
+  //     label {
+  //       display: flex;
+  //       position: absolute;
+  //     }
+  //   }
+  // }
 }

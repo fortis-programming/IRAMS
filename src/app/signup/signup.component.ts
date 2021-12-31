@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignUpService } from '../services/sign-up.service';
 
 import { SignupRequest } from '../_shared/models/requests/signup.request';
@@ -20,7 +21,8 @@ export class SignupComponent implements OnInit {
     name: ''
   }
   constructor(
-    private signupService: SignUpService
+    private signupService: SignUpService,
+    private route: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,8 @@ export class SignupComponent implements OnInit {
   }
   
   createYourAccount(): void {
-    this.signupService.createAccount(this.signupModel);
+    this.signupService.createAccount(this.signupModel).then(() => {
+      this.route.navigate(['login']);
+    })
   }
 }

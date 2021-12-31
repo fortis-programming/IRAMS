@@ -8,11 +8,6 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 15px;
-
-    button {
-      padding: 8px 20px;
-      font-size: 0.80rem;
-    }
   }
 
   .works-header>* {
@@ -108,8 +103,8 @@
       display: flex;
       position: fixed;
       width: auto;
-      bottom: 10%;
-      right: 2%;
+      bottom: 11%;
+      right: 4%;
       padding: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       border-radius: 50px;

@@ -3,27 +3,31 @@
   flex-direction: column;
   height: 100vh;
 
+  input {
+    font-size: 12px;
+  }
+
   nav {
     padding: 0px 15px;
     padding-bottom: 0px;
     width: 100%;
     background-color: white;
     border-bottom: 1px solid $border-color;
-    
+
     .nav-items {
       display: flex;
       font-size: 0.80rem;
       width: fit-content;
       cursor: pointer;
       margin-right: 8px;
-      
+
       .active {
         border-bottom: 2px solid $primary;
         font-weight: 600;
       }
-      
+
       div {
-        padding: 8px;  
+        padding: 8px;
       }
     }
   }
@@ -38,7 +42,7 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  
+
   main {
     padding: 0px 10px;
     width: 50%;
@@ -81,19 +85,19 @@
   .information {
     margin: auto 10px;
   }
-  
+
   .change-password {
     &__container {
       background-color: $primary-1;
       border: 1px solid $bg-color;
       border-radius: 3px;
-      
+
       p {
         margin-top: 8px;
         font-size: 0.8rem;
         padding: 8px 0px;
       }
-      
+
       button {
         color: $primary;
         font-weight: 600;
@@ -107,21 +111,23 @@
   flex-direction: row;
 }
 
-.bio, .form-wrapper > * {
+.bio,
+.form-wrapper>* {
   width: 100%;
 }
 
 @media screen and (max-width: 999px) {
+
   button,
-  .form-wrapper > * {
+  .form-wrapper>* {
     width: 100%;
   }
-  
+
   .form-wrapper {
     display: flex;
     flex-direction: column;
   }
-  
+
   .general-settings {
     main {
       width: 100%;

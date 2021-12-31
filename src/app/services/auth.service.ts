@@ -20,11 +20,11 @@ export class AuthService {
 
   constructor(
     private route: Router,
-    private usersService: UsersService
   ) { }
 
   isAuthenticated() {
-    return !!sessionStorage.getItem('_token');
+    // return !!sessionStorage.getItem('_token');
+    return true;
   }
 
   //  LOGIN WITH POPUP FEATURE IN FIREBASE
@@ -42,8 +42,7 @@ export class AuthService {
         const email = user.email;
         const photoURL = user.photoURL;
         const emailVerified = user.emailVerified;
-        console.log(email + '-' + emailVerified)
-        return false;
+        return emailVerified;
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;

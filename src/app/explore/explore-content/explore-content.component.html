@@ -1,17 +1,17 @@
-<div class="d-flex justify-content-center p-3" *ngIf="loading">
+<!-- <div class="d-flex justify-content-center p-3" *ngIf="loading">
   <div class="spinner-border text-primary" role="status">
     <span class="sr-only"></span>
   </div>
 </div>
-<div class="explore">
-  <div class="input-container d-flex justify-content-between">
+<div class="explore"> -->
+  <!-- <div class="input-container d-flex justify-content-between">
     <div class="input-wrapper d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd"
           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
           clipRule="evenodd" />
       </svg>
-      <input type="text" placeholder="Search" class="small" [(ngModel)]="searchQuery" (keyup)="searchProject()">
+      <input type="text" placeholder="Search" style="font-size: 12px;" [(ngModel)]="searchQuery" (keyup)="searchProject()">
     </div>
     <div>
       <div class="dropdown filter p-1">
@@ -24,11 +24,31 @@
         </ul>
       </div>
     </div>
-  </div>
-  <div class="p-3">
+  </div> -->
+  
+  <!-- <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" height="25px" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd"
+        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+        clipRule="evenodd" />
+    </svg>
+    <input type="text" placeholder="Search" style="font-size: 12px;" [(ngModel)]="searchQuery" (keyup)="searchProject()">
+    <div>
+      <div class="dropdown filter p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-bs-toggle="dropdown" aria-expanded="false"  height="25px" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+        </svg>
+        <ul class="dropdown-menu" aria-labelledby="filterDropdownMenu">
+          <li><a class="dropdown-item" (click)="filter('All')">All</a></li>
+          <li><a class="dropdown-item" (click)="filter('keywords')">Keywords</a></li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+<!--   
+  <div class="">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
     <div class="empty-state p-4" *ngIf="researches.length === 0 && !getLoadingStatus()">
-      <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -37,5 +57,55 @@
         <strong>Archive not found</strong>
       </p>
     </div>
+  </div>
+</div> -->
+
+<div class="explore">
+  <div class="search-bar">
+    <div class="d-flex flex-row w-100">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" height="25px" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd"
+          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+          clipRule="evenodd" />
+      </svg>
+      <input type="text" placeholder="Search" style="font-size: 12px;" [(ngModel)]="searchQuery" (keyup)="searchProject()">
+    </div>
+    <div style="justify-self: flex-end; display: flex; float: right">
+      <div class="dropdown filter p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-bs-toggle="dropdown" aria-expanded="false"  height="25px" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+        </svg>
+        <ul class="dropdown-menu" aria-labelledby="filterDropdownMenu">
+          <li><a class="dropdown-item" (click)="filter('All')">All</a></li>
+          <li><a class="dropdown-item" (click)="filter('keywords')">Keywords</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="d-flex justify-content-center p-3" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+  
+  <div *ngIf="!loading">
+    <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research" [docId]="docIds[i]"></app-explore-items>
+  </div>
+  
+  <div class="d-flex justify-content-center p-3" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+  
+  <div class="empty-state p-4" *ngIf="researches.length === 0 && !getLoadingStatus()">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+    <p>
+      <strong>Archive not found</strong>
+    </p>
   </div>
 </div>
