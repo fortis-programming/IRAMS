@@ -18,29 +18,31 @@ export class SignUpService {
     displayName: '',
     photoUrl: ''
   }
-  
-  constructor() { }
-  
+
+  constructor(
+  ) { }
+
   async createAccount(userObject: SignupRequest): Promise<void> {
     const authentication = getAuth();
-    createUserWithEmailAndPassword(authentication, userObject.email, userObject.password)
+    await createUserWithEmailAndPassword(authentication, userObject.email, userObject.password)
       .then((userCredentials) => {
         console.log(userCredentials.user.uid);
         this.accountModel.email = userObject.email;
         this.accountModel.studentId = userObject.studentId;
         this.accountModel.name = userObject.name;
         this.accountModel.displayName = userObject.name;
-        this.accountModel.photoUrl = '../../assets/images/user.png';
-        this.createUserMetadata(userCredentials.user.uid, this.accountModel)
+        this.accountModel.photoUrl = '../../assets/images/user.png'; // SET DEFAULT PROFILE
+        this.createUserMetadata(userCredentials.user.uid, this.accountModel);
       })
       .catch((error) => {
         const errorCode = error.code;
         console.log(error.message)
       })
   }
-  
+
   async createUserMetadata(uid: string, userObject: AccountModel): Promise<void> {
     const userRef = ref(database, 'usersData/' + uid);
-    set(userRef, userObject);
+    await set(userRef, userObject);
+    console.log('success')
   }
 }

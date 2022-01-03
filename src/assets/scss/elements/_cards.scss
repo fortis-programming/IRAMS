@@ -1,6 +1,7 @@
 .card {
   font-size: 0.85rem;
   cursor: default;
+  margin: auto 15px;
 
   .title {
     margin: 8px 0;
@@ -22,16 +23,28 @@
   background-color: white;
 
   main {
-    height: 85vh;
+    height: 84vh;
     overflow-y: auto;
   }
 
   .wrapper {
-    padding: 18px;
+    padding: 10px;
+    
+    .content-header {
+      display: flex;
+      width: auto;
+      flex-direction: column;
+      
+      &__type {
+        width: fit-content;
+      }
+      
+    
+    }
   }
 
   .head-navigation {
-    margin: 0px 18px;
+    margin: 0px 8px;
     padding-top: 15px;
     display: flex;
     flex-direction: row;
@@ -89,6 +102,11 @@
     .wrapper {
       padding: 8px;
     }  
+    
+    main {
+      height: 75vh;
+      overflow-y: auto;
+    }
   }
   
   .card-list {

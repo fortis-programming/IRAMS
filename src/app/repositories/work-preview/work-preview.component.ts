@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Editor, toHTML, Toolbar } from 'ngx-editor';
+import { Editor, toHTML, Toolbar,  } from 'ngx-editor';
 
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
@@ -36,7 +36,11 @@ export class WorkPreviewComponent implements OnInit {
     validator: 'Select a validator',
     message: '',
     metaData: '',
-    sender: ''
+    sender: '',
+    type: '',
+    members: [],
+    comments: [],
+    status: ''
   }
 
   editor: Editor = new Editor();
@@ -69,11 +73,8 @@ export class WorkPreviewComponent implements OnInit {
     this.routeParams.params.subscribe(params => {
       this.repositoryId = params['id'];
     });
-  this.updateData(this.repositoryId);
-    
-    // if([this.workItem].length === 0) alert('empty');
+    this.updateData(this.repositoryId);
   }
-  
 
   buttonClicked = false;
   timer: any = ''
@@ -127,10 +128,13 @@ export class WorkPreviewComponent implements OnInit {
   membersList: Array<Object> = [];
   usersList: UsersModel[] = [];
   getMembersFromDatabase(): void {
-    this.userService.getUsersList().subscribe((response) => {
-      this.usersList = response.data.filter((users: UsersModel) =>
-        (users.name.toLowerCase().includes(this.nameQuery.toLowerCase())));
-    });
+    this.userService.getUserList().then((data) => {
+      console.log(data)
+    })
+    // this.userService.getUsersList().subscribe((response) => {
+    //   this.usersList = response.data.filter((users: UsersModel) =>
+    //     (users.name.toLowerCase().includes(this.nameQuery.toLowerCase())));
+    // });
   }
 
   //  HIGHLIGHT SELECTED USER
@@ -155,7 +159,7 @@ export class WorkPreviewComponent implements OnInit {
   }
 
   //  REMOVE USER
-  removeUserFromProject(user: object, member: object): void {
+  removeUserFromProject(user: string, member: object): void {
     this.membersList.splice(this.membersList.indexOf(member), 1);
     this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
   }
@@ -172,8 +176,10 @@ export class WorkPreviewComponent implements OnInit {
   
   createValidationRequest(): void {
     this.requestValidation.metaData = this.workItem.metaData;
-    this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
-    this.workService.createRequestValidation(this.requestValidation);
+    this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')));
+    this.requestValidation.members = this.workItem.members;
+    console.log(this.requestValidation)
+    // this.workService.createRequestValidation(this.requestValidation);
   }
   
   hasError(formControl: any): boolean {

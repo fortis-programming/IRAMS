@@ -1,26 +1,31 @@
 .btn {
-  font-size: 0.80rem;
+  font-size: 12px;
   outline: 0px !important;
   -webkit-appearance: none;
   box-shadow: none !important;
+  padding: 9px 12px;
+  line-height: 1.3333;
+  border-radius: 4px;
   
   &:hover {
     opacity: 0.9;
   }
 
   &__secondary {
-    background-color: rgb(230, 230, 230);
+    background-color: gray;
     border-radius: 50px;
-    padding: 0;
   }
   
   &__secondary-1 {
-    background-color: rgb(230, 230, 230);
+    background-color: #1a73e80b;
+    font-weight: 600;
+    color: $primary;
   }
 
   &__primary {
     background-color: $primary;
     color: white;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
 
     &:hover {
       color: white;
@@ -53,23 +58,11 @@
   height: 30px;
   
   &:hover {
-    color: $primary;
-    background-color: $primary-1;
+    background-color: $gray;
   }
-}
-
-.icon-btn {
-  cursor: pointer;
   
   svg {
     margin: auto;
-    height: 25px;
-  }
-  
-  &:hover {
-    svg {
-      color: $primary;
-    }
   }
 }
 

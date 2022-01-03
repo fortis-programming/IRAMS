@@ -23,6 +23,17 @@ export class UsersService {
   getUsersList(): Observable<BaseResponse<UsersModel[]>> {
     return this.http.get<BaseResponse<UsersModel[]>>('../../assets/mocks/user-list.json');
   }
+  
+  users: Array<AccountModel> = [];
+  async getUserList(): Promise<Array<AccountModel>> {
+    await get(child(dbRef, 'usersData/')).then((snapshot) => {
+      if (snapshot.exists()) {
+        this.users = snapshot.val();
+      }
+      // this.users.push(data['displayName']);
+    });
+    return this.users;
+  }
 
   // USERS
   userName: Array<string> = [];
