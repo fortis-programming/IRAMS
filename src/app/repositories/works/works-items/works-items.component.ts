@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { RepositoryService } from 'src/app/services/repository.service';
 import { UsersService } from 'src/app/services/users.service';
-import { WorksService } from 'src/app/services/works.service';
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
 @Component({
@@ -16,34 +16,31 @@ export class WorksItemsComponent implements OnInit {
     type: '',
     updatedAt: '',
     status: '',
-    members: [],
     validator: '',
     college: '',
     metaData: '',
-    contributors: []
+    members: []
   }
-  
-  @Input() workId: string = '';
-  
+
   members: Array<string> = [];
+  @Input() workId: string = '';
   
   constructor(
     private router: Router,
-    private workService: WorksService,
-    private userService: UsersService
+    private repositoryService: RepositoryService
   ) { }
 
   ngOnInit(): void {
-    this.getDisplayName();
+    this.workItem.members.forEach(uid => {
+      this.repositoryService.getUserName(uid).then((data) => {
+        this.members = this.repositoryService.names;
+      });
+    })
   }
   
   //  OPEN A REPOSITORY PROJECT
   openRepository(repositoryId: string): void {
     this.router.navigate(['../app/repositories/preview', repositoryId]);
-  }
-  
-  getDisplayName(): void {
-    this.members = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
   }
   
   getMembers(): string {

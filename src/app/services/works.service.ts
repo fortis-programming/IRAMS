@@ -43,9 +43,9 @@ export class WorksService {
   realTimeUpdate(): void {
     const q = query(collection(firestoreInit, "works"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      this.databaseUpdate.splice(0, this.databaseUpdate.length)
+      this.databaseUpdate.splice(0, this.databaseUpdate.length);
       querySnapshot.forEach((doc) => {
-        if ([[doc.data()][0]['members']].filter((data) => data.includes(JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))).length !== 0) {
+        if ([[doc.data()][0]['contributors']].filter((data) => data.includes(JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))).length !== 0) {
           this.databaseUpdate.push(JSON.parse(JSON.stringify(doc.data())));
         }
       });
@@ -62,6 +62,7 @@ export class WorksService {
   async getRepositoryData(docId: string): Promise<Array<WorksModel>> {
     const docRef = doc(firestoreInit, 'works', docId);
     const docSnap = await getDoc(docRef);
+    
     return JSON.parse(JSON.stringify(docSnap.data()));
   }
 
