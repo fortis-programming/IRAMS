@@ -35,6 +35,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { GeneralSettingsComponent } from './account-settings/general-settings/general-settings.component';
 import { SecuritySettingsComponent } from './account-settings/security-settings/security-settings.component';
+import { SuccessModalComponent } from './_shared/modals/success-modal/success-modal.component';
+import { SpinnerComponent } from './_shared/components/spinner/spinner.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { SecuritySettingsComponent } from './account-settings/security-settings/
     LoadingComponent,
     AccountSettingsComponent,
     GeneralSettingsComponent,
-    SecuritySettingsComponent
+    SecuritySettingsComponent,
+    SuccessModalComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 .card {
   font-size: 0.85rem;
   cursor: default;
+  margin: auto 15px;
 
   .title {
     margin: 8px 0;
@@ -22,17 +23,55 @@
   background-color: white;
 
   main {
-    height: 85vh;
+    height: 84vh;
     overflow-y: auto;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding: 0;
+
+    .divider {
+
+      &__right {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid $border-color;
+      
+        section {
+          padding: 12px;
+          border-bottom: 1px solid $border-color;
+        }
+
+        section {
+          font-size: 0.80rem;
+
+          .ongoing {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
   }
 
   .wrapper {
-    padding: 18px;
+    padding: 10px;
+    
+    .content-header {
+      display: flex;
+      width: auto;
+      flex-direction: column;
+      
+      &__type {
+        width: fit-content;
+      }
+      
+    
+    }
   }
 
   .head-navigation {
-    margin: 0px 18px;
-    padding-top: 15px;
+    margin: 0px 8px;
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
     height: auto;
@@ -55,6 +94,7 @@
       cursor: pointer;
     }
   }
+
 }
 
 .card-list {
@@ -89,6 +129,11 @@
     .wrapper {
       padding: 8px;
     }  
+    
+    main {
+      height: 75vh;
+      overflow-y: auto;
+    }
   }
   
   .card-list {
@@ -120,4 +165,28 @@
 
 .card-list>* {
   margin: auto 0;
+}
+
+
+.member-list {
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+
+  .icon, p {
+    margin: auto;
+  }
+
+  .icon {
+    margin-right: 5px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  p {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

@@ -11,6 +11,7 @@
       </svg>
     </button>
   </div>
+
   <div class="works-container" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
     <div class="list-header card-list">
       <div class="card-list__title title">Title</div>
@@ -21,8 +22,10 @@
     </div>
     <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId"
       [workItem]="repository"></app-works-items>
+      
     <app-loading *ngIf="getLoadingStatus()"></app-loading>
   </div>
+
   <div class="empty-state p-4" *ngIf="yourRepositories.length === 0 && !getLoadingStatus()">
     <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

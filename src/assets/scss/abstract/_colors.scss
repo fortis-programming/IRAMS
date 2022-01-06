@@ -8,11 +8,6 @@ $black-1: #222222;
 $bg-color: #F1F3F4;
 $header-bg: #F1F3F4;
 
-
 $border-color: rgb(233, 233, 233);
 
-.color {
-  &__light {
-    color: $black-1;
-  }
-}
+$gray: rgb(230, 230, 230);

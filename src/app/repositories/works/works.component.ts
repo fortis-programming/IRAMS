@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { RepositoryService } from 'src/app/services/repository.service';
 import { ProjectModel } from 'src/app/_shared/models/project.model';
 import { HeaderService } from '../../main/header/header.service';
 import { WorksService } from '../../services/works.service';
@@ -10,9 +11,6 @@ import { WorksModel } from '../../_shared/models/works.model';
   styleUrls: ['./works.component.scss']
 })
 export class WorksComponent implements OnInit {
-  yourRepositories: WorksModel[] = [];
-  documentIds: Array<string> = [];
-  
   projectModel: ProjectModel = {
     title: '',
     type: 'Developmental',
@@ -24,23 +22,23 @@ export class WorksComponent implements OnInit {
   
   constructor(
     private headerService: HeaderService,
-    private worksService: WorksService
+    private worksService: WorksService,
+    private respositoryService: RepositoryService
   ) { }
+  
+  userEmail = '';
+  yourRepositories: WorksModel[] = [];
 
   ngOnInit(): void {
-    let userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_name'))))
+    this.userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))));
     this.headerService.setTitle('Repositories');
-    this.worksService.realTimeUpdate();
-    this.worksService.getDatabaseUpdate().then((data) => {
-      this.yourRepositories = data;
-    }).catch((error) => {
-      console.log(error)
-    })
-    this.projectModel.members.push(userEmail)
+    this.respositoryService.getYourProjects().then(() => {
+      this.yourRepositories = this.respositoryService.databaseUpdate;
+    });
   }
   
   getLoadingStatus(): boolean {
-    return this.worksService.loading;
+    return this.respositoryService.loading;
   }
   
   //  TO CHECK IF INPUT HAS AN ERROR
@@ -52,13 +50,9 @@ export class WorksComponent implements OnInit {
   processing = false;
   createProject(): void {
     this.processing = true;
+    this.projectModel.members.push(this.userEmail);
     this.worksService.createProject(this.projectModel).then(() => {
       this.processing = false;
-    })
-  }
-  
-  type = 'Developmental';
-  selectProjectType(type: string): void {
-    
+    });
   }
 }

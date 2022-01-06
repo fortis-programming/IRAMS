@@ -1,5 +1,11 @@
-<div class="document">
-  <small class="head-navigation">
+<div class="d-flex justify-content-center p-3" *ngIf="loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+
+<div class="document" *ngIf="!loading">
+  <div class="head-navigation">
     <p class="back" (click)="closeDocument()">Explore</p>
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
       <path fillRule="evenodd"
@@ -7,17 +13,19 @@
         clipRule="evenodd" />
     </svg>
     <p class="title">{{documentObject.title}}</p>
-    <!-- <label>{{documentObject.type}}</label>
-    <h4>{{documentObject.title}}</h4>
-    <div class="author">
-      <p><strong>Author :</strong> <span class="p-1">{{authorString}}</span></p>
-      <p><strong>Keywords :</strong> {{documentObject.keywords}}</p>
-      <p>Evaluated by {{documentObject.evaluator}}</p>
-      <p>{{documentObject.published}}</p>
-    </div> -->
-  </small>
+  </div>
   <main>
     <div class="wrapper">
+      <div class="content-header">
+        <div class="content-header__type completed">
+          {{documentObject.type}}
+        </div>
+        <div class="content-header__author">
+        
+        </div>
+      
+      </div>
+      
       <span class="content-title">Abstract</span>
       {{documentObject.abstract}}
       <span class="content-title mt-3">Introduction</span>

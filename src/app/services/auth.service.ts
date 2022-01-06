@@ -20,7 +20,6 @@ export class AuthService {
 
   constructor(
     private route: Router,
-    private usersService: UsersService
   ) { }
 
   isAuthenticated() {
@@ -37,13 +36,13 @@ export class AuthService {
         const user = result.user;
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
         sessionStorage.setItem('email', JSON.parse(JSON.stringify(user.email)));
+        sessionStorage.setItem('uid', JSON.parse(JSON.stringify(user.uid)));
         this.setSessions([user.refreshToken, JSON.parse(JSON.stringify(user.uid))]);
         const displayName = user.displayName;
         const email = user.email;
         const photoURL = user.photoURL;
         const emailVerified = user.emailVerified;
-        console.log(email + '-' + emailVerified)
-        return false;
+        return emailVerified;
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -62,7 +61,7 @@ export class AuthService {
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)));
-        sessionStorage.setItem('email', JSON.parse(JSON.stringify(userCredential.user.email)));
+        sessionStorage.setItem('_email', JSON.parse(JSON.stringify(userCredential.user.email)));
         this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.uid))]);
         return true;
       }).catch((error) => {
@@ -85,6 +84,6 @@ export class AuthService {
   //  SET SESSIONS FOR YOUR SYSTEM TO REUSE IT AGAIN
   setSessions(user: Array<string>): void {
     sessionStorage.setItem('_token', user[0]);
-    sessionStorage.setItem('_name', user[1]);
+    sessionStorage.setItem('_uid', user[1]);
   }
 }

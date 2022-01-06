@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./document-content.component.scss']
 })
 export class DocumentContentComponent implements OnInit {
+  loading = true;
+  
   @Input() documentObject: ResearchModel = {
     id: '',
     title: '',
@@ -29,6 +31,7 @@ export class DocumentContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.exportAuthor();
+    (this.documentObject.title == '')? this.loading = true : this.loading = false;
   }
 
   //  EXTRACT AUTHOR
