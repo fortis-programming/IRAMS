@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   name = '';
   ngOnInit(): void {
     this.photo = ((JSON.parse(JSON.stringify(sessionStorage.getItem('photo'))) == ''))? JSON.parse(JSON.stringify(sessionStorage.getItem('photo'))) : '../../assets/images/user.png'; 
-    this.name = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')))
+    this.name = JSON.parse(JSON.stringify(sessionStorage.getItem('_uid')))
     return;
   }
 

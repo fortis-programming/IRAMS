@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Editor, toHTML, Toolbar,  } from 'ngx-editor';
+import { Editor, toHTML, Toolbar, } from 'ngx-editor';
 
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
@@ -9,6 +9,9 @@ import { UsersService } from 'src/app/services/users.service';
 import { WorksService } from 'src/app/services/works.service';
 import { UsersModel } from 'src/app/_shared/models/users.model';
 import { ValidationRequest } from 'src/app/_shared/models/requests/validation.request';
+import { AccountModel } from 'src/app/_shared/models/account.model';
+import { ContributorsModel } from 'src/app/_shared/models/contributors.model';
+import { RepositoryService } from 'src/app/services/repository.service';
 
 @Component({
   selector: 'app-work-preview',
@@ -28,10 +31,9 @@ export class WorkPreviewComponent implements OnInit {
     members: [],
     validator: '',
     college: '',
-    metaData: '',
-    contributors: []
+    metaData: ''
   }
-  
+
   requestValidation: ValidationRequest = {
     validator: 'Select a validator',
     message: '',
@@ -53,7 +55,7 @@ export class WorkPreviewComponent implements OnInit {
     ["text_color", "background_color"],
     ["align_left", "align_center", "align_right", "align_justify"]
   ];
-  
+
   toolbar1: Toolbar = [
     ["bold", "italic"],
     ["underline", "strike"],
@@ -66,14 +68,14 @@ export class WorkPreviewComponent implements OnInit {
     private router: Router,
     private routeParams: ActivatedRoute,
     private workService: WorksService,
-    private userService: UsersService,
+    private repositoryService: RepositoryService
   ) { }
 
   ngOnInit(): void {
     this.routeParams.params.subscribe(params => {
       this.repositoryId = params['id'];
     });
-    this.updateData(this.repositoryId);
+    this.updateData();
   }
 
   buttonClicked = false;
@@ -92,17 +94,26 @@ export class WorkPreviewComponent implements OnInit {
 
   //  WILL UPDATE THE LOCAL DATA FOR FRONTEND
   loading = true;
-  updateData(docId: string): void {
+  contributors: Array<string> = [];
+  updateData(): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
       this.loading = false;
+      this.getUserMeta();
     });
+  }
+
+  getUserMeta(): void {
+    this.workItem.members.forEach(uid => {
+      this.repositoryService.getUserName(uid).then(() => {
+        this.contributors = this.repositoryService.names;
+      })
+    })
   }
 
   //  DETECT CHANGES
   onChange(): void {
-    this.saveUpdateToDatabase(); 
+    this.saveUpdateToDatabase();
   }
 
   //  RE-ROUTE TO PREVIEW PAGE
@@ -124,56 +135,53 @@ export class WorkPreviewComponent implements OnInit {
     [TODO]
   ===============================================*/
 
-  //  PROCESS FROM DATABASE
-  membersList: Array<Object> = [];
-  usersList: UsersModel[] = [];
-  getMembersFromDatabase(): void {
-    this.userService.getUserList().then((data) => {
-      console.log(data)
-    })
-    // this.userService.getUsersList().subscribe((response) => {
-    //   this.usersList = response.data.filter((users: UsersModel) =>
-    //     (users.name.toLowerCase().includes(this.nameQuery.toLowerCase())));
-    // });
-  }
+  // //  PROCESS FROM DATABASE
+  // membersList: Array<Object> = [];
+  // usersList: AccountModel[] = [];
+  // getMembersFromDatabase(): void {
+  //   this.userService.getUserList().then((data) => {
+  //     this.membersList.push(data);
+  //     console.log(this.membersList)
+  //   })
+  // }
 
-  //  HIGHLIGHT SELECTED USER
-  selected = '';
-  selectUser(id: string): void {
-    if (id === this.selected) {
-      this.selected = '';
-    } else {
-      this.selected = id;
-    }
-  }
+  // //  HIGHLIGHT SELECTED USER
+  // selected = '';
+  // selectUser(id: string): void {
+  //   if (id === this.selected) {
+  //     this.selected = '';
+  //   } else {
+  //     this.selected = id;
+  //   }
+  // }
 
-  //  ADD SELECTED TO OBJECT/ARRAY
-  addSelected(): void {
-    (this.membersList.includes(this.selected)) ? console.log() : this.workItem.members.push(this.selected);
-    this.membersList = [];
-    this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
-    this.selected = '';
-    this.nameQuery = '';
-    this.usersList = [];
-    console.log(this.workItem)
-  }
+  // //  ADD SELECTED TO OBJECT/ARRAY
+  // addSelected(): void {
+  //   (this.membersList.includes(this.selected)) ? console.log() : this.workItem.members.push(this.selected);
+  //   this.membersList = [];
+  //   this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
+  //   this.selected = '';
+  //   this.nameQuery = '';
+  //   this.usersList = [];
+  //   console.log(this.workItem)
+  // }
 
-  //  REMOVE USER
-  removeUserFromProject(user: string, member: object): void {
-    this.membersList.splice(this.membersList.indexOf(member), 1);
-    this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
-  }
+  // //  REMOVE USER
+  // removeUserFromProject(user: string, member: object): void {
+  //   this.membersList.splice(this.membersList.indexOf(member), 1);
+  //   this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
+  // }
 
-  //  GET MEMBERS NAME
-  nameQuery = '';
-  getMembers(): void {
-    this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
-  }
-  
+  // //  GET MEMBERS NAME
+  // nameQuery = '';
+  // getMembers(): void {
+  //   this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
+  // }
+
   async deleteDocument(): Promise<void> {
     await this.workService.deleteDocument(this.repositoryId);
   }
-  
+
   createValidationRequest(): void {
     this.requestValidation.metaData = this.workItem.metaData;
     this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')));
@@ -181,7 +189,7 @@ export class WorkPreviewComponent implements OnInit {
     console.log(this.requestValidation)
     // this.workService.createRequestValidation(this.requestValidation);
   }
-  
+
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)
   }

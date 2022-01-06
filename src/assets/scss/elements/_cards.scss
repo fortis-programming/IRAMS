@@ -25,6 +25,32 @@
   main {
     height: 84vh;
     overflow-y: auto;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding: 0;
+
+    .divider {
+
+      &__right {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid $border-color;
+      
+        section {
+          padding: 12px;
+          border-bottom: 1px solid $border-color;
+        }
+
+        section {
+          font-size: 0.80rem;
+
+          .ongoing {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
   }
 
   .wrapper {
@@ -45,7 +71,7 @@
 
   .head-navigation {
     margin: 0px 8px;
-    padding-top: 15px;
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
     height: auto;
@@ -68,6 +94,7 @@
       cursor: pointer;
     }
   }
+
 }
 
 .card-list {
@@ -138,4 +165,28 @@
 
 .card-list>* {
   margin: auto 0;
+}
+
+
+.member-list {
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+
+  .icon, p {
+    margin: auto;
+  }
+
+  .icon {
+    margin-right: 5px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  p {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
