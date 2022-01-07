@@ -5,13 +5,10 @@ import { Editor, toHTML, Toolbar, } from 'ngx-editor';
 
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
-import { UsersService } from 'src/app/services/users.service';
 import { WorksService } from 'src/app/services/works.service';
-import { UsersModel } from 'src/app/_shared/models/users.model';
 import { ValidationRequest } from 'src/app/_shared/models/requests/validation.request';
-import { AccountModel } from 'src/app/_shared/models/account.model';
-import { ContributorsModel } from 'src/app/_shared/models/contributors.model';
 import { RepositoryService } from 'src/app/services/repository.service';
+import { UsersModel } from 'src/app/_shared/models/users.model';
 
 @Component({
   selector: 'app-work-preview',
@@ -94,7 +91,7 @@ export class WorkPreviewComponent implements OnInit {
 
   //  WILL UPDATE THE LOCAL DATA FOR FRONTEND
   loading = true;
-  contributors: Array<string> = [];
+  contributors: UsersModel[] = [];
   updateData(): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
@@ -102,12 +99,12 @@ export class WorkPreviewComponent implements OnInit {
       this.getUserMeta();
     });
   }
-
+  
   getUserMeta(): void {
     this.workItem.members.forEach(uid => {
-      this.repositoryService.getUserName(uid).then(() => {
-        this.contributors = this.repositoryService.names;
-      })
+      this.repositoryService.getUsers(uid).then((data) => {
+        this.contributors = data;
+      });
     })
   }
 
@@ -128,6 +125,24 @@ export class WorkPreviewComponent implements OnInit {
   //  SAVE UPDATE
   saveUpdateToDatabase(): void {
     this.workService.updateDataField(this.repositoryId, this.workItem);
+  }
+
+  nameQuery = '';
+  queryResultHolder: UsersModel[] = [];
+  searchForUser(): void {
+    if(this.nameQuery === '') {
+      this.queryResultHolder = [];
+      return;
+    }
+    
+    this.repositoryService.getUsers(this.nameQuery).then((data) => {
+      this.queryResultHolder = data;
+    });
+  }
+
+  selected = '';
+  selectUser(uid: string): void {
+    (this.selected === '')? this.selected = uid : this.selected = '';
   }
 
   /*================================================
