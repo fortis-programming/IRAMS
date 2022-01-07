@@ -190,3 +190,41 @@
     text-overflow: ellipsis;
   }
 }
+
+.user-card {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-top: 5px;
+  padding: 8px;
+
+  img {
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  svg {
+    height: 28px;
+    margin: auto 0;
+    color: green;
+  }
+  
+  small {
+    font-weight: 600;
+    color: gray;
+    font-size: 8px;
+  }
+
+  strong {
+    font-size: 0.80rem;
+    margin: auto 0;
+  }
+}
+
+.not-found {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 0.855rem;
+}

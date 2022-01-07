@@ -3,6 +3,7 @@ import { onSnapshot, collection, query } from 'firebase/firestore';
 import { ref, set, onValue, get, child, getDatabase } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { database, firestore } from './firebase.service';
+import { UsersModel } from '../_shared/models/users.model';
 
 const firestoreInit = firestore;
 
@@ -40,5 +41,17 @@ export class RepositoryService {
       const data = response.val();
       this.names.push(data['displayName']);
     });
+  }
+
+  userArray: UsersModel[] = [];
+  async getUsers(uid: string): Promise<UsersModel[]> {
+    const userRef = ref(database, 'usersData/' + uid);
+    this.userArray = [];
+    await onValue(userRef, (response) => {
+      const data = response.val();
+      let userMeta = { uid: uid, name: data['displayName'], photoUrl: data['photoUrl']};
+      this.userArray.push(userMeta);
+    });
+    return this.userArray;
   }
 }
