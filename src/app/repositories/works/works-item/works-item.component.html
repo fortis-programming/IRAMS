@@ -1,0 +1,21 @@
+<div class="project-card" (click)="openRepository()">
+    <!-- [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed'}" -->
+    <div class="d-flex mb-2">
+        <span [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed'}">
+            {{ workItem.status }}
+        </span>
+    </div>
+    <strong>
+        {{ workItem.title }}
+    </strong>
+    <div class="member">
+        <small >
+            {{ workItem.type }}
+        </small>
+        <p>
+            {{ getMembers() }} 
+            <span *ngIf="getMembers() > 1">Collaborators</span>
+            <span *ngIf="getMembers() === 1">Collaborator</span>
+        </p>
+    </div>
+</div>

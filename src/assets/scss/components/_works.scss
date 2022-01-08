@@ -1,0 +1,13 @@
+.works {
+
+    .works-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .works-header > * {
+        margin: auto 0;
+    }
+}

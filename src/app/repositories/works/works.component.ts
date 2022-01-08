@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HeaderService } from 'src/app/main/header/header.service';
 import { RepositoryService } from 'src/app/services/repository.service';
+import { WorksService } from 'src/app/services/works.service';
+
 import { ProjectModel } from 'src/app/_shared/models/project.model';
-import { HeaderService } from '../../main/header/header.service';
-import { WorksService } from '../../services/works.service';
-import { WorksModel } from '../../_shared/models/works.model';
+import { WorksModel } from 'src/app/_shared/models/works.model';
 
 @Component({
   selector: 'app-works',
@@ -23,27 +24,23 @@ export class WorksComponent implements OnInit {
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService,
-    private respositoryService: RepositoryService
+    private repositoryService: RepositoryService
   ) { }
-  
+
+
   userEmail = '';
   yourRepositories: WorksModel[] = [];
 
   ngOnInit(): void {
     this.userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))));
     this.headerService.setTitle('Repositories');
-    this.respositoryService.getYourProjects().then(() => {
-      this.yourRepositories = this.respositoryService.databaseUpdate;
+    this.repositoryService.getYourProjects().then(() => {
+      this.yourRepositories = this.repositoryService.databaseUpdate;
     });
   }
   
   getLoadingStatus(): boolean {
-    return this.respositoryService.loading;
-  }
-  
-  //  TO CHECK IF INPUT HAS AN ERROR
-  hasError(formControl: any): boolean {
-    return formControl.invalid && (formControl.dirty || formControl.touched)
+    return this.repositoryService.loading;
   }
   
   //  CREATE PROJECT 
@@ -54,5 +51,10 @@ export class WorksComponent implements OnInit {
     this.worksService.createProject(this.projectModel).then(() => {
       this.processing = false;
     });
+  }
+
+  //  TO CHECK IF INPUT HAS AN ERROR
+  hasError(formControl: any): boolean {
+    return formControl.invalid && (formControl.dirty || formControl.touched)
   }
 }

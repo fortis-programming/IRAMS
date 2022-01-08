@@ -1,104 +1,105 @@
-<div class="your-works p-3">
-  <div class="works-header" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
-    <p>Project(s)</p>
-    <button class="btn btn__primary" id="createProjectBtn" data-toggle="modal" data-target="#createProjectModal">New
-      project</button>
-    <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd"
-          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-          clipRule="evenodd" />
-      </svg>
-    </button>
-  </div>
-
-  <div class="works-container" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
-    <div class="list-header card-list">
-      <div class="card-list__title title">Title</div>
-      <div class="card-list__contributor">Contributor(s)</div>
-      <div class="card-list__date"></div>
-      <div class="card-list__action"></div>
-      <div class="card-list__status">Status</div>
-    </div>
-    <app-works-items *ngFor="let repository of yourRepositories; let i = index" [workId]="repository.projectId"
-      [workItem]="repository"></app-works-items>
-      
-    <app-loading *ngIf="getLoadingStatus()"></app-loading>
-  </div>
-
-  <div class="empty-state p-4" *ngIf="yourRepositories.length === 0 && !getLoadingStatus()">
-    <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-    <p>
-      <strong>No projects found</strong>
-    </p>
-    <p class="small">
-      Any projects that includes you will appear here
-    </p>
-    <button class="btn btn__primary mt-3" data-toggle="modal" data-target="#createProjectModal">Create new
-      project</button>
-  </div>
-</div>
-
-<!-- MODAL -->
-<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <p class="modal-title" id="exampleModalLongTitle">Create Project</p>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-          data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+<div class="works p-3">
+    <div class="works-header" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
+      <p>Project(s)</p>
+      <button class="btn btn__primary" id="createProjectBtn" data-toggle="modal" data-target="#createProjectModal">New
+        project</button>
+      <!-- <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
             clipRule="evenodd" />
         </svg>
-      </div>
-      <div class="modal-body">
-        <form #projectForm="ngForm">
-          <div class="form-floating mb-2">
-            <input [(ngModel)]="projectModel.title" #title="ngModel" name="title" type="email" class="form-control"
-              id="floatingTitle" placeholder="name@example.com" required>
-            <label for="floatingTitle" *ngIf="!hasError(title) && !title.errors?.touched">Project Title</label>
-            <label class="message__error" for="floatingTitle" *ngIf="hasError(title) && title.errors?.required">Title is
-              required</label>
-          </div>
-          <div class="divider grid-2 mb-2">
-            <div class="form-floating">
-              <select [(ngModel)]="projectModel.type" name="type" #type="ngModel" class="form-select"
-                id="floatingSelect" aria-label="Floating label select example" required>
-                <option value="Developmental" selected>Developmental</option>
-                <option value="Qualitative">Qualitative</option>
-                <option value="Quantative">Quantative</option>
-                <option value="Mixed">Mixed</option>
-              </select>
-              <label for="floatingSelect">Type</label>
+      </button> -->
+    </div>
+  
+    <div class="float-left" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
+      <!-- <div class="list-header card-list">
+        <div class="card-list__title title">Title</div>
+        <div class="card-list__contributor">Contributor(s)</div>
+        <div class="card-list__date"></div>
+        <div class="card-list__action"></div>
+        <div class="card-list__status">Status</div>
+      </div> -->
+      
+      <app-works-item *ngFor="let repository of yourRepositories; let i = index"
+        [workItem]="repository"></app-works-item>
+        
+      <app-loading *ngIf="getLoadingStatus()"></app-loading>
+    </div>
+  
+    <div class="empty-state p-4" *ngIf="yourRepositories.length === 0 && !getLoadingStatus()">
+      <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <p>
+        <strong>No projects found</strong>
+      </p>
+      <p class="small">
+        Any projects that includes you will appear here
+      </p>
+      <button class="btn btn__primary mt-3" data-toggle="modal" data-target="#createProjectModal">Create new
+        project</button>
+    </div>
+  </div>
+  
+  <!-- MODAL -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="modal-title" id="exampleModalLongTitle">Create Project</p>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+            data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+            <path fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd" />
+          </svg>
+        </div>
+        <div class="modal-body">
+          <form #projectForm="ngForm">
+            <div class="form-floating mb-2">
+              <input [(ngModel)]="projectModel.title" #title="ngModel" name="title" type="email" class="form-control"
+                id="floatingTitle" placeholder="name@example.com" required>
+              <label for="floatingTitle" *ngIf="!hasError(title) && !title.errors?.touched">Project Title</label>
+              <label class="message__error" for="floatingTitle" *ngIf="hasError(title) && title.errors?.required">Title is
+                required</label>
             </div>
-            <div class="form-floating">
-              <select [(ngModel)]="projectModel.college" name="college" #college="ngModel" class="form-select"
-                id="floatingSelect" aria-label="Floating label select example">
-                <option>Select a college</option>
-                <option value="CIE" selected>CIE</option>
-                <option value="CIT">CIT</option>
-                <option value="CE">CE</option>
-              </select>
-              <label for="floatingSelect">College</label>
+            <div class="divider grid-2 mb-2">
+              <div class="form-floating">
+                <select [(ngModel)]="projectModel.type" name="type" #type="ngModel" class="form-select"
+                  id="floatingSelect" aria-label="Floating label select example" required>
+                  <option value="Developmental" selected>Developmental</option>
+                  <option value="Qualitative">Qualitative</option>
+                  <option value="Quantative">Quantative</option>
+                  <option value="Mixed">Mixed</option>
+                </select>
+                <label for="floatingSelect">Type</label>
+              </div>
+              <div class="form-floating">
+                <select [(ngModel)]="projectModel.college" name="college" #college="ngModel" class="form-select"
+                  id="floatingSelect" aria-label="Floating label select example">
+                  <option>Select a college</option>
+                  <option value="CIE" selected>CIE</option>
+                  <option value="CIT">CIT</option>
+                  <option value="CE">CE</option>
+                </select>
+                <label for="floatingSelect">College</label>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <span data-dismiss="modal" aria-label="Close" class="w-100">
-          <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
-            (click)="createProject()" data-dismiss="modal" aria-label="Close">
-            Create
-          </button>
-        </span>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a data-dismiss="modal" aria-label="Close" class="w-100">
+            <button type="button" class="btn btn__primary" [disabled]="!projectForm.valid || processing"
+              (click)="createProject()" data-dismiss="modal" aria-label="Close">
+              Create
+            </button>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

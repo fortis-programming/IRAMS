@@ -49,6 +49,9 @@
         <div class="member-list" *ngFor="let member of contributors">
           <img class="icon" src="{{ member.photoUrl }}">
           <p>{{ member.name }}</p>
+          <svg (click)="removeContributor(member.uid)" class="float-right" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" height="20px">  
+            <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
+          </svg>
         </div>
         <button class="btn btn__secondary-1 w-100 mt-2" data-toggle="modal" data-target="#addUserModal">Add</button>
       </section>
@@ -59,7 +62,7 @@
         <div class="btn btn__secondary w-100" *ngIf="edit" (click)="edit = false;">
           Save
         </div>
-        <div class="btn btn__primary w-100 mt-2">
+        <div class="btn btn__primary w-100 mt-2" *ngIf="!edit">
           Request validation
         </div>
       </section>
@@ -72,6 +75,7 @@
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
+
       <div class="modal-header">
         <p class="modal-title" id="exampleModalLongTitle">Adding contributor</p>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
@@ -81,6 +85,7 @@
             clipRule="evenodd" />
         </svg>
       </div>
+      
       <div class="modal-body">
         <div class="search-container">
           <svg class="text-secondary" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20"
@@ -89,26 +94,39 @@
               d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z"
               clipRule="evenodd" />
           </svg>
-          <input type="text" [(ngModel)]="nameQuery" placeholder="Enter Student ID" (keyup)="searchForUser()">
+          <input type="text" [(ngModel)]="nameQuery" placeholder="Enter Student ID" (keyup.enter)="searchForUser()">
         </div>
 
         <div class="user-card" *ngFor="let user of queryResultHolder">
           <img src="{{ user.photoUrl }}">
-          <div class="d-flex justify-content-between w-100" *ngIf="queryResultHolder.length > 0 && nameQuery !== ''" (click)="selectUser(user.uid)">
+          <div class="d-flex justify-content-between w-100" *ngIf="queryResultHolder.length > 0 && nameQuery !== ''"
+            (click)="selectUser(user.uid)">
             <!-- <small>{{ user.uid }}</small> -->
             <strong>{{ user.name }}</strong>
-            <svg *ngIf="selected !== ''" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            <svg *ngIf="selected !== ''" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd" />
             </svg>
           </div>
         </div>
-        <div class="not-found" *ngIf="queryResultHolder.length === 0 && nameQuery !== '' ">
-          Not found
+        <div class="d-flex justify-content-center p-3" *ngIf="processing() && userExist()">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+
+        <div class="not-found" *ngIf="queryResultHolder.length === 0 && nameQuery !== '' && !userExist()">
+          User not found
         </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" data-dismiss="modal" [disabled]="selected === ''">Add</button>
+        <a data-dismiss="modal" class="w-100">
+          <button type="button" class="btn btn__primary" data-dismiss="modal" [disabled]="selected === ''"
+            (click)="addContributorToProject()">Add</button>
+        </a>
       </div>
     </div>
   </div>

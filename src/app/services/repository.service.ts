@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { onSnapshot, collection, query } from 'firebase/firestore';
-import { ref, set, onValue, get, child, getDatabase } from "firebase/database";
+import { ref, set, onValue, get, child } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { database, firestore } from './firebase.service';
 import { UsersModel } from '../_shared/models/users.model';
 
 const firestoreInit = firestore;
+const databaseRef = ref(database);
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepositoryService {
 
-  loading = true;
-  
+  loading = false;
+
   constructor() { }
 
   //  GET YOUR WORK FROM FIREBASE
@@ -34,23 +35,30 @@ export class RepositoryService {
 
   //  GET USER NAME USERNAME USING ID
   names: Array<string> = [];
-  async getUserName(userId: string): Promise<void> {
-    const userRef = ref(database, 'usersData/' + userId);
-    this.names = [];
-    onValue(userRef, (response) => {
-      const data = response.val();
-      this.names.push(data['displayName']);
-    });
-  }
+  // async getUserName(userId: string): Promise<void> {
+  //   const userRef = ref(database, 'usersData/' + userId);
+  //   this.names = [];
+  //   onValue(userRef, (response) => {
+  //     const data = response.val();
+  //     this.names.push(data['displayName']);
+  //   });
+  // }
 
   userArray: UsersModel[] = [];
+  userExist = true;
   async getUsers(uid: string): Promise<UsersModel[]> {
-    const userRef = ref(database, 'usersData/' + uid);
+    this.loading = true;
     this.userArray = [];
-    await onValue(userRef, (response) => {
-      const data = response.val();
-      let userMeta = { uid: uid, name: data['displayName'], photoUrl: data['photoUrl']};
-      this.userArray.push(userMeta);
+
+    await get(child(databaseRef, 'usersData/' + uid)).then((response) => {
+      if (response.exists()) {
+        const data = response.val();
+        let userMeta = { uid: uid, name: data['displayName'], photoUrl: data['photoUrl'] };
+        this.userArray.push(userMeta);
+        this.loading = false;
+      } else {
+        this.userExist = false;
+      }
     });
     return this.userArray;
   }
