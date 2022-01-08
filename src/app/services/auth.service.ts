@@ -28,15 +28,11 @@ export class AuthService {
 
   //  LOGIN WITH POPUP FEATURE IN FIREBASE
   async loginWithPopup(): Promise<boolean> {
-
     let process = await signInWithPopup(auth, provider)
       .then((result) => {
         let credential = GoogleAuthProvider.credentialFromResult(result);
         let token = credential?.accessToken;
         const user = result.user;
-        sessionStorage.setItem('photo', JSON.parse(JSON.stringify(user.photoURL)));
-        sessionStorage.setItem('email', JSON.parse(JSON.stringify(user.email)));
-        sessionStorage.setItem('uid', JSON.parse(JSON.stringify(user.uid)));
         this.setSessions([user.refreshToken, JSON.parse(JSON.stringify(user.uid))]);
         const displayName = user.displayName;
         const email = user.email;

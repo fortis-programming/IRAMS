@@ -22,12 +22,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ExploreComponent } from './explore/explore.component';
-import { WorksComponent } from './repositories/works/works.component';
+// import { WorksComponent } from './repositories/works/works.component';
 import { ExploreItemsComponent } from './explore/explore-items/explore-items.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { DocumentPreviewComponent } from './explore/document-preview/document-preview.component';
 import { DocumentContentComponent } from './explore/document-preview/document-content/document-content.component';
-import { WorksItemsComponent } from './repositories/works/works-items/works-items.component';
+// import { WorksItemsComponent } from './repositories/works/works-items/works-items.component';
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
@@ -37,6 +37,8 @@ import { GeneralSettingsComponent } from './account-settings/general-settings/ge
 import { SecuritySettingsComponent } from './account-settings/security-settings/security-settings.component';
 import { SuccessModalComponent } from './_shared/modals/success-modal/success-modal.component';
 import { SpinnerComponent } from './_shared/components/spinner/spinner.component';
+import { WorksComponent } from './repositories/works/works.component';
+import { WorksItemComponent } from './repositories/works/works-item/works-item.component';
 
 
 @NgModule({
@@ -50,8 +52,8 @@ import { SpinnerComponent } from './_shared/components/spinner/spinner.component
     ExploreContentComponent,
     LoginComponent,
     SignupComponent,
-    WorksComponent,
-    WorksItemsComponent,
+    // WorksComponent,
+    // WorksItemsComponent,
     WorkPreviewComponent,
     RepositoriesComponent,
     LoadingComponent,
@@ -59,7 +61,9 @@ import { SpinnerComponent } from './_shared/components/spinner/spinner.component
     GeneralSettingsComponent,
     SecuritySettingsComponent,
     SuccessModalComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    WorksComponent,
+    WorksItemComponent
   ],
   imports: [
     BrowserModule,

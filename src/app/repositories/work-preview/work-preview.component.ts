@@ -127,6 +127,15 @@ export class WorkPreviewComponent implements OnInit {
     this.workService.updateDataField(this.repositoryId, this.workItem);
   }
 
+  //  GET PROCESS STATUS
+  processing(): boolean {
+    return this.repositoryService.loading;
+  }
+
+  userExist(): boolean {
+    return this.repositoryService.userExist;
+  }
+
   nameQuery = '';
   queryResultHolder: UsersModel[] = [];
   searchForUser(): void {
@@ -134,7 +143,7 @@ export class WorkPreviewComponent implements OnInit {
       this.queryResultHolder = [];
       return;
     }
-    
+
     this.repositoryService.getUsers(this.nameQuery).then((data) => {
       this.queryResultHolder = data;
     });
@@ -145,6 +154,18 @@ export class WorkPreviewComponent implements OnInit {
     (this.selected === '')? this.selected = uid : this.selected = '';
   }
 
+  addContributorToProject(): void {
+    this.workItem.members.push(this.selected);
+    this.selected = '';
+    this.saveUpdateToDatabase();
+    this.updateData();
+  }
+  
+  removeContributor(uid: string): void {
+    this.workItem.members.splice(this.workItem.members.indexOf(uid), 1);
+    this.saveUpdateToDatabase();
+    this.updateData();
+  }
   /*================================================
     [PENDING]
     [TODO]
