@@ -172,6 +172,17 @@
   display: flex;
   flex-direction: row;
   padding: 3px;
+  
+  &:hover > svg {
+    display: block;
+  }
+
+  svg {
+    background-color: $bg-color;
+    border-radius: 50%;
+    display: none;
+    cursor: pointer;
+  }
 
   .icon, p {
     margin: auto;
@@ -224,7 +235,43 @@
 }
 
 .not-found {
+  padding: 8px;
   text-align: center;
   margin-top: 5px;
   font-size: 0.855rem;
+}
+
+.project-card {
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  float: left;
+  padding: 10px;
+  border-radius: 3px;
+  min-width: 100%;
+  margin: 5px 0px;
+
+  small {
+    font-size: 0.70rem;
+    display: flex;
+    width: auto;
+  }
+
+  p {
+    font-size: 0.80rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .member > * {
+    margin: auto 0;
+  }
+}
+
+.project-card > * {
+  font-size: 14px;
 }
