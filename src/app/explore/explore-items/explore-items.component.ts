@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { RepositoryService } from 'src/app/services/repository.service';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
+import { UsersModel } from 'src/app/_shared/models/users.model';
 
 @Component({
   selector: 'app-explore-items',
@@ -16,38 +18,31 @@ export class ExploreItemsComponent implements OnInit {
     published: '',
     abstract: '',
     college: '',
-    keywords: '',
+    keywords: [],
     evaluator: '',
-    status: ''
+    status: '',
+    metaData: ''
   }
   
-  @Input() docId: string = '';
-
-  authors: Array<string> = [];
-  
   constructor(
-    private route: Router
+    private route: Router,
+    private repositoryService: RepositoryService
   ) { }
 
   ngOnInit(): void {
     this.extractAuthor();
   }
   
-  //  EXTRACT AUTHOR(S)
-  author = '';
+
+  authors: UsersModel[] = [];
   extractAuthor(): void {
-    this.researchItem.authors.map(member=> {
-      this.authors.push(member)
-    })
-    this.author = this.authors.join(', ');
-    // this.researchItem.author.forEach(members => {
-    //   let data = Object.values(JSON.parse(JSON.stringify(members)))[0];
-    //   this.authors.push(JSON.parse(JSON.stringify(data)))
-    // });
+    this.repositoryService.getUsers(this.researchItem.authors).then((data) => {
+      this.authors = data;
+    });
   }
   
   //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
   openDocument(): void {
-    this.route.navigate(['../app/explore/preview', this.docId]);
+    this.route.navigate(['../app/explore/preview', this.researchItem.id]);
   }
 }

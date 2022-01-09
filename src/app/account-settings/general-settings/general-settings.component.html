@@ -25,7 +25,7 @@
       <div class="bio p-2">
 
         <form #accountForm="ngForm">
-          <div class="form-wrapper">
+          <div class="form-wrapper gap-2">
             <div class="form-floating mb-3">
               <input [(ngModel)]="user.displayName" name="displayName" #displayName="ngModel" type="text"
                 (ngModelChange)="changesSaved = true" class="form-control" id="floatingPassword" placeholder="Name"

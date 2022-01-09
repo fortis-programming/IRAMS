@@ -101,11 +101,14 @@ export class WorkPreviewComponent implements OnInit {
   }
   
   getUserMeta(): void {
-    this.workItem.members.forEach(uid => {
-      this.repositoryService.getUsers(uid).then((data) => {
-        this.contributors = data;
-      });
-    })
+    this.repositoryService.getUsers(this.workItem.members).then((data) => {
+      this.contributors = data;
+    });
+    // this.workItem.members.forEach(uid => {
+    //   this.repositoryService.getUsers(uid).then((data) => {
+    //     this.contributors = data;
+    //   });
+    // })
   }
 
   //  DETECT CHANGES
@@ -144,7 +147,8 @@ export class WorkPreviewComponent implements OnInit {
       return;
     }
 
-    this.repositoryService.getUsers(this.nameQuery).then((data) => {
+    this.repositoryService.getUsers([this.nameQuery]).then((data) => {
+      console.log(data);
       this.queryResultHolder = data;
     });
   }
@@ -166,6 +170,7 @@ export class WorkPreviewComponent implements OnInit {
     this.saveUpdateToDatabase();
     this.updateData();
   }
+  
   /*================================================
     [PENDING]
     [TODO]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { SignUpService } from 'src/app/services/sign-up.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -29,11 +29,17 @@ export class GeneralSettingsComponent implements OnInit {
   loading = true;
   ngOnInit(): void {
     this.headerService.setTitle('Account settings');
-    this.userId = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')));
+    this.userId = JSON.parse(JSON.stringify(sessionStorage.getItem('_uid')));
+    this.getData();
+  }
+
+  getData(): void {
+    this.loading = true;
     this.userService.getUserMetaData([this.userId]).then((data) => {
-      this.user = [JSON.parse(JSON.stringify(data))][0];
+      this.user = JSON.parse(JSON.stringify(data));
       this.loading = false;
     });
+    
   }
   
   closeAccountSettings(): void {
@@ -44,6 +50,6 @@ export class GeneralSettingsComponent implements OnInit {
   saveAccountChanges(): void {
     this.userService.saveAccountChanges(this.user);
     this.changesSaved = false;
+    this.getData();
   }
-
 }

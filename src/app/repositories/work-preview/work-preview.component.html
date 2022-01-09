@@ -31,9 +31,9 @@
   <main>
     <div class="divider">
       <div class="NgxEditor__Wrapper border-0" style="overflow: hidden;">
+        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar" style="overflow: scroll;"></ngx-editor-menu>
         <ngx-editor [editor]="editor" [(ngModel)]="workItem.metaData" (keyup)="autoSaveDelay()" [disabled]="!edit"
           [placeholder]="''"></ngx-editor>
-        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar" style="overflow: scroll;"></ngx-editor-menu>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
         <div class="btn btn__secondary w-100" *ngIf="edit" (click)="edit = false;">
           Save
         </div>
-        <div class="btn btn__primary w-100 mt-2" *ngIf="!edit">
+        <div class="btn btn__primary w-100 mt-2" *ngIf="!edit" data-toggle="modal" data-target="#requestValidationModal">
           Request validation
         </div>
       </section>

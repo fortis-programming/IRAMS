@@ -12,8 +12,15 @@
     <strong>Abstract</strong><br>
     {{researchItem.abstract}}
   </div>
+
   <div class="authors d-flex justify-content-between">
-    <small>{{author}}</small>
-    <small class="date">{{researchItem.published}}</small>
+    <div class="d-flex flex-row gap-1">
+      <div class="float-left" style="margin: auto 0;" *ngFor="let author of authors">
+        <img class="profile-icon" src="{{ author.photoUrl }}">
+      </div>
+    </div>
+    <div>
+      <small class="date">{{researchItem.published}}</small>
+    </div>
   </div>
 </div>

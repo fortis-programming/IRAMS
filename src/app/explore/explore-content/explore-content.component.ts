@@ -10,19 +10,19 @@ import { ResearchModel } from 'src/app/_shared/models/research.model';
 })
 export class ExploreContentComponent implements OnInit {
   researches: ResearchModel[] = [];
-  docIds: Array<string> = [];
   constructor(
     private exploreService: ExploreService
   ) { }
 
   //  DEFAULT PAGE SETUP FOR EXPLORE
   ngOnInit(): void {
-  //   this.headerService.setTitle('Explore');
-  //   if (this.filterBy === 'All') this.getAllArchive();
-    this.getAllArchive()
-    this.docIds = this.exploreService.getDocId();
+    this.exploreService.getArchive().then((data) => {
+      this.researches = data;
+    });
   }
   
+  
+
   getLoadingStatus(): boolean {
     return this.exploreService.loading;
   }
@@ -52,8 +52,10 @@ export class ExploreContentComponent implements OnInit {
   //  RETRIEVE ARCHIVES BASED ON YEARP PUBLISHED
   getArchiveWithFilter(filter: string): void {
     this.exploreService.getArchive().then(() => {
-      this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
-        research.title.toLowerCase().includes(filter));
+      // this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
+      //   (research.keywords.join(',')).toLowerCase().includes(filter.toLowerCase())
+      // );
+      console.log(this.exploreService.getData());
     });
   }
   
