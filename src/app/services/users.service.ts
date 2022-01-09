@@ -61,25 +61,20 @@ export class UsersService {
     });
 
     return arrayHolder;
-    // onValue(databaseRef, (response) => {
-    //   const dataHolder = response.val();
-    //   user.push(dataHolder['displayName']);
-    //   console.log(user);
-    // });
   }
-
-  usermetaData: Array<AccountModel> = [];
-  async getUserMetaData(uid: Array<string>): Promise<Array<AccountModel>> {
+  
+  async getUserMetaData(uid: Array<string>): Promise<AccountModel[]> {
+    let user: AccountModel[] = [];
     await get(child(dbRef, 'usersData/' + uid)).then((snapshot) => {
       if (snapshot.exists()) {
-        this.usermetaData = snapshot.val();
+        user = snapshot.val();
       }
     });
-    return this.usermetaData;
+    return user;
   }
 
   saveAccountChanges(account: AccountModel): void {
-    const uid = sessionStorage.getItem('_name');
+    const uid = sessionStorage.getItem('_uid');
     const userRef = ref(database, 'usersData/' + uid);
     set(userRef, account);
   }

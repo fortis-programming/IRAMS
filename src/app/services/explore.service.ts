@@ -4,6 +4,7 @@ import { firebaseConfig } from 'src/environments/environment';
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, onSnapshot, collection, query, doc, getDoc } from 'firebase/firestore';
+import { ResearchModel } from '../_shared/models/research.model';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -12,35 +13,52 @@ const db = getFirestore(app);
   providedIn: 'root'
 })
 export class ExploreService {
-  data: Array<string> = [];
+  data: ResearchModel[] = [];
   docId: Array<string> = [];
 
   constructor() { }
 
   //  GET ALL ARCHIVES
+
+  
+  
   loading = true;
-  async getArchive(): Promise<any> {
+  async getArchive(): Promise<ResearchModel[]> {
     const queryFromDb = query(collection(db, 'archive'));
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
       this.data.splice(0, this.data.length);
       querySnapshot.docs.map((doc) => {
-        this.docId.push(doc.id);
         this.data.push(JSON.parse(JSON.stringify(doc.data())));
-      })
-      this.loading = false;
+      });
     });
+    return this.data;
   }
 
   //  GET DOCUMENT INFORMATION USING DOCUMENT ID FROM FIREBASE
-  async getDocumentData(docId: string): Promise<Array<any>> {
+  document: ResearchModel[] = [];
+  async getDocumentData(docId: string): Promise<ResearchModel[]> {
     const docRef = doc(db, 'archive', docId);
     const docSnap = await getDoc(docRef);
+    this.document = docSnap.data() as ResearchModel[];
+    return this.document;
+  }
 
-    return [JSON.parse(JSON.stringify(docSnap.data()))];
+  async getDocument(docId: string): Promise<ResearchModel[]> {
+    const q = query(collection(db, 'archive'));
+    await onSnapshot(q, (snapshot) => {
+      snapshot.forEach((docData) => {
+        this.document.push(JSON.parse(JSON.stringify(docData.data())));
+      });
+    });
+    return this.document;
+  }
+
+  getDocumentArray(): ResearchModel[] {
+    return this.document;
   }
 
   // RETURN OBJECT LIST OF ARCHIVES
-  getData(): Array<any> {
+  getData(): ResearchModel[] {
     return this.data;
   }
 

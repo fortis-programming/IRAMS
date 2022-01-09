@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
 import { Router } from '@angular/router';
+import { Editor } from 'ngx-editor';
+import { RepositoryService } from 'src/app/services/repository.service';
+import { UsersModel } from 'src/app/_shared/models/users.model';
 
 @Component({
   selector: 'app-document-content',
@@ -8,8 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./document-content.component.scss']
 })
 export class DocumentContentComponent implements OnInit {
-  loading = true;
-  
+  editor: Editor = new Editor();
   @Input() documentObject: ResearchModel = {
     id: '',
     title: '',
@@ -18,34 +20,39 @@ export class DocumentContentComponent implements OnInit {
     published: '',
     abstract: '',
     college: '',
-    keywords: '',
+    keywords: [],
     evaluator: '',
-    status: ''
+    status: '',
+    metaData: ''
   }
 
   authors: Array<string> = [];
 
+  loading = true;
   constructor(
-    private route: Router
+    private route: Router,
+    private repositoryService: RepositoryService
   ) { }
 
   ngOnInit(): void {
-    this.exportAuthor();
-    (this.documentObject.title == '')? this.loading = true : this.loading = false;
+    this.getUserData();
   }
 
   //  EXTRACT AUTHOR
-  authorString = '';
-  exportAuthor(): void {
-    this.documentObject.authors.map(member=> {
-      this.authors.push(member)
-    });
-    this.authorString = this.authors.join(', ');
+  members: UsersModel[] = [];
+  getUserData(): void {
+    this.repositoryService.getUsers(this.documentObject.authors).then((data) => {
+      this.members = data;
+    });    
   }
 
   //  CLOSE OR REDIRECT TO PREVIOUS PAGE
   closeDocument(): void {
     this.route.navigate(['../app/explore']);
+  }
+
+  getKeywords(): string {
+    return this.documentObject.keywords.join(', ');
   }
 
 }
