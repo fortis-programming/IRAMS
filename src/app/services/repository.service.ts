@@ -17,49 +17,37 @@ export class RepositoryService {
 
   constructor() { }
 
-  //  GET YOUR WORK FROM FIREBASE
-  databaseUpdate: Array<WorksModel> = [];
-  async getYourProjects(): Promise<void> {
+  async getWorks(): Promise<WorksModel[]> {
+    let works: WorksModel[] = [];
     const q = query(collection(firestoreInit, 'works'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      this.databaseUpdate.splice(0, this.databaseUpdate.length);
+    await onSnapshot(q, (snapshot) => {
       snapshot.forEach((docData) => {
         if ([[docData.data()][0]['members']].filter((data) =>
           data.includes(JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))))).length !== 0) {
-          this.databaseUpdate.push(JSON.parse(JSON.stringify(docData.data())));
+          works.push(JSON.parse(JSON.stringify(docData.data())));
         }
       });
       this.loading = false;
     });
+    return works;
   }
 
-  //  GET USER NAME USERNAME USING ID
-  names: Array<string> = [];
-  // async getUserName(userId: string): Promise<void> {
-  //   const userRef = ref(database, 'usersData/' + userId);
-  //   this.names = [];
-  //   onValue(userRef, (response) => {
-  //     const data = response.val();
-  //     this.names.push(data['displayName']);
-  //   });
-  // }
-
-  userArray: UsersModel[] = [];
   userExist = true;
-  async getUsers(uid: string): Promise<UsersModel[]> {
+  async getUsers(uid: Array<string>): Promise<UsersModel[]> {
     this.loading = true;
-    this.userArray = [];
-
-    await get(child(databaseRef, 'usersData/' + uid)).then((response) => {
-      if (response.exists()) {
-        const data = response.val();
-        let userMeta = { uid: uid, name: data['displayName'], photoUrl: data['photoUrl'] };
-        this.userArray.push(userMeta);
-        this.loading = false;
-      } else {
-        this.userExist = false;
-      }
+    let userArray: UsersModel[] = [];
+    uid.forEach(id => {
+      get(child(databaseRef, 'usersData/' + id)).then((response) => {
+        if (response.exists()) {
+          const data = response.val();
+          let userMeta = { uid: id, name: data['displayName'], photoUrl: data['photoUrl'] };
+          userArray.push(JSON.parse(JSON.stringify(userMeta)));
+          this.loading = false;
+        } else {
+          this.userExist = false;
+        }
+      });
     });
-    return this.userArray;
+    return userArray;
   }
 }

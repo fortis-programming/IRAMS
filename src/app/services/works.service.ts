@@ -78,6 +78,7 @@ export class WorksService {
 
   //  UPDATE DOCUMENT CHANGES TO DATABASE
   async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
+    console.log(htmlDoc)
     const ref = doc(firestoreInit, 'works', docId);
     await setDoc(ref, htmlDoc);
   }

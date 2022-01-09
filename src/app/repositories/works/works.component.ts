@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { WorksService } from 'src/app/services/works.service';
@@ -34,14 +34,14 @@ export class WorksComponent implements OnInit {
   ngOnInit(): void {
     this.userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))));
     this.headerService.setTitle('Repositories');
-    this.repositoryService.getYourProjects().then(() => {
-      this.yourRepositories = this.repositoryService.databaseUpdate;
+    this.repositoryService.getWorks().then((data) => {
+      this.yourRepositories = data;
     });
   }
   
-  getLoadingStatus(): boolean {
-    return this.repositoryService.loading;
-  }
+  // getLoadingStatus(): boolean {
+  //   return this.repositoryService.loading;
+  // }
   
   //  CREATE PROJECT 
   processing = false;

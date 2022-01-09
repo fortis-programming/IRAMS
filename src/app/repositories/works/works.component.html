@@ -1,5 +1,5 @@
 <div class="works p-3">
-    <div class="works-header" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
+    <div class="works-header" *ngIf="yourRepositories.length !== 0">
       <p>Project(s)</p>
       <button class="btn btn__primary" id="createProjectBtn" data-toggle="modal" data-target="#createProjectModal">New
         project</button>
@@ -12,7 +12,7 @@
       </button> -->
     </div>
   
-    <div class="float-left" *ngIf="yourRepositories.length !== 0 && !getLoadingStatus()">
+    <div class="float-left" *ngIf="yourRepositories.length !== 0">
       <!-- <div class="list-header card-list">
         <div class="card-list__title title">Title</div>
         <div class="card-list__contributor">Contributor(s)</div>
@@ -24,10 +24,9 @@
       <app-works-item *ngFor="let repository of yourRepositories; let i = index"
         [workItem]="repository"></app-works-item>
         
-      <app-loading *ngIf="getLoadingStatus()"></app-loading>
     </div>
   
-    <div class="empty-state p-4" *ngIf="yourRepositories.length === 0 && !getLoadingStatus()">
+    <div class="empty-state p-4" *ngIf="yourRepositories.length === 0">
       <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

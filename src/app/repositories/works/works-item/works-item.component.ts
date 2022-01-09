@@ -31,15 +31,20 @@ export class WorksItemComponent implements OnInit {
 
   members: UsersModel[] = [];
   ngOnInit(): void {
-    return;
+    this.repositoryService.getUsers(this.workItem.members).then((data) => {
+        this.members = data;
+      });
   }
 
   ngAfterViewInit(): void {
-    this.workItem.members.forEach(uid => {
-      this.repositoryService.getUsers(uid).then((data) => {
-        this.members = data;
-      });
-    });
+    // this.repositoryService.getUsers(this.workItem.members).then((data) => {
+    //   this.members = data;
+    // });
+    // this.workItem.members.forEach(uid => {
+    //   this.repositoryService.getUsers(uid).then((data) => {
+    //     this.members = data;
+    //   });
+    // });
   }
   
   //  OPEN A REPOSITORY PROJECT
