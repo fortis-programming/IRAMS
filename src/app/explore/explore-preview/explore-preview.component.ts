@@ -34,7 +34,6 @@ export class ExplorePreviewComponent implements OnInit {
     published: '',
     abstract: '',
     college: '',
-    keywords: [], // TENTATIVE
     keyword: '',
     evaluator: '',
     status: '',

@@ -17,17 +17,15 @@
       <p class="title" data-toggle="modal" data-target="#successMessageModal">{{workItem.title}}</p>
     </div>
     <div class="action-section d-flex flex-row">
-      <div class="dropdown">
+      <div class="dropdown" *ngIf="workItem.status != 'Published'">
         <svg xmlns="http://www.w3.org/2000/svg" id="userDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"
           className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
             d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
         </svg>
         <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-          <li><a class="dropdown-item" data-toggle="modal" data-target="#requestValidationModal">Request validation</a>
-          </li>
-          <li><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Settings</a></li>
-          <li><a class="dropdown-item" data-toggle="modal" data-target="#addUserModal">Add member</a></li>
+          <li *ngIf="workItem.status === 'Evaluated'"><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Publish</a></li>
+          <li *ngIf="workItem.status != 'Evaluated'"><a class="dropdown-item" data-toggle="modal" data-target="#projectSettingsModal">Project settings</a></li>
           <li><a class="dropdown-item" (click)="deleteDocument()">Delete project</a></li>
         </ul>
       </div>
@@ -46,22 +44,22 @@
     <div class="divider__right">
       <section>
         <div *ngIf="workItem.status !== 'Returned'"
-          [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned'}">
+          [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned', 'published': workItem.status === 'Published'}">
           {{workItem.status}}
         </div>
       </section>
       <section>
         <strong>Contributors</strong>
         <div class="member-list" *ngFor="let member of contributors">
-          <img class="icon" src="{{ member.photoUrl }}">
+          <img class="icon" src="{{ member.photoUrl }}" alt="User">
           <p>{{ member.name }}</p>
-          <svg (click)="removeContributor(member.uid)" class="float-right" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" height="20px">  
+          <svg *ngIf="workItem.status != 'Published'" (click)="removeContributor(member.uid)" class="float-right" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" height="20px">  
             <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
           </svg>
         </div>
-        <button class="btn btn__secondary-1 w-100 mt-2" data-toggle="modal" data-target="#addUserModal">Add</button>
+        <button *ngIf="workItem.status != 'Published'" class="btn btn__secondary-1 w-100 mt-2" data-toggle="modal" data-target="#addUserModal">Add</button>
       </section>
-      <section class="border-0">
+      <section class="border-0" *ngIf="workItem.status != 'Published'">
         <div class="btn btn__secondary w-100" *ngIf="!edit" (click)="edit = true;">
           <span>Edit document</span>
         </div>
@@ -261,35 +259,28 @@
         </svg>
       </div>
       <div class="modal-body">
-        <div class="section-title">Update project title, abstract and members.</div>
-        <div class="form-floating mb-2">
+        <div *ngIf="workItem.status != 'Evaluated'" class="form-floating mb-2">
           <input [(ngModel)]="workItem.title" (keyup)="autoSaveDelay()" name="email" #email="ngModel" type="text"
             class="form-control" id="floatingTitle" placeholder="Type your title here" required>
-          <label for="floatingTitle">Project Title</label>
-          <!-- <label class="message__error" for="floatingTitle">Title is
-            required</label> -->
+          <label *ngIf="!hasError(email)"  for="floatingTitle">Project Title</label>
+          <label *ngIf="hasError(email)" class="message__error" for="floatingTitle">Title is
+            required</label>
+        </div>
+        <div *ngIf="workItem.status === 'Evaluated'" class="form-floating mb-2">
+          <input [(ngModel)]="publishDocument.keyword" name="keyword" #keyword="ngModel" type="text"
+            class="form-control" id="floatingTitle" placeholder="Type your title here" required>
+          <label *ngIf="!hasError(keyword)"  for="floatingTitle">Keyword</label>
+          <label *ngIf="hasError(keyword)" class="message__error" for="floatingTitle">Keyword is
+            required</label>
         </div>
         <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-          <label for="floatingTextarea">Abstract</label>
+          <textarea [disabled]="publishDocument.keyword === ''" class="form-control" *ngIf="workItem.status === 'Evaluated'" [(ngModel)]="publishDocument.abstract" name="abstract" #abstract="ngModel" placeholder="Leave a comment here" id="floatingTextarea" required></textarea>
+          <label for="floatingTextarea" *ngIf="workItem.status === 'Evaluated'">Abstract</label>
         </div>
-        <div class="section-title mt-3">
-          <label class="heavy">Collaborator(s)</label>
-        </div>
-        <!-- <div style="float: left;">
-          <div *ngFor="let member of membersList; let id = index" class="user-list">
-            <span class="mr-2">{{member}}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-              height="15px" class="close-btn">
-              <path fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd" />
-            </svg>
-          </div>
-        </div> -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" (click)="saveUpdateToDatabase()" data-dismiss="modal">Save
+        <button type="button" *ngIf="workItem.status === 'Evaluated'" class="btn btn__primary" (click)="publish()" data-dismiss="modal" [disabled]="publishDocument.abstract === ''">Publish</button>
+        <button *ngIf="workItem.status != 'Evaluated'" type="button" class="btn btn__primary" (click)="saveUpdateToDatabase()" data-dismiss="modal">Save
           changes</button>
       </div>
     </div>
@@ -361,7 +352,7 @@
       <div class="modal-body">
         <main class="d-flex flex-column justify-content-center">
           <div class="success-modal">
-            <img style="display: flex; margin: auto;" src="../../../../assets/images/icons/1103-confetti-outline.gif"
+            <img style="display: flex; margin: auto;" alt="Succes-icon" src="../../../../assets/images/icons/1103-confetti-outline.gif"
               height="100px">
           </div>
           <p class="p-1 text-center heavy" style="margin: auto 0;">Request was successfuly sent.</p>

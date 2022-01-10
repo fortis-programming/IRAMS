@@ -18,8 +18,9 @@ export class RepositoryService {
   constructor() { }
 
   async getWorks(): Promise<WorksModel[]> {
-    let works: WorksModel[] = [];
     const q = query(collection(firestoreInit, 'works'));
+    let works: WorksModel[] = [];
+    console.log(works)
     await onSnapshot(q, (snapshot) => {
       snapshot.forEach((docData) => {
         if ([[docData.data()][0]['members']].filter((data) =>
