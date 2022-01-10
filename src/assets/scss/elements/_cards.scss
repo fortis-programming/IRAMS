@@ -275,3 +275,18 @@
 .project-card > * {
   font-size: 14px;
 }
+
+
+@media screen and (max-width: 900px) {
+  .document {
+    main {
+      grid-template-columns: 100%;
+
+      .divider {
+        &__right {
+          display: none;
+        }
+      }    
+    }  
+  }
+}

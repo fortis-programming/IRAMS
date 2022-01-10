@@ -36,6 +36,10 @@ export class ExploreContentComponent implements OnInit {
     this.getArchiveWithTitle();
   }
 
+  clear(): void {
+    this.searchQuery = '';
+    this.getArchiveWithTitle();
+  }
   //  FILTER ARCHIVE BASED ON DATE PUBLISHED FOR BETTER DISSEMINATION OF ARCHIVES
   filterBy = 'All';
   filter(filter: string): void {
