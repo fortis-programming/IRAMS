@@ -19,10 +19,6 @@ export class ExploreService {
   constructor() { }
 
   //  GET ALL ARCHIVES
-
-  
-  
-  loading = true;
   async getArchive(): Promise<ResearchModel[]> {
     const queryFromDb = query(collection(db, 'archive'));
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
@@ -39,8 +35,16 @@ export class ExploreService {
   async getDocumentData(docId: string): Promise<ResearchModel[]> {
     const docRef = doc(db, 'archive', docId);
     const docSnap = await getDoc(docRef);
-    this.document = docSnap.data() as ResearchModel[];
-    return this.document;
+    let documentContent: ResearchModel[] = [];
+    
+    if (docSnap.exists()) {
+      console.log('exist');
+      documentContent = JSON.parse(JSON.stringify(docSnap.data()));
+    } else {
+      console.log('missing');
+    }
+
+    return documentContent;
   }
 
   async getDocument(docId: string): Promise<ResearchModel[]> {
@@ -56,6 +60,7 @@ export class ExploreService {
   getDocumentArray(): ResearchModel[] {
     return this.document;
   }
+
 
   // RETURN OBJECT LIST OF ARCHIVES
   getData(): ResearchModel[] {

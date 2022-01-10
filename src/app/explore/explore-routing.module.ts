@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { DocumentPreviewComponent } from "./document-preview/document-preview.component";
 import { ExploreContentComponent } from "./explore-content/explore-content.component";
+import { ExplorePreviewComponent } from "./explore-preview/explore-preview.component";
 import { ExploreComponent } from "./explore.component";
 
 export const routes: Routes = [
@@ -14,8 +14,8 @@ export const routes: Routes = [
         component: ExploreContentComponent
       },
       {
-        path: 'preview/:id',
-        component: DocumentPreviewComponent
+        path: 'view/:id',
+        component: ExplorePreviewComponent
       }
     ]
   }

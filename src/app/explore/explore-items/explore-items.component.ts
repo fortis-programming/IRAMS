@@ -19,6 +19,7 @@ export class ExploreItemsComponent implements OnInit {
     abstract: '',
     college: '',
     keywords: [],
+    keyword: '',
     evaluator: '',
     status: '',
     metaData: ''
@@ -43,6 +44,6 @@ export class ExploreItemsComponent implements OnInit {
   
   //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
   openDocument(): void {
-    this.route.navigate(['../app/explore/preview', this.researchItem.id]);
+    this.route.navigate(['../app/explore/view', this.researchItem.id]);
   }
 }
