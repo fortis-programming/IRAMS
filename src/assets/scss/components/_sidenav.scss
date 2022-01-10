@@ -3,6 +3,7 @@
   background-color: whitesmoke;
   border-right: 1px solid $border-color;
   min-width: 7%;
+  z-index: 1;
 
   .banner {
     display: flex;
@@ -56,7 +57,7 @@
 @media screen and (max-width: 999px) {
 
   .sidenav {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     height: auto;
     width: 100%;
@@ -94,27 +95,4 @@
       
     }
   }
-  // .sidenav {
-  //   background-color: red;
-    
-  //   nav {
-  //     position: fixed;
-  //     z-index: 1;
-  //     display: grid;
-  //     grid-template-columns: repeat(3, calc(100% / 3));
-  //     width: 100%;
-  //     bottom: 0;
-  //     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  //     border-top: 0.05rem solid $border-color;
-            
-  //     .logo {
-  //       display: none;
-  //     }
-    
-  //     label {
-  //       display: flex;
-  //       position: absolute;
-  //     }
-  //   }
-  // }
 }

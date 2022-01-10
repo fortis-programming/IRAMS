@@ -1,12 +1,23 @@
 .explore-document {
   background-color: $bg-color;
+  height: 100vh;
 
-  header {
-      background-color: white;
-      border-bottom: 1px solid $bg-color;
+  main {
+    height: 67.5%;
   }
 
-  .navigation-header > * {
+  @media screen and (max-width: 900px) {
+    main {
+      height: 75%;
+    }
+  }
+
+  header {
+    background-color: white;
+    border-bottom: 1px solid $bg-color;
+  }
+
+  .navigation-header>* {
     margin: auto 0;
     background-color: white;
   }
@@ -21,47 +32,47 @@
     }
 
     .title {
-        max-width: 50vw;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      max-width: 50vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .back {
-        cursor: pointer;
+      cursor: pointer;
 
-        &:hover {
-            text-decoration: underline;
-        }
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
   .title-section {
-      margin-top: 15px;
-      background-color: white;
+    margin-top: 15px;
+    background-color: white;
   }
 
-  main, main > * {
-      background-color: $bg-color;
-      padding: 10px;
+  main,
+  main>* {
+    background-color: $bg-color;
+    padding: 10px;
   }
 
   main {
-      height: 69vh;
-      overflow: auto;
+    overflow: auto;
   }
 
   .author {
     margin: auto 0px;
     margin-right: 8px;
-    
+
     img {
-        margin-right: 5px;
-        height: 20px;
+      margin-right: 5px;
+      height: 20px;
     }
   }
 
-  .evaluated-card > * {
+  .evaluated-card>* {
     margin: auto;
   }
 
@@ -75,13 +86,19 @@
     }
   }
 
-  .author > * {
-      margin: auto 0;
+  .author>* {
+    margin: auto 0;
   }
 }
 
 .border-r {
-  border-right: 1px solid $border-color; 
-  padding-right: 8px; 
+  border-right: 1px solid $border-color;
+  padding-right: 8px;
   margin-right: 8px;
+}
+
+@media screen and (max-width: 900px) {
+  .title-section {
+    display: none;
+  }
 }

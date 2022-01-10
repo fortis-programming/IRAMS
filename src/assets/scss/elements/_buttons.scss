@@ -1,5 +1,5 @@
 .btn {
-  font-size: 12px;
+  font-size: 0.8rem;
   outline: 0px !important;
   -webkit-appearance: none;
   box-shadow: none !important;
@@ -68,4 +68,30 @@
 
 .dropdown {
   cursor: pointer;
+}
+
+#createProjectBtn {
+  svg {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #createProjectBtn {
+    position: fixed;
+    bottom: 10vh;
+    width: auto;
+    padding: 8px;
+    border-radius: 50%;
+    right: 4%;
+
+    label {
+      display: none;
+    }
+
+    svg {
+      height: 35px;
+      display: flex;
+    }
+  }
 }
