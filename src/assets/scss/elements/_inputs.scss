@@ -1,5 +1,5 @@
 .form-floating {
-  font-size: 12px;
+  font-size: 0.955rem;
 
   label {
     margin-top: 0.2rem;
@@ -141,6 +141,6 @@ span {
 
 @media screen and (max-width: 900px) {
   .search-bar {
-    width: 95%;
+    width: auto;
   }
 }

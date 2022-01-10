@@ -1,15 +1,12 @@
 <div class="works p-3">
     <div class="works-header" *ngIf="yourRepositories.length !== 0">
       <p>Project(s)</p>
-      <button class="btn btn__primary" id="createProjectBtn" data-toggle="modal" data-target="#createProjectModal">New
-        project</button>
-      <!-- <button class="btn btn__primary" id="createProjectBtn_mobile" data-toggle="modal" data-target="#createProjectModal">
+      <button class="btn btn__primary" id="createProjectBtn" data-toggle="modal" data-target="#createProjectModal">
+        <label>New project</label>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd"
-            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-            clipRule="evenodd" />
+          <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
         </svg>
-      </button> -->
+      </button>
     </div>
   
     <div class="float-left" *ngIf="yourRepositories.length !== 0">
