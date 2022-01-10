@@ -6,6 +6,7 @@ import { AuthGuardService } from '../services/auth-guard.service';
 import { routes as ExploreRoutes } from '../explore/explore-routing.module';
 import { routes as RepositoryRoutes } from '../repositories/repositories-routing.module';
 import { routes as AccountSettingsRoutes } from '../account-settings/account-settings-routing.module';
+
 // import { routes as WorksRoutes } from '../works/work-routing.module';
 
 import { MainComponent } from './main.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       ...ExploreRoutes,
       ...RepositoryRoutes,
       ...AccountSettingsRoutes,
+      
     ],
     canActivate: [AuthGuardService]
   }

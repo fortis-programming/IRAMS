@@ -95,8 +95,8 @@ export class WorkPreviewComponent implements OnInit {
   updateData(): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.loading = false;
       this.getUserMeta();
+      this.loading = false;
     });
   }
   
