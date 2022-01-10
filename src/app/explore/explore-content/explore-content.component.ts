@@ -21,12 +21,6 @@ export class ExploreContentComponent implements OnInit {
     });
   }
   
-  
-
-  getLoadingStatus(): boolean {
-    return this.exploreService.loading;
-  }
-  
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT
   loading = true;
   getAllArchive(): void {
@@ -46,24 +40,21 @@ export class ExploreContentComponent implements OnInit {
   filterBy = 'All';
   filter(filter: string): void {
     this.filterBy = filter;
-    filter === 'All' ? this.searchProject() : this.getArchiveWithFilter(filter);
+    this.getArchiveWithTitle();
   }
 
-  //  RETRIEVE ARCHIVES BASED ON YEARP PUBLISHED
-  getArchiveWithFilter(filter: string): void {
-    this.exploreService.getArchive().then(() => {
-      // this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
-      //   (research.keywords.join(',')).toLowerCase().includes(filter.toLowerCase())
-      // );
-      console.log(this.exploreService.getData());
-    });
-  }
-  
   //  SEARCH FOR ARCHIVE
   getArchiveWithTitle(): void {
     this.exploreService.getArchive().then(() => {
-      this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
-        research.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
-    })
+      if(this.filterBy === 'All') {
+        this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
+        research.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      } else {
+        this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
+          research.keyword.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      }
+    });
   }
 }

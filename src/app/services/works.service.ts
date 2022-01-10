@@ -62,7 +62,6 @@ export class WorksService {
   async getRepositoryData(docId: string): Promise<Array<WorksModel>> {
     const docRef = doc(firestoreInit, 'works', docId);
     const docSnap = await getDoc(docRef);
-    
     return JSON.parse(JSON.stringify(docSnap.data()));
   }
 
@@ -78,7 +77,6 @@ export class WorksService {
 
   //  UPDATE DOCUMENT CHANGES TO DATABASE
   async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
-    console.log(htmlDoc)
     const ref = doc(firestoreInit, 'works', docId);
     await setDoc(ref, htmlDoc);
   }

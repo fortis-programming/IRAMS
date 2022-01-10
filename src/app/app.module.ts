@@ -25,8 +25,6 @@ import { ExploreComponent } from './explore/explore.component';
 // import { WorksComponent } from './repositories/works/works.component';
 import { ExploreItemsComponent } from './explore/explore-items/explore-items.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
-import { DocumentPreviewComponent } from './explore/document-preview/document-preview.component';
-import { DocumentContentComponent } from './explore/document-preview/document-content/document-content.component';
 // import { WorksItemsComponent } from './repositories/works/works-items/works-items.component';
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
@@ -39,14 +37,13 @@ import { SuccessModalComponent } from './_shared/modals/success-modal/success-mo
 import { SpinnerComponent } from './_shared/components/spinner/spinner.component';
 import { WorksComponent } from './repositories/works/works.component';
 import { WorksItemComponent } from './repositories/works/works-item/works-item.component';
+import { ExplorePreviewComponent } from './explore/explore-preview/explore-preview.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BookmarksComponent,
-    DocumentPreviewComponent,
-    DocumentContentComponent,
     ExploreComponent,
     ExploreItemsComponent,
     ExploreContentComponent,
@@ -63,7 +60,8 @@ import { WorksItemComponent } from './repositories/works/works-item/works-item.c
     SuccessModalComponent,
     SpinnerComponent,
     WorksComponent,
-    WorksItemComponent
+    WorksItemComponent,
+    ExplorePreviewComponent
   ],
   imports: [
     BrowserModule,

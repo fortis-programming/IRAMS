@@ -6,7 +6,8 @@ export interface ResearchModel {
     published: string;
     abstract: string;
     college: string;
-    keywords: Array<string>;
+    keywords: Array<string>; // TENTATIVE
+    keyword: string;
     evaluator: string;
     status: string;
     metaData: string;
