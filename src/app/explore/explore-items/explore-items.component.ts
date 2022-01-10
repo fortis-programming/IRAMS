@@ -18,7 +18,6 @@ export class ExploreItemsComponent implements OnInit {
     published: '',
     abstract: '',
     college: '',
-    keywords: [],
     keyword: '',
     evaluator: '',
     status: '',

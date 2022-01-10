@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { firestore } from './firebase.service';
 import { ValidationRequest } from '../_shared/models/requests/validation.request';
+import { ResearchModel } from '../_shared/models/research.model';
 
 const firestoreInit = firestore;
 
@@ -65,6 +66,11 @@ export class WorksService {
     return JSON.parse(JSON.stringify(docSnap.data()));
   }
 
+  async pushWork(docToPublish: ResearchModel): Promise<void> {
+    const ref = doc(firestoreInit, 'archive', docToPublish.id);
+    await setDoc(ref, docToPublish);
+  }
+
   //  RETURN DOCUMENT DATA USING DOCUMENT ID PROVIDED BY FIRESTORE
   async getWorkData(docId: string): Promise<WorksModel[]> {
     const unsub = await onSnapshot(doc(firestoreInit, 'works', docId), (doc) => {
@@ -76,8 +82,8 @@ export class WorksService {
   }
 
   //  UPDATE DOCUMENT CHANGES TO DATABASE
-  async updateDataField(docId: string, htmlDoc: Object): Promise<void> {
-    const ref = doc(firestoreInit, 'works', docId);
+  async updateDataField(htmlDoc: WorksModel): Promise<void> {
+    const ref = doc(firestoreInit, 'works', htmlDoc.projectId);
     await setDoc(ref, htmlDoc);
   }
 

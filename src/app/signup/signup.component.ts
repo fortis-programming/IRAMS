@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
     studentId: '',
     name: ''
   }
+
   constructor(
     private signupService: SignUpService,
     private route: Router
@@ -29,6 +30,10 @@ export class SignupComponent implements OnInit {
     return;
   }
 
+  checked = false;
+  check(): void {
+    (this.checked)? this.checked = false : this.checked = true;
+  }
   //  TO CHECK IF INPUT HAS AN ERROR
   hasError(formControl: any): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched)

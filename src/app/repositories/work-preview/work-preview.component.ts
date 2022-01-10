@@ -9,6 +9,7 @@ import { WorksService } from 'src/app/services/works.service';
 import { ValidationRequest } from 'src/app/_shared/models/requests/validation.request';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UsersModel } from 'src/app/_shared/models/users.model';
+import { ResearchModel } from 'src/app/_shared/models/research.model';
 
 @Component({
   selector: 'app-work-preview',
@@ -127,7 +128,7 @@ export class WorkPreviewComponent implements OnInit {
   ============================================*/
   //  SAVE UPDATE
   saveUpdateToDatabase(): void {
-    this.workService.updateDataField(this.repositoryId, this.workItem);
+    this.workService.updateDataField(this.workItem);
   }
 
   //  GET PROCESS STATUS
@@ -169,6 +170,36 @@ export class WorkPreviewComponent implements OnInit {
     this.workItem.members.splice(this.workItem.members.indexOf(uid), 1);
     this.saveUpdateToDatabase();
     this.updateData();
+  }
+
+  publishDocument: ResearchModel = {
+    id: '',
+    title: '',
+    authors: [],
+    type: '',
+    published: '',
+    abstract: '',
+    college: '',
+    keyword: '',
+    evaluator: '',
+    status: '',
+    metaData: ''
+  }
+
+  publish(): void {
+    this.publishDocument.id = this.workItem.projectId;
+    this.publishDocument.title = this.workItem.title;
+    this.publishDocument.authors = this.workItem.members;
+    this.publishDocument.type = this.workItem.type;
+    this.publishDocument.published = new Date().toISOString().split('T')[0];
+    this.publishDocument.college = this.workItem.college;
+    this.publishDocument.evaluator = 'Test Evaluator';
+    this.publishDocument.status = this.workItem.status;
+    this.publishDocument.metaData = this.workItem.metaData;
+    this.workService.pushWork(this.publishDocument).then(() => {
+      this.workItem.status = 'Published'
+      this.workService.updateDataField(this.workItem);
+    });
   }
   
   /*================================================
