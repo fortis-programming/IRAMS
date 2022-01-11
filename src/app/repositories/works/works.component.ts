@@ -27,13 +27,24 @@ export class WorksComponent implements OnInit {
     private repositoryService: RepositoryService
   ) { }
 
-
   userEmail = '';
   yourRepositories: WorksModel[] = [];
 
   ngOnInit(): void {
     this.userEmail = (JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))));
     this.headerService.setTitle('Repositories');
+    this.yourRepositories = [];
+  }
+
+  loading = false;
+  empty = false;
+  ngAfterViewInit(): void {
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    this.loading = true;
+    this.yourRepositories = [];
     this.repositoryService.getWorks().then((data) => {
       this.yourRepositories = data;
     });

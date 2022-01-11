@@ -13,8 +13,6 @@ const databaseRef = ref(database);
 })
 export class RepositoryService {
 
-  loading = false;
-
   constructor() { }
 
   async getWorks(): Promise<WorksModel[]> {
@@ -32,7 +30,8 @@ export class RepositoryService {
     });
     return works;
   }
-
+  
+  loading = true;
   userExist = true;
   async getUsers(uid: Array<string>): Promise<UsersModel[]> {
     this.loading = true;

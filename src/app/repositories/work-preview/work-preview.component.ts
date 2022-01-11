@@ -105,11 +105,6 @@ export class WorkPreviewComponent implements OnInit {
     this.repositoryService.getUsers(this.workItem.members).then((data) => {
       this.contributors = data;
     });
-    // this.workItem.members.forEach(uid => {
-    //   this.repositoryService.getUsers(uid).then((data) => {
-    //     this.contributors = data;
-    //   });
-    // })
   }
 
   //  DETECT CHANGES
@@ -202,54 +197,6 @@ export class WorkPreviewComponent implements OnInit {
     });
   }
   
-  /*================================================
-    [PENDING]
-    [TODO]
-  ===============================================*/
-
-  // //  PROCESS FROM DATABASE
-  // membersList: Array<Object> = [];
-  // usersList: AccountModel[] = [];
-  // getMembersFromDatabase(): void {
-  //   this.userService.getUserList().then((data) => {
-  //     this.membersList.push(data);
-  //     console.log(this.membersList)
-  //   })
-  // }
-
-  // //  HIGHLIGHT SELECTED USER
-  // selected = '';
-  // selectUser(id: string): void {
-  //   if (id === this.selected) {
-  //     this.selected = '';
-  //   } else {
-  //     this.selected = id;
-  //   }
-  // }
-
-  // //  ADD SELECTED TO OBJECT/ARRAY
-  // addSelected(): void {
-  //   (this.membersList.includes(this.selected)) ? console.log() : this.workItem.members.push(this.selected);
-  //   this.membersList = [];
-  //   this.membersList = this.userService.getUsersMetaData(JSON.parse(JSON.stringify(this.workItem.members)));
-  //   this.selected = '';
-  //   this.nameQuery = '';
-  //   this.usersList = [];
-  //   console.log(this.workItem)
-  // }
-
-  // //  REMOVE USER
-  // removeUserFromProject(user: string, member: object): void {
-  //   this.membersList.splice(this.membersList.indexOf(member), 1);
-  //   this.workItem.members.splice(this.workItem.members.indexOf(user), 1);
-  // }
-
-  // //  GET MEMBERS NAME
-  // nameQuery = '';
-  // getMembers(): void {
-  //   this.nameQuery !== '' ? this.getMembersFromDatabase() : this.usersList = [];
-  // }
-
   async deleteDocument(): Promise<void> {
     await this.workService.deleteDocument(this.repositoryId);
   }

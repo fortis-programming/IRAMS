@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { GoogleAuthProvider, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, sendSignInLinkToEmail, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { firebaseConfig } from '../../environments/environment';
 import { Router } from '@angular/router';
-import { UsersService } from './users.service';
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -26,7 +25,6 @@ export class AuthService {
     return !!sessionStorage.getItem('_token');
   }
 
-  //  LOGIN WITH POPUP FEATURE IN FIREBASE
   async loginWithPopup(): Promise<boolean> {
     let process = await signInWithPopup(auth, provider)
       .then((result) => {
@@ -50,7 +48,14 @@ export class AuthService {
     return process;
   }
   
-  
+  //  RESET PASSWORD
+  resetPassword(userEmail: string): void {
+    sendPasswordResetEmail(auth, userEmail).then((link) => {
+      console.log('Recovery link has been sent');
+    });
+  }
+  changePassword(newPassword: string): void { 
+  }
 
   //  SIGN IN WITH CREDENTIALS
   async loginWithCredentials(email: string, password: string): Promise<boolean> {
