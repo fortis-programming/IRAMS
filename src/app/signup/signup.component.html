@@ -1,11 +1,14 @@
 <div class="login">
+
   <div class="container left">
     <div class="banner">
       <img src="../../assets/images/im2.svg" height="300px">
       <p class="mt-3"><strong>Scholarly communication</strong></p>
     </div>
   </div>
+  
   <div class="container right">
+
     <form #signupForm="ngForm">
       <div class="banner mb-3">
         <h3>Collaborate with us!</h3>
@@ -13,6 +16,7 @@
           Join to our expanding community.
         </p>
       </div>
+
       <div class="form-floating mb-3">
         <input [(ngModel)]="signupModel.name" name="name" #name="ngModel"
           type="text" class="form-control" id="floatingFullname" placeholder="name@example.com" required>
@@ -20,6 +24,7 @@
         <label for="floatingFullname" class="message__error" *ngIf="hasError(name) && name.errors?.required">Full name is
           required</label>
       </div>
+
       <div class="form-floating mb-3">
         <input [(ngModel)]="signupModel.email" name="email" #email="ngModel" pattern="[a-z0-9._%+-]+@tup+\.edu+\.ph$"
           type="email" class="form-control" id="floatingEmailSignUp" placeholder="name@example.com" required>
@@ -29,6 +34,7 @@
         <label for="floatingEmailSignUp" class="message__error" *ngIf="hasError(email) && email.errors?.required">Email is
           required</label>
       </div>
+
       <div class="form-floating mb-3">
         <input [(ngModel)]="signupModel.studentId" name="studentId" #studentId="ngModel"
           pattern="[TUPM, TUPC, TUPB]+-[0-9._%+-]{7}" maxlength="12" minlength="12" type="text" class="form-control"
@@ -41,6 +47,7 @@
           *ngIf="hasError(studentId) && studentId.errors?.required">Student ID
           required</label>
       </div>
+
       <div class="form-floating mb-3">
         <input [(ngModel)]="signupModel.password" name="password" #password="ngModel" type="text" class="form-control"
           id="floatingPassword" placeholder="name@example.com" required>
@@ -50,12 +57,25 @@
           required</label>
         <password-strength-meter [password]="signupModel.password"></password-strength-meter>
       </div>
-      <button class="btn btn__primary p-3 mt-4 w-100" [disabled]="!signupForm.valid" (click)="createYourAccount()">
+
+      <div class="d-flex flex-row" style="font-size: 0.8rem; line-spacing: 0.5rem;">
+        <input class="m-1" (click)="check()" type="checkbox" [disabled]="!signupForm.valid">
+        <label>
+          I agree to 
+          <a style="text-decoration: underline;" href="https://www.termsandconditionsgenerator.com/live.php?token=uL1STQkNVi70HJrQCgLCTEteci4VeVdS&fbclid=IwAR1xXeYj55axzukElpdRPtTNhweMao5e9ezwetkSz1NTmfdDbsK9cyyqd8U">Terms and Conditions</a>
+          and 
+          <a style="text-decoration: underline;" href="https://www.privacypolicygenerator.info/live.php?token=w6lM7Yj4i07G2vm9jHZbqDW9nwU1h4Nq&fbclid=IwAR3a9u1uZfiVfxOseOtYPziQTTXbOZAaTprE_D2F4LvJW1N-94jpqFmdgA4">Privacy Policy</a>
+        </label>
+      </div>
+
+      <button class="btn btn__primary p-3 mt-4 w-100" [disabled]="!checked" (click)="createYourAccount()">
         <span>
           Confirm
         </span>
       </button>
       <button class="btn w-100 p-3 btn__ghost mt-1" routerLink="/login">Back to login</button>
+
     </form>
   </div>
+
 </div>
