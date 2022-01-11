@@ -60,4 +60,11 @@ export class ExplorePreviewComponent implements OnInit {
   closeDocument(): void {
     this.router.navigate(['../app/explore']);
   }
+
+  added = false;
+  addToBookmark(): void {
+    this.repositoryService.saveBookmark(this.documentObject.id, this.documentObject.title).then(() => {
+      this.added = true;
+    });
+  }
 }

@@ -43,8 +43,12 @@ export class LoginComponent implements OnInit {
   }
 
   //  FORGOT PASSWORD
+  sent = false;
+  requestMessage = 'Send email';
   recoverPassword(): void {
+    this.sent = true;
     this.authService.resetPassword('allainjohn.notarte@tup.edu.ph');
+    this.requestMessage = 'Sent';
   }
   
   //  SIGN IN WITH LOGIN FORM

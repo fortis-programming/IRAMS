@@ -95,3 +95,16 @@
     }
   }
 }
+
+.bookmark-btn {
+  height: 50px;
+  position: absolute;
+  right: 3%;
+  cursor: pointer; 
+  padding: 8px;
+  border-radius: 50%;
+  
+  &:hover {
+    background-color: $bg-color;
+  }
+}

@@ -43,9 +43,20 @@ export class GeneralSettingsComponent implements OnInit {
     }); 
   }
 
+  message = 'Confirm';
+  oldPassword = '';
   password = '';
+  confirmPassword = '';
   changePassword(): void {
-    this.auth.changePassword(this.password);
+    this.auth.updateUserPassword(this.oldPassword, this.password).then(() => {
+      this.message = 'Success!';
+      setTimeout(() => {
+        this.message = '';
+        this.oldPassword = '';
+        this.confirmPassword = '';
+        this.password = '';
+      }, 3000);
+    })
   }
   
   closeAccountSettings(): void {
