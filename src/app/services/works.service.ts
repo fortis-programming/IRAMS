@@ -90,6 +90,7 @@ export class WorksService {
   /*
     WRITE PROJECT
   */
+
   //  CREATE PROJECT
   async createProject(project: ProjectModel): Promise<void> {
     const docRef = await addDoc(collection(firestoreInit, 'works'), project);
@@ -108,6 +109,6 @@ export class WorksService {
   }
   
   async createRequestValidation(request: ValidationRequest): Promise<void> {
-    const docRef = await addDoc(collection(firestoreInit, 'validationRequests'), request);
+    await addDoc(collection(firestoreInit, 'validationRequests'), request);
   }
 }

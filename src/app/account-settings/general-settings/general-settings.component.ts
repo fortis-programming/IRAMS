@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { HeaderService } from 'src/app/main/header/header.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SignUpService } from 'src/app/services/sign-up.service';
 import { UsersService } from 'src/app/services/users.service';
 import { AccountModel } from 'src/app/_shared/models/account.model';
@@ -15,7 +16,8 @@ export class GeneralSettingsComponent implements OnInit {
   constructor(
     private headerService: HeaderService,
     private userService: UsersService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
   
   user: AccountModel = {
@@ -38,8 +40,12 @@ export class GeneralSettingsComponent implements OnInit {
     this.userService.getUserMetaData([this.userId]).then((data) => {
       this.user = JSON.parse(JSON.stringify(data));
       this.loading = false;
-    });
-    
+    }); 
+  }
+
+  password = '';
+  changePassword(): void {
+    this.auth.changePassword(this.password);
   }
   
   closeAccountSettings(): void {

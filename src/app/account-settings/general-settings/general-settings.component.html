@@ -53,7 +53,7 @@
           <p>
             You can change your password if you want.
           </p>
-          <button class="btn btn__secondary-1">Change password</button>
+          <button class="btn btn__secondary-1" (click)="changePassword()">Change password</button>
         </div>
         <div class="action-container" (click)="saveAccountChanges()">
           <button class="btn btn__primary" *ngIf="changesSaved">Save changes</button>
