@@ -13,14 +13,14 @@ const databaseRef = ref(database);
 })
 export class RepositoryService {
 
-  loading = false;
+  loading = true;
 
   constructor() { }
 
   async getWorks(): Promise<WorksModel[]> {
     const q = query(collection(firestoreInit, 'works'));
     let works: WorksModel[] = [];
-    console.log(works)
+    works.splice(0, works.length);
     await onSnapshot(q, (snapshot) => {
       snapshot.forEach((docData) => {
         if ([[docData.data()][0]['members']].filter((data) =>
@@ -28,7 +28,6 @@ export class RepositoryService {
           works.push(JSON.parse(JSON.stringify(docData.data())));
         }
       });
-      this.loading = false;
     });
     return works;
   }

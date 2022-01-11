@@ -1,6 +1,16 @@
 .explore {
-  height: auto;
+  height: 92vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
+
+  .item-drawer {
+
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .explore {
+    height: 82vh;
+  }
 }

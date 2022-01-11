@@ -6,13 +6,28 @@
   .title {
     margin: 8px 0;
     font-size: 1.2rem;
+
+    svg {
+      height: 35px;
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 4px;
+
+      &:hover {
+        background-color: $bg-color;
+      }
+    }
+
+    .bookmarked {
+      fill: red;
+    }
   }
-  
+
   .keywords {
     font-size: 0.80rem;
     color: $black-1;
   }
-  
+
   .abstract {
     line-height: 1.3rem;
   }
@@ -24,18 +39,19 @@
 
   main {
     height: 84vh;
-    overflow-y: auto;
+    overflow-y: hidden;
     display: grid;
     grid-template-columns: 80% 20%;
     padding: 0;
 
     .divider {
+      overflow-y: auto;
 
       &__right {
         display: flex;
         flex-direction: column;
         border-left: 1px solid $border-color;
-      
+
         section {
           padding: 12px;
           border-bottom: 1px solid $border-color;
@@ -55,17 +71,15 @@
 
   .wrapper {
     padding: 10px;
-    
+
     .content-header {
       display: flex;
       width: auto;
       flex-direction: column;
-      
+
       &__type {
         width: fit-content;
       }
-      
-    
     }
   }
 
@@ -76,7 +90,6 @@
     flex-direction: row;
     height: auto;
     border-bottom: 1px solid $border-color;
-    font-size: 0.8rem;
 
     svg {
       height: 20px;
@@ -128,24 +141,24 @@
   .document {
     .wrapper {
       padding: 8px;
-    }  
-    
+    }
+
     main {
       height: 75vh;
       overflow-y: auto;
     }
   }
-  
+
   .card-list {
     border: 1px solid $border-color;
     padding: 10px;
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
-    
+
     &:hover {
       background-color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.23);
     }
 
     &__title {
@@ -172,8 +185,8 @@
   display: flex;
   flex-direction: row;
   padding: 3px;
-  
-  &:hover > svg {
+
+  &:hover>svg {
     display: block;
   }
 
@@ -184,7 +197,8 @@
     cursor: pointer;
   }
 
-  .icon, p {
+  .icon,
+  p {
     margin: auto;
   }
 
@@ -221,7 +235,7 @@
     margin: auto 0;
     color: green;
   }
-  
+
   small {
     font-weight: 600;
     color: gray;
@@ -251,6 +265,8 @@
   min-width: 100%;
   margin: 5px 0px;
 
+
+  
   small {
     font-size: 0.70rem;
     display: flex;
@@ -267,12 +283,12 @@
     justify-content: space-between;
   }
 
-  .member > * {
+  .member>* {
     margin: auto 0;
   }
 }
 
-.project-card > * {
+.project-card>* {
   font-size: 14px;
 }
 
@@ -284,9 +300,9 @@
 
       .divider {
         &__right {
-          display: none;
+          // display: none;
         }
-      }    
-    }  
+      }
+    }
   }
 }

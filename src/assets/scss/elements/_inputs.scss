@@ -1,9 +1,12 @@
 .form-floating {
-  font-size: 0.955rem;
 
   label {
     margin-top: 0.2rem;
     font-size: 0.82rem;;
+  }
+
+  input {
+    font-size: 0.888rem;
   }
 
   .form-control {
@@ -13,6 +16,7 @@
     border: none;
     border: 1px solid $bg-color;
     border-radius: 3px;
+
   }
 }
 
@@ -39,7 +43,7 @@
 
 input {
   outline: none;
-  font-size: 11px;
+  font-size: 0.888px;
 }
 
 .ghost-input {

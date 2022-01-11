@@ -96,6 +96,7 @@ export class WorksService {
     const ref = doc(firestoreInit, 'works', docRef.id);
     [project][0].projectId = docRef.id;
     await setDoc(ref, project);
+    this.getYourWorks();
   }
 
   deleteDocument(docId: string): Promise<boolean> {

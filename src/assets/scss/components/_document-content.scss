@@ -3,7 +3,7 @@
   height: 100vh;
 
   main {
-    height: 67.5%;
+    height: 67%;
   }
 
   @media screen and (max-width: 900px) {
@@ -17,9 +17,10 @@
     border-bottom: 1px solid $bg-color;
   }
 
+
   .navigation-header>* {
+    font-size: 0.8rem;
     margin: auto 0;
-    background-color: white;
   }
 
   .navigation-header {
@@ -45,6 +46,10 @@
         text-decoration: underline;
       }
     }
+  }
+
+  .title-section > * {
+    cursor: default;
   }
 
   .title-section {

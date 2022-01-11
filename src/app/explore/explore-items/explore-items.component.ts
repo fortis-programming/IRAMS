@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { ExploreService } from 'src/app/services/explore.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
 import { UsersModel } from 'src/app/_shared/models/users.model';
@@ -26,13 +27,17 @@ export class ExploreItemsComponent implements OnInit {
   
   constructor(
     private route: Router,
-    private repositoryService: RepositoryService
+    private repositoryService: RepositoryService,
+    private exploreService: ExploreService
   ) { }
 
   ngOnInit(): void {
     this.extractAuthor();
   }
   
+  bookmark(): void {
+    this.exploreService.addToMyBookmarks(this.researchItem.id);
+  }
 
   authors: UsersModel[] = [];
   extractAuthor(): void {

@@ -14,21 +14,16 @@ export class ExploreContentComponent implements OnInit {
     private exploreService: ExploreService
   ) { }
 
+  limitCount = 10;
   //  DEFAULT PAGE SETUP FOR EXPLORE
   ngOnInit(): void {
-    this.exploreService.getArchive().then((data) => {
+    this.exploreService.getArchive(this.limitCount).then((data) => {
       this.researches = data;
     });
   }
   
   //  DEFAULT RETRIEVING DATA, ALL DATA WILL BE RETRIEVED AS DEFAULT
   loading = true;
-  getAllArchive(): void {
-    this.exploreService.getArchive().then(() => {
-      this.researches = this.exploreService.getData();
-      this.loading = false;
-    });
-  }
   
   //  RETRIEVE ALL RESEARCH ARCHIVE AND SET AS DEFAULT IN UI BEFORE APPLYING FILTER
   searchQuery = '';
@@ -49,7 +44,7 @@ export class ExploreContentComponent implements OnInit {
 
   //  SEARCH FOR ARCHIVE
   getArchiveWithTitle(): void {
-    this.exploreService.getArchive().then(() => {
+    this.exploreService.getArchive(this.limitCount).then(() => {
       if(this.filterBy === 'All') {
         this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
         research.title.toLowerCase().includes(this.searchQuery.toLowerCase())

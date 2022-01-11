@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firebaseConfig } from 'src/environments/environment';
-
+import { ref, set } from "firebase/database";
 import { initializeApp } from 'firebase/app';
-import { getFirestore, onSnapshot, collection, query, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, query, doc, getDoc, limit } from 'firebase/firestore';
 import { ResearchModel } from '../_shared/models/research.model';
+import { database } from './firebase.service';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -19,8 +19,8 @@ export class ExploreService {
   constructor() { }
 
   //  GET ALL ARCHIVES
-  async getArchive(): Promise<ResearchModel[]> {
-    const queryFromDb = query(collection(db, 'archive'));
+  async getArchive(limitCount: number): Promise<ResearchModel[]> {
+    const queryFromDb = query(collection(db, 'archive'), limit(limitCount));
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
       this.data.splice(0, this.data.length);
       querySnapshot.docs.map((doc) => {
@@ -36,16 +36,16 @@ export class ExploreService {
     const docRef = doc(db, 'archive', docId);
     const docSnap = await getDoc(docRef);
     let documentContent: ResearchModel[] = [];
-    
+
     if (docSnap.exists()) {
-      console.log('exist');
       documentContent = JSON.parse(JSON.stringify(docSnap.data()));
     } else {
       console.log('missing');
     }
-
     return documentContent;
   }
+
+  //= ===============================================
 
   async getDocument(docId: string): Promise<ResearchModel[]> {
     const q = query(collection(db, 'archive'));
@@ -70,5 +70,11 @@ export class ExploreService {
   //  RETURN DOCUMENT IDs FROM FIRESTORE
   getDocId(): Array<string> {
     return this.docId;
+  }
+
+  addToMyBookmarks(docId: string): void {
+    const uid = sessionStorage.getItem('_uid');
+    const userRef = ref(database, 'bookmarks/' + uid);
+    set(userRef, { docId: docId });
   }
 }

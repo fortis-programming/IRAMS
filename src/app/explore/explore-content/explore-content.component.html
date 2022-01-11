@@ -29,8 +29,9 @@
       <span class="sr-only"></span>
     </div>
   </div>
-  <div>
+  <div class="item-drawer">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research"></app-explore-items>
+    <button class="btn btn__ghost d-flex m-auto" *ngIf="researches.length >= 10">Load more</button>
   </div>
   
   <div class="empty-state p-4" *ngIf="researches.length === 0">
