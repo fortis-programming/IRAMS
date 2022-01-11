@@ -75,3 +75,15 @@
     }
   }
 }
+
+#changePasswordModal {
+  .modal-content {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 999px) {
+    .modal-content {
+      width: 95%;
+    }
+  }
+}

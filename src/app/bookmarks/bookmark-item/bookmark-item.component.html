@@ -1,0 +1,32 @@
+<div class="card p-3 mb-3">
+  <!-- <small class="">
+      <span class="verified">{{researchItem.status}}</span>
+      {{researchItem.type}}
+    </small> -->
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+    style="position: absolute; right: 1%;" (click)="removeFromBookmark()" height="20px" class="close-btn">
+    <path fillRule="evenodd"
+      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+      clipRule="evenodd" />
+  </svg>
+  <div class="title heavy" style="text-decoration: underline;" (click)="openDocument()">{{researchItem.title}}</div>
+  <div class="keywords">
+    <strong>Keyword:</strong>
+    {{researchItem.keyword}}
+  </div>
+  <div class="abstract mt-2 mb-3">
+    <strong>Abstract</strong><br>
+    {{researchItem.abstract}}
+  </div>
+
+  <div class="authors d-flex justify-content-between">
+    <div class="d-flex flex-row gap-1">
+      <div class="float-left" style="margin: auto 0;" *ngFor="let author of authors">
+        <img class="profile-icon" src="{{ author.photoUrl }}">
+      </div>
+    </div>
+    <div>
+      <small class="date">Published on {{researchItem.published}}</small>
+    </div>
+  </div>
+</div>

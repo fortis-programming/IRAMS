@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { onSnapshot, collection, query } from 'firebase/firestore';
-import { ref, set, onValue, get, child } from "firebase/database";
+import { ref, set, onValue, get, child, remove } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { database, firestore } from './firebase.service';
 import { UsersModel } from '../_shared/models/users.model';
@@ -18,7 +18,6 @@ export class RepositoryService {
   async getWorks(): Promise<WorksModel[]> {
     const q = query(collection(firestoreInit, 'works'));
     let works: WorksModel[] = [];
-    console.log(works)
     await onSnapshot(q, (snapshot) => {
       snapshot.forEach((docData) => {
         if ([[docData.data()][0]['members']].filter((data) =>
@@ -41,6 +40,7 @@ export class RepositoryService {
         if (response.exists()) {
           const data = response.val();
           let userMeta = { uid: id, name: data['displayName'], photoUrl: data['photoUrl'] };
+          if(userMeta.photoUrl === '') userMeta.photoUrl = '../../assets/images/user.png' 
           userArray.push(JSON.parse(JSON.stringify(userMeta)));
           this.loading = false;
         } else {
@@ -49,5 +49,31 @@ export class RepositoryService {
       });
     });
     return userArray;
+  }
+
+  async saveBookmark(docId: string, title: string): Promise<void> {
+    const uid = sessionStorage.getItem('_uid');
+    const userRef = ref(database, 'bookmarks/'+ uid + '/' + docId);
+
+    await get(child(databaseRef, 'bookmarks/' + uid + '/' + docId)).then((response) => {
+      if(!response.exists()) set(userRef, { title: title });
+    });
+  }
+
+  async removeBookmark(docId: string): Promise<void> {
+    const uid = sessionStorage.getItem('_uid');
+    const userRef = ref(database, 'bookmarks/'+ uid + '/' + docId);
+    remove(userRef);
+  } 
+
+  async getBooksmarks(): Promise<Array<string>> {
+    let data: Array<string>= [];
+    const uid = sessionStorage.getItem('_uid');
+    await get(child(databaseRef, 'bookmarks/' + uid + '/' )).then((response) => {
+      if(response.exists()) {
+        data = response.val();
+      }
+    });
+    return data;
   }
 }

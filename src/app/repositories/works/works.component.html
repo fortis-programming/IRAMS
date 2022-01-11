@@ -9,21 +9,18 @@
       </button>
     </div>
   
-    <div class="float-left" *ngIf="yourRepositories.length !== 0">
-      <!-- <div class="list-header card-list">
-        <div class="card-list__title title">Title</div>
-        <div class="card-list__contributor">Contributor(s)</div>
-        <div class="card-list__date"></div>
-        <div class="card-list__action"></div>
-        <div class="card-list__status">Status</div>
-      </div> -->
-      
-      <app-works-item *ngFor="let repository of yourRepositories; let i = index"
+    <div class="float-left" *ngIf="!empty && !loading">
+      <app-works-item *ngFor="let repository of yourRepositories;"
         [workItem]="repository"></app-works-item>
-        
+    </div>
+
+    <div class="d-flex justify-content-center p-3" *ngIf="loading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only"></span>
+      </div>
     </div>
   
-    <div class="empty-state p-4" *ngIf="yourRepositories.length === 0">
+    <div class="empty-state p-4" *ngIf="empty && !loading">
       <!-- <img src="../../../assets/images/undraw_void_-3-ggu.svg"> -->
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

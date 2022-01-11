@@ -38,6 +38,7 @@ import { SpinnerComponent } from './_shared/components/spinner/spinner.component
 import { WorksComponent } from './repositories/works/works.component';
 import { WorksItemComponent } from './repositories/works/works-item/works-item.component';
 import { ExplorePreviewComponent } from './explore/explore-preview/explore-preview.component';
+import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { ExplorePreviewComponent } from './explore/explore-preview/explore-previ
     SpinnerComponent,
     WorksComponent,
     WorksItemComponent,
-    ExplorePreviewComponent
+    ExplorePreviewComponent,
+    BookmarkItemComponent
   ],
   imports: [
     BrowserModule,
