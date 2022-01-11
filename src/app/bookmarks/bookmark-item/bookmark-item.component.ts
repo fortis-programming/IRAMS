@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ExploreService } from 'src/app/services/explore.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
 import { UsersModel } from 'src/app/_shared/models/users.model';
 
 @Component({
-  selector: 'app-explore-items',
-  templateUrl: './explore-items.component.html',
-  styleUrls: ['./explore-items.component.scss']
+  selector: 'app-bookmark-item',
+  templateUrl: './bookmark-item.component.html',
+  styleUrls: ['./bookmark-item.component.scss']
 })
-export class ExploreItemsComponent implements OnInit {
+export class BookmarkItemComponent implements OnInit {
+  @Input() docId = '';
   @Input() researchItem: ResearchModel = {
     id: '',
     title: '',
@@ -23,16 +25,20 @@ export class ExploreItemsComponent implements OnInit {
     status: '',
     metaData: ''
   }
-  
+
   constructor(
-    private route: Router,
-    private repositoryService: RepositoryService
+    private exploreService: ExploreService,
+    private repositoryService: RepositoryService,
+    private route: Router
   ) { }
 
   ngOnInit(): void {
-    this.extractAuthor();
+    this.exploreService.getDocumentData(this.docId).then((data) => {
+      this.researchItem = JSON.parse(JSON.stringify(data));
+      this.extractAuthor();
+    });
   }
-  
+
   authors: UsersModel[] = [];
   extractAuthor(): void {
     this.repositoryService.getUsers(this.researchItem.authors).then((data) => {
@@ -40,16 +46,13 @@ export class ExploreItemsComponent implements OnInit {
     });
   }
 
-  getMembers(): string {
-    let members: Array<string> = [];
-    this.authors.forEach(member => {
-      members.push(member.name);
-    });
-    return members.join(', ');
-  }
-  
-  //  OPEN DOCUMENT FOR RESEARCH DATA PREVIEW
   openDocument(): void {
     this.route.navigate(['../app/explore/view', this.researchItem.id]);
+  }
+
+  removeFromBookmark(): void {
+    this.repositoryService.removeBookmark(this.researchItem.id).then(() => {
+      window.location.reload();
+    })
   }
 }

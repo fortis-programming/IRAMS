@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { firebaseConfig } from 'src/environments/environment';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, onSnapshot, collection, query, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, onSnapshot, collection, query, doc, getDoc, limit } from 'firebase/firestore';
 import { ResearchModel } from '../_shared/models/research.model';
 
 const app = initializeApp(firebaseConfig);
@@ -25,8 +25,8 @@ export class ExploreService {
   */
   
   //  GET ALL ARCHIVES
-  async getArchive(): Promise<ResearchModel[]> {
-    const queryFromDb = query(collection(db, 'archive'));
+  async getArchive(limitCount: number): Promise<ResearchModel[]> {
+    const queryFromDb = query(collection(db, 'archive'), limit(limitCount));
     let unsubscribe = await onSnapshot(queryFromDb, (querySnapshot) => {
       this.data.splice(0, this.data.length);
       querySnapshot.docs.map((doc) => {
@@ -44,12 +44,10 @@ export class ExploreService {
     let documentContent: ResearchModel[] = [];
     
     if (docSnap.exists()) {
-      console.log('exist');
       documentContent = JSON.parse(JSON.stringify(docSnap.data()));
     } else {
       console.log('missing');
     }
-
     return documentContent;
   }
 

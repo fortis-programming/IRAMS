@@ -1,1 +1,20 @@
-<p>bookmarks works!</p>
+<div style="height: 92vh;">
+  <div style="overflow-y: auto; margin-top: 15px; height: 97%;" *ngIf="!loading">
+    <app-bookmark-item *ngFor="let key of keys" [docId]="key"></app-bookmark-item>
+
+    <div class="empty-state p-4" *ngIf="empty">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <p>
+        <strong>No bookmarks yet</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center p-3" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+</div>

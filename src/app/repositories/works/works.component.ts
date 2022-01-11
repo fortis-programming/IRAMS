@@ -36,8 +36,8 @@ export class WorksComponent implements OnInit {
     this.yourRepositories = [];
   }
 
-  loading = false;
-  empty = false;
+  loading = true;
+  empty = true;
   ngAfterViewInit(): void {
     this.fetchData();
   }
@@ -47,6 +47,10 @@ export class WorksComponent implements OnInit {
     this.yourRepositories = [];
     this.repositoryService.getWorks().then((data) => {
       this.yourRepositories = data;
+      setTimeout(() => {
+        this.loading = false;
+        (this.yourRepositories.length === 0) ? this.empty = true : this.empty = false;
+      }, 2000);
     });
   }
   
@@ -57,10 +61,13 @@ export class WorksComponent implements OnInit {
   //  CREATE PROJECT 
   processing = false;
   createProject(): void {
+    this.yourRepositories = [];
     this.processing = true;
+    this.loading = true;
     this.projectModel.members.push(this.userEmail);
     this.worksService.createProject(this.projectModel).then(() => {
       this.processing = false;
+      this.fetchData();
     });
   }
 

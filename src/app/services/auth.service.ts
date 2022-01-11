@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { GoogleAuthProvider, sendSignInLinkToEmail, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
+import { GoogleAuthProvider, reauthenticateWithCredential, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword, User } from "firebase/auth";
 import { firebaseConfig } from '../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -54,7 +54,17 @@ export class AuthService {
       console.log('Recovery link has been sent');
     });
   }
-  changePassword(newPassword: string): void { 
+
+  async updateUserPassword(oldPassword: string, password: string): Promise<boolean> {
+    const user = auth.currentUser;
+    this.loginWithCredentials(JSON.stringify(user?.email), oldPassword).then(() => {
+      updatePassword(user as User, password).then(() => {
+        this.loginWithCredentials(JSON.stringify(user?.email), password);
+      }).catch((error) => {
+        console.log(error);
+      })
+    });
+    return true;
   }
 
   //  SIGN IN WITH CREDENTIALS
