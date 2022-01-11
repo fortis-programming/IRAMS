@@ -68,7 +68,7 @@
         <div class="message__error small">
           {{loginMessage}}
         </div>
-        <a class="light" (click)="logoutUser()">Forgot password?</a>
+        <a class="light" data-toggle="modal" data-target="#resetPasswordModal">Forgot password?</a>
       </div>
       <button class="btn btn__primary p-3 mt-3 mb-2 w-100" [disabled]="!loginForm.valid || loggingIn" *ngIf="!loggingIn"
         (click)="signInWithCredentials()">
@@ -91,5 +91,39 @@
       </div>
       <a class="p-3 d-flex justify-content-center light mt-2" routerLink="/sign-up">Create your account</a>
     </form>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content w-50 m-auto">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLongTitle">Forgot password</p>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+            data-dismiss="modal" aria-label="Close" height="20px" class="close-btn">
+            <path fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd" />
+          </svg>
+      </div>
+      <div class="modal-body">
+        <p class="message__instructions">
+          Kindly type your account email address to recover your password
+        </p>
+        <div class="form-floating mb-3">
+          <input [(ngModel)]="loginModel.email" name="email" #email="ngModel" pattern="[a-z0-9._%+-]+@tup+\.edu+\.ph$"
+            type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+          <label for="floatingEmail" *ngIf="!hasError(email)">Email address</label>
+          <label class="message__error" for="floatingEmail" *ngIf="hasError(email) && email.errors?.pattern">Email is
+            invalid</label>
+          <label class="message__error" for="floatingEmail" *ngIf="hasError(email) && email.errors?.required">Email is
+            required</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn__primary w-100" data-dismiss="modal" aria-label="Close" (click)="recoverPassword()" >Send link</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -12,14 +12,11 @@ export class AuthGuardService implements CanActivate {
     public auth: AuthService,
     public router: Router
   ) { }
-  
-  /*
-    TO CHECK IF USER HAS ALREADY LOGGED IN IF NOT THE USER WILL BE REROUTED TO LOGIN PAGE
-  */
+
   canActivate() {
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(['login']);
-      return false;      
+      return false;
     }
     return true;
   }

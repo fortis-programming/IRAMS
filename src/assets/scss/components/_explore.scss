@@ -2,5 +2,14 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+
+  .item-drawer {
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .explore {
+    height: 82vh;
+  }
 }

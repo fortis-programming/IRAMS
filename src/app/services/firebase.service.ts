@@ -13,6 +13,5 @@ export const database = getDatabase();
 })
 
 export class FirebaseService {
-
   constructor() { }
 }

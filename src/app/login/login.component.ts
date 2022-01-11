@@ -41,6 +41,11 @@ export class LoginComponent implements OnInit {
   logoutUser(): void {
     this.authService.logout();
   }
+
+  //  FORGOT PASSWORD
+  recoverPassword(): void {
+    this.authService.resetPassword('allainjohn.notarte@tup.edu.ph');
+  }
   
   //  SIGN IN WITH LOGIN FORM
   loginMessage = '';

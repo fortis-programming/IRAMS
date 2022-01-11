@@ -35,20 +35,7 @@ export class UsersService {
     return this.users;
   }
 
-  // USERS
-  userName: Array<string> = [];
-  getUsersMetaData(uid: Array<string>): Array<string> {
-    this.userName = [];
-    uid.forEach(data => {
-      const userRef = ref(database, 'usersData/' + data);
-      onValue(userRef, (snapshot) => {
-        const data = snapshot.val();
-        this.userName.push(data['displayName']);
-      });
-    });
-    return this.userName;
-  }
-
+  //  EXTRACT CONTRIBUTORS
   getContributors(uid: string): Array<ContributorsModel> {
     const users: ContributorsModel[] = [];
     const arrayHolder: ContributorsModel[] = [];
@@ -59,7 +46,6 @@ export class UsersService {
       arrayHolder.push(dataHolder['displayName']);
       arrayHolder.push(dataHolder['photoUrl']);
     });
-
     return arrayHolder;
   }
   

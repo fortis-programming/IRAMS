@@ -18,6 +18,12 @@ export class ExploreService {
 
   constructor() { }
 
+  /*
+    * EXPLORE PROCESSES TAKES PLACE HERE
+    * ADDING BOOKMARKS
+    * RETRIEVING RESEARCHES
+  */
+  
   //  GET ALL ARCHIVES
   async getArchive(): Promise<ResearchModel[]> {
     const queryFromDb = query(collection(db, 'archive'));
@@ -47,6 +53,7 @@ export class ExploreService {
     return documentContent;
   }
 
+  //  ONGOING
   async getDocument(docId: string): Promise<ResearchModel[]> {
     const q = query(collection(db, 'archive'));
     await onSnapshot(q, (snapshot) => {
@@ -57,18 +64,15 @@ export class ExploreService {
     return this.document;
   }
 
-  getDocumentArray(): ResearchModel[] {
-    return this.document;
-  }
-
 
   // RETURN OBJECT LIST OF ARCHIVES
   getData(): ResearchModel[] {
     return this.data;
   }
 
-  //  RETURN DOCUMENT IDs FROM FIRESTORE
-  getDocId(): Array<string> {
-    return this.docId;
+  addToMyBookmarks(docId: string): void {
+    // const uid = sessionStorage.getItem('_uid');
+    // const userRef = ref(database, 'bookmarks/' + uid);
+    // set(userRef, { docId: docId });
   }
 }
