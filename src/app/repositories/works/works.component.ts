@@ -39,7 +39,9 @@ export class WorksComponent implements OnInit {
   loading = true;
   empty = true;
   ngAfterViewInit(): void {
-    this.fetchData();
+    this.repositoryService.checkForUpdates().then(() => {
+      this.fetchData();
+    });
   }
 
   fetchData(): void {
