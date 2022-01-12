@@ -116,6 +116,9 @@ export class WorkPreviewComponent implements OnInit {
   closeRepository(): void {
     this.saveUpdateToDatabase();
     this.router.navigate(['../app/repositories/works']);
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
   }
 
   /*============================================
