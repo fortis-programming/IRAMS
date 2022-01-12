@@ -34,10 +34,10 @@
 
   <main>
     <div class="divider">
-      <div class="NgxEditor__Wrapper border-0" style="overflow: hidden;">
-        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar" style="overflow: scroll;"></ngx-editor-menu>
+      <div class="NgxEditor__Wrapper border-0">
+        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
         <ngx-editor class="small" [editor]="editor" [(ngModel)]="workItem.metaData" (keyup)="autoSaveDelay()" [disabled]="!edit"
-          [placeholder]="''"></ngx-editor>
+          [placeholder]="'Type here'"></ngx-editor>
       </div>
     </div>
 

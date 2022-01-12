@@ -2,9 +2,11 @@
   <div class="title">{{getTitle()}}</div>
   <div class="dropdown user-chip">
     <img src="{{photo}}" alt="User-icon" type="button" id="userDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">    
-    <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-      <li><a class="dropdown-item" (click)="routeToAccountSettings()">Account</a></li>
-      <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-    </ul>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" (click)="routeToAccountSettings()">About</a>
+      <a class="dropdown-item" (click)="routeToAccountSettings()">Account settings</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="logout()">Logout</a>
+    </div>
   </div>
 </div>
