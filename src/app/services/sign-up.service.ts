@@ -22,8 +22,9 @@ export class SignUpService {
   constructor(
   ) { }
 
-  async createAccount(userObject: SignupRequest): Promise<void> {
+  async createAccount(userObject: SignupRequest): Promise<boolean> {
     const authentication = getAuth();
+    let status = false;
     await createUserWithEmailAndPassword(authentication, userObject.email, userObject.password)
       .then((userCredentials) => {
         console.log(userCredentials.user.uid);
@@ -33,11 +34,14 @@ export class SignUpService {
         this.accountModel.displayName = userObject.name;
         this.accountModel.photoUrl = '../../assets/images/user.png'; // SET DEFAULT PROFILE
         this.createUserMetadata(userCredentials.user.uid, this.accountModel);
+        status = true;
       })
       .catch((error) => {
         const errorCode = error.code;
+        status = false;
         console.log(error.message)
       })
+      return status;
   }
 
   async createUserMetadata(uid: string, userObject: AccountModel): Promise<void> {

@@ -5,6 +5,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
+import { ToastrModule } from 'ngx-toastr';
+
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 // EDITOR OPTIONS
@@ -76,7 +78,12 @@ import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.c
     BrowserAnimationsModule, // required animations module
     CKEditorModule,
     AngularEditorModule,
-    NgxEditorModule
+    NgxEditorModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthGuardService],
   bootstrap: [AppComponent]

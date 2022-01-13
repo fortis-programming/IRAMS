@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderService } from '../main/header/header.service';
 import { RepositoryService } from '../services/repository.service';
 
@@ -11,7 +12,8 @@ export class BookmarksComponent implements OnInit {
 
   constructor(
     private repositoryService: RepositoryService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) { }
 
   loading = true;
@@ -27,7 +29,14 @@ export class BookmarksComponent implements OnInit {
       setTimeout(() => {
         (this.keys.length === 0) ? this.empty = true : this.empty = false;
         this.loading = false;
-      }, 3000);
+      }, 1000);
+    })
+  }
+
+  public refresh(): void {
+    console.log('refresh');
+    this.router.navigate(['/app/explore'], { skipLocationChange: true }).then(() => {
+      this.router.navigate(['app/bookmarks']);
     })
   }
 }

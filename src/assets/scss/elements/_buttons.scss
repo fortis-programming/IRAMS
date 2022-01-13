@@ -108,3 +108,14 @@
     background-color: $bg-color;
   }
 }
+
+.added {
+  fill: $primary;
+  stroke: $primary;
+  height: 50px;
+  position: absolute;
+  right: 3%;
+  cursor: pointer; 
+  padding: 8px;
+  border-radius: 50%;
+}

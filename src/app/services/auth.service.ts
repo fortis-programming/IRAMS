@@ -57,11 +57,13 @@ export class AuthService {
 
   async updateUserPassword(oldPassword: string, password: string): Promise<boolean> {
     const user = auth.currentUser;
-    this.loginWithCredentials(JSON.stringify(user?.email), oldPassword).then(() => {
+    this.loginWithCredentials(JSON.stringify(user?.email).toString(), oldPassword).then(() => {
       updatePassword(user as User, password).then(() => {
         this.loginWithCredentials(JSON.stringify(user?.email), password);
       }).catch((error) => {
         console.log(error);
+      }).catch((error) => {
+        console.log(error)
       })
     });
     return true;

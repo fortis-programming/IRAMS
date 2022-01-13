@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { WorksService } from 'src/app/services/works.service';
@@ -24,7 +25,8 @@ export class WorksComponent implements OnInit {
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService,
-    private repositoryService: RepositoryService
+    private repositoryService: RepositoryService,
+    private router: Router
   ) { }
 
   userEmail = '';
@@ -39,15 +41,21 @@ export class WorksComponent implements OnInit {
   loading = true;
   empty = true;
   ngAfterViewInit(): void {
-    this.repositoryService.checkForUpdates().then(() => {
-      this.fetchData();
+    this.fetchData();
+    this.repositoryService.checkForUpdates().then((response) => {
+      // this.fetchData();
     });
+  }
+
+  public refreshComponent(): void {
+    console.log(this.yourRepositories.length);
+    location.reload();
   }
 
   fetchData(): void {
     this.loading = true;
-    this.yourRepositories = [];
     this.repositoryService.getWorks().then((data) => {
+      this.yourRepositories.splice(0, this.yourRepositories.length);
       this.yourRepositories = data;
       setTimeout(() => {
         this.loading = false;
@@ -69,7 +77,8 @@ export class WorksComponent implements OnInit {
     this.projectModel.members.push(this.userEmail);
     this.worksService.createProject(this.projectModel).then(() => {
       this.processing = false;
-      this.fetchData();
+      this.refreshComponent();
+      // this.fetchData();
     });
   }
 
