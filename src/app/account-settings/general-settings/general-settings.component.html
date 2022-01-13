@@ -32,7 +32,7 @@
               <input [(ngModel)]="user.displayName" name="displayName" #displayName="ngModel" type="text"
                 (ngModelChange)="changesSaved = true" class="form-control" id="floatingPassword4" placeholder="Name"
                 required>
-              <label for="floatingPassword4">Display name</label>
+              <label for="floatingPassword4">Display name (ex: J. Dela Cruz)</label>
               <label for="floatingPassword4" *ngIf="displayName.errors?.required" class="message__error">Display name is
                 required</label>
             </div>
@@ -83,8 +83,9 @@
           <label for="floatingPassword3">Current password</label>
         </div>
         <div class="form-floating mb-3">
-          <input [(ngModel)]="password" type="password" class="form-control" id="floatingPassword1" placeholder="name@example.com" required>
-          <label for="floatingPassword1">Password</label>
+          <input [(ngModel)]="password" #password1="ngModel" minlength="6" type="password" class="form-control" id="floatingPassword1" placeholder="name@example.com" required>
+          <label for="floatingPassword1" *ngIf="!password1.errors?.minlength">Password</label>
+          <label *ngIf="password != '' && password1.errors?.minlength">6 characters are expected</label>
         </div>
         <div class="form-floating mb-3">
           <input [(ngModel)]="confirmPassword" type="password" class="form-control" id="floatingPassword2" placeholder="name@example.com" required>

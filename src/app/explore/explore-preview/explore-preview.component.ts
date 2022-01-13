@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Editor } from 'ngx-editor';
+import { ToastrService } from 'ngx-toastr';
+
 import { ExploreService } from 'src/app/services/explore.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
@@ -17,7 +19,8 @@ export class ExplorePreviewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private exploreService: ExploreService,
-    private repositoryService: RepositoryService  
+    private repositoryService: RepositoryService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +66,7 @@ export class ExplorePreviewComponent implements OnInit {
 
   added = false;
   addToBookmark(): void {
+    this.toastr.success('', 'Added to bookmark');
     this.repositoryService.saveBookmark(this.documentObject.id, this.documentObject.title).then(() => {
       this.added = true;
     });

@@ -4,7 +4,6 @@ import { ref, set, onValue, get, child, remove } from "firebase/database";
 import { WorksModel } from '../_shared/models/works.model';
 import { database, firestore } from './firebase.service';
 import { UsersModel } from '../_shared/models/users.model';
-import { WorkItemModel } from '../_shared/models/work-item.model';
 
 const firestoreInit = firestore;
 const databaseRef = ref(database);
@@ -16,15 +15,16 @@ export class RepositoryService {
 
   constructor() { }
 
-  async checkForUpdates(): Promise<void> {
-    console.log('i was called')
+  async checkForUpdates(): Promise<string> {
+    let response = '';
     const q = query(collection(firestoreInit, 'works'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribe = await onSnapshot(q, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           console.log("New city: ", change.doc.data());
         }
         if (change.type === "modified") {
+          response = change.type;
           console.log("Modified city: ", change.doc.data());
         }
         if (change.type === "removed") {
@@ -32,18 +32,18 @@ export class RepositoryService {
         }
       });
     });
+    return response;
   }
 
   works: WorksModel[] = [];
   worksId: Array<string> = [];
   async getWorks(): Promise<WorksModel[]> {
     const q = query(collection(firestoreInit, 'works'));
-  
     await onSnapshot(q, (snapshot) => {
       snapshot.forEach((docData) => {
         if ([[docData.data()][0]['members']].filter((data) =>
           data.includes(JSON.parse(JSON.stringify(sessionStorage.getItem('_uid'))))).length !== 0) {
-          
+
           if(this.worksId.includes([docData.data()][0]['projectId'])) return;
 
           this.works.push(JSON.parse(JSON.stringify(docData.data())));

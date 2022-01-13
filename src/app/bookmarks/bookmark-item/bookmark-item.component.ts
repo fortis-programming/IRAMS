@@ -1,9 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
+import { HeaderService } from 'src/app/main/header/header.service';
 import { ExploreService } from 'src/app/services/explore.service';
 import { RepositoryService } from 'src/app/services/repository.service';
+
 import { ResearchModel } from 'src/app/_shared/models/research.model';
 import { UsersModel } from 'src/app/_shared/models/users.model';
+import { BookmarksComponent } from '../bookmarks.component';
 
 @Component({
   selector: 'app-bookmark-item',
@@ -29,7 +34,9 @@ export class BookmarkItemComponent implements OnInit {
   constructor(
     private exploreService: ExploreService,
     private repositoryService: RepositoryService,
-    private route: Router
+    private route: Router,
+    private toastr: ToastrService,
+    private headerService: HeaderService
   ) { }
 
   ngOnInit(): void {
@@ -50,9 +57,12 @@ export class BookmarkItemComponent implements OnInit {
     this.route.navigate(['../app/explore/view', this.researchItem.id]);
   }
 
+  bookmark = new BookmarksComponent(this.repositoryService, this.headerService, this.route);
   removeFromBookmark(): void {
+    
     this.repositoryService.removeBookmark(this.researchItem.id).then(() => {
-      window.location.reload();
+      this.toastr.success('', 'Bookmark was removed');
+      this.bookmark.refresh();
     })
   }
 }
