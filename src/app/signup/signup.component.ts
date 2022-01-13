@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { SignUpService } from '../services/sign-up.service';
 
 import { SignupRequest } from '../_shared/models/requests/signup.request';
@@ -23,7 +24,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private signupService: SignUpService,
-    private route: Router
+    private route: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +42,15 @@ export class SignupComponent implements OnInit {
   }
   
   createYourAccount(): void {
-    this.signupService.createAccount(this.signupModel).then(() => {
-      this.route.navigate(['login']);
+    this.signupService.createAccount(this.signupModel).then((response) => {
+      if(!response) {
+        this.toastr.error('Failed to create your account try again')
+      }
+      
+      this.toastr.success('Account was successfully created')
+      setTimeout(() => {
+        this.route.navigate(['login']);
+      }, 1000);
     })
   }
 }

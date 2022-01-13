@@ -10,6 +10,8 @@ import { ValidationRequest } from 'src/app/_shared/models/requests/validation.re
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UsersModel } from 'src/app/_shared/models/users.model';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
+import { WorksComponent } from '../works/works.component';
+import { HeaderService } from 'src/app/main/header/header.service';
 
 @Component({
   selector: 'app-work-preview',
@@ -66,7 +68,8 @@ export class WorkPreviewComponent implements OnInit {
     private router: Router,
     private routeParams: ActivatedRoute,
     private workService: WorksService,
-    private repositoryService: RepositoryService
+    private repositoryService: RepositoryService,
+    private headerService: HeaderService,
   ) { }
 
   ngOnInit(): void {
@@ -112,13 +115,17 @@ export class WorkPreviewComponent implements OnInit {
     this.saveUpdateToDatabase();
   }
 
+  // private headerService: HeaderService,
+  // private worksService: WorksService,
+  // private repositoryService: RepositoryService,
+  // private router: Router
+  workComponent = new WorksComponent(this.headerService, this.workService, this.repositoryService, this.router)
   //  RE-ROUTE TO PREVIEW PAGE
   closeRepository(): void {
     this.saveUpdateToDatabase();
-    this.router.navigate(['../app/repositories/works']);
     setTimeout(() => {
-      location.reload();
-    }, 2000);
+      this.router.navigate(['../app/repositories/works']);
+    }, 1000);
   }
 
   /*============================================
@@ -202,6 +209,9 @@ export class WorkPreviewComponent implements OnInit {
   
   async deleteDocument(): Promise<void> {
     await this.workService.deleteDocument(this.repositoryId);
+    setTimeout(() => {
+      this.workComponent.refreshComponent();
+    }, 1000);
   }
 
   createValidationRequest(): void {

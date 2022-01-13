@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SignUpService } from 'src/app/services/sign-up.service';
@@ -17,7 +18,8 @@ export class GeneralSettingsComponent implements OnInit {
     private headerService: HeaderService,
     private userService: UsersService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) { }
   
   user: AccountModel = {
@@ -30,7 +32,7 @@ export class GeneralSettingsComponent implements OnInit {
   
   loading = true;
   ngOnInit(): void {
-    this.headerService.setTitle('Account settings');
+    this.headerService.setTitle('Profile settings');
     this.userId = JSON.parse(JSON.stringify(sessionStorage.getItem('_uid')));
     this.getData();
   }
@@ -50,8 +52,9 @@ export class GeneralSettingsComponent implements OnInit {
   changePassword(): void {
     this.auth.updateUserPassword(this.oldPassword, this.password).then(() => {
       this.message = 'Success!';
+      this.toastr.success('Password successfully changed', '')
       setTimeout(() => {
-        this.message = '';
+        this.message = 'Confirm';
         this.oldPassword = '';
         this.confirmPassword = '';
         this.password = '';
