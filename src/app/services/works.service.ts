@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { firestore } from './firebase.service';
 import { ValidationRequest } from '../_shared/models/requests/validation.request';
 import { ResearchModel } from '../_shared/models/research.model';
+import { ValidationStatus } from '../_shared/models/validationStatus.model';
+import { HistoryModel } from '../_shared/models/history-item.model';
 
 const firestoreInit = firestore;
 
@@ -87,6 +89,56 @@ export class WorksService {
     await setDoc(ref, htmlDoc);
   }
 
+  validationStatus: ValidationStatus = {
+    status: '',
+    comment: '',
+    evaluator: '',
+    docId: ''
+  }
+
+  async getRequest(): Promise<void> {
+    const q = query(collection(firestore, 'validationRequests',));
+    const unsubscribe = await onSnapshot(q, (snapshot) => {
+      snapshot.forEach((docData) => {
+        if([docData.data()][0]['sender'] === sessionStorage.getItem('_uid')) {
+          const status = {
+            status: [docData.data()][0]['status'],
+            comment: [docData.data()][0]['comments'],
+            evaluator: [docData.data()][0]['validator'],
+            docId: docData.id
+          }  
+          this.validationStatus = status;
+        }
+      });
+    });
+  }
+  
+  async getAllRequest(): Promise<HistoryModel[]> {
+    let requestItems: HistoryModel[] = [];
+    requestItems = [];
+    const q = query(collection(firestore, 'validationRequests',));
+    const unsubscribe = await onSnapshot(q, (snapshot) => {
+      snapshot.forEach((docData) => {
+        if([docData.data()][0]['sender'] === sessionStorage.getItem('_uid')) {
+          
+          const item: HistoryModel = {
+            docId: docData.id,
+            comment: [docData.data()][0]['comments'],
+            evaluator: [docData.data()][0]['validator'],
+            message: [docData.data()][0]['message'],
+            date: [docData.data()][0]['date']
+          }
+          requestItems.push(JSON.parse(JSON.stringify(item)));
+        }
+      });
+    });
+    return requestItems;
+  }
+
+  getRequestData(): ValidationStatus {
+    return this.validationStatus
+  }
+
   /*
     WRITE PROJECT
   */
@@ -104,6 +156,14 @@ export class WorksService {
       deleteDoc(doc(firestoreInit, 'works', docId))
       resolve(true);
       this.router.navigate(['../app/repositories/works']);
+    })
+    return response;
+  }
+
+  deleteValidation(docId: string): Promise<boolean> {
+    const response = new Promise<boolean>((resolve) => {
+      deleteDoc(doc(firestoreInit, 'validationRequests', docId))
+      resolve(true);
     })
     return response;
   }

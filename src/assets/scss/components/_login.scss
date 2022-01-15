@@ -43,8 +43,20 @@
   }
 }
 
+#resetPasswordModal {
+  .modal-content {
+    width: 50%;
+  }
+}
+
 // MOBILE
 @media screen and (max-width: 900px) {
+  #resetPasswordModal {
+    .modal-content {
+      width: 100%;
+    }
+  }
+
   .login {
     display: flex;
     grid-template-columns: 100%;

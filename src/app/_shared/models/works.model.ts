@@ -8,4 +8,5 @@ export interface WorksModel {
     validator: string;
     college: string;
     metaData: string;
+    validationId: string;
 }

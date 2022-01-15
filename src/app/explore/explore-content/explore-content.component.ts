@@ -43,8 +43,9 @@ export class ExploreContentComponent implements OnInit {
   }
   
   //  FILTER ARCHIVE BASED ON DATE PUBLISHED FOR BETTER DISSEMINATION OF ARCHIVES
-  filterBy = 'All';
+  filterBy = 'title';
   filter(filter: string): void {
+    
     this.filterBy = filter;
     this.getArchiveWithTitle();
   }
@@ -52,7 +53,7 @@ export class ExploreContentComponent implements OnInit {
   //  SEARCH FOR ARCHIVE
   getArchiveWithTitle(): void {
     this.exploreService.getArchive(100).then(() => {
-      if(this.filterBy === 'All') {
+      if(this.filterBy === 'title') {
         this.researches = this.exploreService.getData().filter((research: ResearchModel) => 
         research.title.toLowerCase().includes(this.searchQuery.toLowerCase())
         )

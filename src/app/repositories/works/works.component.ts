@@ -16,7 +16,7 @@ export class WorksComponent implements OnInit {
   projectModel: ProjectModel = {
     title: '',
     type: 'Developmental',
-    college: 'CIT',
+    college: 'PIE',
     members: [],
     status: 'Ongoing',
     projectId: ''
@@ -42,9 +42,6 @@ export class WorksComponent implements OnInit {
   empty = true;
   ngAfterViewInit(): void {
     this.fetchData();
-    this.repositoryService.checkForUpdates().then((response) => {
-      // this.fetchData();
-    });
   }
 
   public refreshComponent(): void {

@@ -12,6 +12,8 @@ import { UsersModel } from 'src/app/_shared/models/users.model';
 import { ResearchModel } from 'src/app/_shared/models/research.model';
 import { WorksComponent } from '../works/works.component';
 import { HeaderService } from 'src/app/main/header/header.service';
+import { ValidationStatus } from 'src/app/_shared/models/validationStatus.model';
+import { HistoryModel } from 'src/app/_shared/models/history-item.model';
 
 @Component({
   selector: 'app-work-preview',
@@ -31,7 +33,8 @@ export class WorkPreviewComponent implements OnInit {
     members: [],
     validator: '',
     college: '',
-    metaData: ''
+    metaData: '',
+    validationId: ''
   }
 
   requestValidation: ValidationRequest = {
@@ -42,7 +45,8 @@ export class WorkPreviewComponent implements OnInit {
     type: '',
     members: [],
     comments: [],
-    status: ''
+    status: '',
+    date: ''
   }
 
   editor: Editor = new Editor();
@@ -96,9 +100,11 @@ export class WorkPreviewComponent implements OnInit {
   //  WILL UPDATE THE LOCAL DATA FOR FRONTEND
   loading = true;
   contributors: UsersModel[] = [];
+  html = '';
   updateData(): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
+      this.html = this.workItem.metaData;
       this.getUserMeta();
       this.loading = false;
     });
@@ -133,7 +139,40 @@ export class WorkPreviewComponent implements OnInit {
   ============================================*/
   //  SAVE UPDATE
   saveUpdateToDatabase(): void {
+    this.workItem.metaData = this.html;
     this.workService.updateDataField(this.workItem);
+  }
+
+  evaluationData: ValidationStatus = {
+    status: '',
+    comment: '',
+    evaluator: '',
+    docId: ''
+  }
+  getValidationStatus(): void {
+    this.workService.getRequest().then(() => {
+      setTimeout(() => {
+        this.evaluationData = this.workService.getRequestData();
+        if(this.evaluationData.status === 'Returned' || this.evaluationData.status === '') {
+          this.workItem.status = 'Ongoing';
+        } 
+
+        if(this.evaluationData.status === 'Verified') {
+          this.workItem.status = 'Verified';
+          this.workItem.status = this.evaluationData.status;
+        }
+        this.saveUpdateToDatabase();
+      }, 1000);
+    });
+  }
+
+  historyItem: HistoryModel[] = [];
+  
+  getHistory(): void {
+    this.workService.getAllRequest().then((data) => {
+      this.historyItem = data;
+      console.log(this.historyItem)
+    })
   }
 
   //  GET PROCESS STATUS
@@ -154,7 +193,6 @@ export class WorkPreviewComponent implements OnInit {
     }
 
     this.repositoryService.getUsers([this.nameQuery]).then((data) => {
-      console.log(data);
       this.queryResultHolder = data;
     });
   }
@@ -214,12 +252,22 @@ export class WorkPreviewComponent implements OnInit {
     }, 1000);
   }
 
+  clearHistory(): void {
+    this.workService.deleteValidation(this.evaluationData.docId);
+  }
+
   createValidationRequest(): void {
     this.requestValidation.metaData = this.workItem.metaData;
-    this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_name')));
+    this.requestValidation.sender = JSON.parse(JSON.stringify(sessionStorage.getItem('_uid')));
+    this.requestValidation.status = this.workItem.status;
+    this.requestValidation.type = this.workItem.type;
     this.requestValidation.members = this.workItem.members;
-    console.log(this.requestValidation)
-    // this.workService.createRequestValidation(this.requestValidation);
+    this.workItem.status = 'Submitted';
+    this.requestValidation.date = new Date().toISOString().split('T')[0];
+
+    this.workService.createRequestValidation(this.requestValidation).then(() => {  
+      // this.saveUpdateToDatabase();
+    })
   }
 
   hasError(formControl: any): boolean {
