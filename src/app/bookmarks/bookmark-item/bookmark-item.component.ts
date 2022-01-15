@@ -61,7 +61,7 @@ export class BookmarkItemComponent implements OnInit {
   removeFromBookmark(): void {
     
     this.repositoryService.removeBookmark(this.researchItem.id).then(() => {
-      this.toastr.success('', 'Bookmark was removed');
+      // this.toastr.success('', 'Bookmark was removed');
       this.bookmark.refresh();
     })
   }

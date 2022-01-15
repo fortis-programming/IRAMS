@@ -77,13 +77,35 @@ export class RepositoryService {
     return userArray;
   }
 
-  async saveBookmark(docId: string, title: string): Promise<void> {
+  async checkIfBookmarkExist(docId: string): Promise<boolean> {
+    const uid = sessionStorage.getItem('_uid');
+    const useRef = 'bookmarks/' + uid + docId;
+    const response = new Promise<boolean>((resolve) => {
+      get(child(databaseRef, 'bookmarks/' + uid + '/' + docId)).then((response) => {
+        if(response.exists()) {
+          resolve(true)
+        } else {
+          resolve(false);
+        }
+      })
+    });
+    return response;
+  }
+
+  async saveBookmark(docId: string, title: string): Promise<boolean> {
     const uid = sessionStorage.getItem('_uid');
     const userRef = ref(database, 'bookmarks/' + uid + '/' + docId);
-
-    await get(child(databaseRef, 'bookmarks/' + uid + '/' + docId)).then((response) => {
-      if (!response.exists()) set(userRef, { title: title });
+    const response = new Promise<boolean>((resolve, reject) => {
+      get(child(databaseRef, 'bookmarks/' + uid + '/' + docId)).then((response) => {
+        if (!response.exists()) {
+          set(userRef, { title: title });
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
     });
+    return response;
   }
 
   async removeBookmark(docId: string): Promise<void> {
@@ -94,6 +116,7 @@ export class RepositoryService {
 
   async getBooksmarks(): Promise<Array<string>> {
     let data: Array<string> = [];
+    
     const uid = sessionStorage.getItem('_uid');
     await get(child(databaseRef, 'bookmarks/' + uid + '/')).then((response) => {
       if (response.exists()) {

@@ -1,104 +1,91 @@
 .explore-document {
-  background-color: $bg-color;
-  height: 100vh;
-
-  main {
-    height: 67.5%;
-  }
-
-  @media screen and (max-width: 900px) {
-    main {
-      height: 75%;
-    }
-  }
-
   header {
-    background-color: white;
-    border-bottom: 1px solid $bg-color;
-  }
+    border-bottom: 1px solid $border-color;
 
-  .navigation-header>* {
-    margin: auto 0;
-    background-color: white;
-  }
+    .navigation-header {
 
-  .navigation-header {
-    display: flex;
-    flex-direction: row;
-    background-color: white;
+      &__desktop {
+        background-color: whitesmoke;
+        width: auto;
+        padding: 8px;
+        margin-bottom: 20px;
+        display: none; 
+        border-radius: 4px;
 
-    svg {
-      height: 20px;
-    }
+        .back {
+          cursor: pointer;
+          text-decoration: underline;
+        }
 
-    .title {
-      max-width: 50vw;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+        svg {
+          margin: auto 0;
+          height: 20px;
+        }
 
-    .back {
-      cursor: pointer;
+        p {
+          margin: auto 0;
+        }
+      }
 
-      &:hover {
-        text-decoration: underline;
+      &__mobile {
+        display: flex;
+        cursor: pointer;
+
+        svg, label {
+          margin: auto 0;
+        }
+      }
+
+      @media screen and (min-width: 995px) {
+        &__mobile {
+          display: none;
+        }
+
+        &__desktop {
+          display: flex;
+          width: fit-content;
+        }
       }
     }
   }
 
   .title-section {
-    margin-top: 15px;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
   }
 
-  main,
-  main>* {
-    background-color: $bg-color;
-    padding: 10px;
-  }
 
-  main {
-    overflow: auto;
-  }
+  @media screen and (max-width: 955px) {
+    .title-section {
+      display: none;
+    }
+    
+    main {
+      height: 100%;
 
-  .author {
-    margin: auto 0px;
-    margin-right: 8px;
-
-    img {
-      margin-right: 5px;
-      height: 20px;
     }
   }
 
-  .evaluated-card>* {
-    margin: auto;
+  .author {
+    display: flex;
+    margin-right: 10px;
+    gap: 4px;
+    
+    label {
+      margin: auto 0;
+    }
   }
 
   .evaluated-card {
     border-left: 1px solid $border-color;
-    padding: 0px 5px;
-    display: flex;
-
-    p {
-      margin-left: 5px;
-    }
+    padding-left: 9px;
+    margin-left: 9px;
   }
 
-  .author>* {
-    margin: auto 0;
+  main {
+    height: 67vh;
+    overflow: auto;
+    padding: 10px;
   }
-}
 
-.border-r {
-  border-right: 1px solid $border-color;
-  padding-right: 8px;
-  margin-right: 8px;
-}
-
-@media screen and (max-width: 900px) {
-  .title-section {
-    display: none;
-  }
 }

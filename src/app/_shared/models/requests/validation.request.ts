@@ -7,4 +7,5 @@ export interface ValidationRequest {
   members: Array<string>;
   comments: Array<string>;
   status: string;
+  date: string;
 }

@@ -24,12 +24,13 @@ export class BookmarksComponent implements OnInit {
     this.loading = true;
     
     this.repositoryService.getBooksmarks().then((data) => {
+      console.log(data)
       this.keys = Object.keys(data);
       
       setTimeout(() => {
         (this.keys.length === 0) ? this.empty = true : this.empty = false;
         this.loading = false;
-      }, 1000);
+      }, 500);
     })
   }
 

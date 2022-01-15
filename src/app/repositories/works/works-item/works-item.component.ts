@@ -19,7 +19,8 @@ export class WorksItemComponent implements OnInit {
     members: [],
     validator: '',
     college: '',
-    metaData: ''
+    metaData: '',
+    validationId: ''
   }
   
   @Input() workId: string = '';
