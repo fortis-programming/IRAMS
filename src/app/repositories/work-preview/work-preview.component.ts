@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Editor, toHTML, Toolbar, } from 'ngx-editor';
-
 import { WorksModel } from 'src/app/_shared/models/works.model';
 
 import { WorksService } from 'src/app/services/works.service';
@@ -14,6 +13,7 @@ import { WorksComponent } from '../works/works.component';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { ValidationStatus } from 'src/app/_shared/models/validationStatus.model';
 import { HistoryModel } from 'src/app/_shared/models/history-item.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-work-preview',
@@ -21,9 +21,11 @@ import { HistoryModel } from 'src/app/_shared/models/history-item.model';
   styleUrls: ['./work-preview.component.scss']
 })
 export class WorkPreviewComponent implements OnInit {
+  @ViewChild('editor') ckEditor: any;
+
   repositoryId = '';
   edit = false;
-
+  public editorData = '';
   @Input() workItem: WorksModel = {
     projectId: '',
     title: '',
@@ -74,6 +76,7 @@ export class WorkPreviewComponent implements OnInit {
     private workService: WorksService,
     private repositoryService: RepositoryService,
     private headerService: HeaderService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -104,7 +107,7 @@ export class WorkPreviewComponent implements OnInit {
   updateData(): void {
     this.workService.getRepositoryData(this.repositoryId).then((response) => {
       this.workItem = JSON.parse(JSON.stringify(response));
-      this.html = this.workItem.metaData;
+      this.editorData = this.workItem.metaData;
       this.getUserMeta();
       this.loading = false;
     });
@@ -129,18 +132,21 @@ export class WorkPreviewComponent implements OnInit {
   //  RE-ROUTE TO PREVIEW PAGE
   closeRepository(): void {
     this.saveUpdateToDatabase();
-    setTimeout(() => {
-      this.router.navigate(['../app/repositories/works']);
-    }, 1000);
+    this.router.navigate(['../app/repositories/works']);
   }
 
   /*============================================
     D A T A B A S E    I N T E R A C T I O N
   ============================================*/
   //  SAVE UPDATE
+  messageBtn = 'Save';
   saveUpdateToDatabase(): void {
-    this.workItem.metaData = this.html;
-    this.workService.updateDataField(this.workItem);
+    this.workItem.metaData = this.ckEditor['data'];
+    this.workService.updateDataField(this.workItem)
+    this.messageBtn = 'Saved';
+    setTimeout(() => {
+      this.messageBtn = 'Save';
+    }, 5000)
   }
 
   evaluationData: ValidationStatus = {
@@ -161,7 +167,6 @@ export class WorkPreviewComponent implements OnInit {
           this.workItem.status = 'Verified';
           this.workItem.status = this.evaluationData.status;
         }
-        this.saveUpdateToDatabase();
       }, 1000);
     });
   }
@@ -210,9 +215,11 @@ export class WorkPreviewComponent implements OnInit {
   }
   
   removeContributor(uid: string): void {
-    this.workItem.members.splice(this.workItem.members.indexOf(uid), 1);
-    this.saveUpdateToDatabase();
-    this.updateData();
+    if(uid !== JSON.parse(JSON.stringify(sessionStorage.getItem('_uid')))) {
+      this.workItem.members.splice(this.workItem.members.indexOf(uid), 1);
+      this.saveUpdateToDatabase();
+      this.updateData();
+    }
   }
 
   publishDocument: ResearchModel = {

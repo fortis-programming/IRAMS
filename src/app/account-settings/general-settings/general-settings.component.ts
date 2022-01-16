@@ -45,6 +45,21 @@ export class GeneralSettingsComponent implements OnInit {
     }); 
   }
 
+  copyMessage(){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.userId;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.toastr.success('Copied to clipboard', '')
+  }
+
   message = 'Confirm';
   oldPassword = '';
   password = '';

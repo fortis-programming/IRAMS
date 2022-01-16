@@ -10,7 +10,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 // EDITOR OPTIONS
-import { CKEditorModule } from 'ngx-ckeditor';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxEditorModule } from 'ngx-editor';
 
@@ -41,6 +40,7 @@ import { WorksItemComponent } from './repositories/works/works-item/works-item.c
 import { ExplorePreviewComponent } from './explore/explore-preview/explore-preview.component';
 import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.component';
 import { AboutComponent } from './about/about.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
