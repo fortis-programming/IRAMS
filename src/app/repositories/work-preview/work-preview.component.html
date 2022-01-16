@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center p-3" *ngIf="loading">
+<div class="d-flex justify-content-center p-3" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" *ngIf="loading">
   <div class="spinner-border text-primary" role="status">
     <span class="sr-only"></span>
   </div>
@@ -40,16 +40,18 @@
   <main>
     <div class="divider" style="overflow-y: auto;">
       <div class="NgxEditor__Wrapper border-0">
-        <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <!-- <ngx-editor-menu *ngIf="edit" [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
         <ngx-editor class="small" [editor]="editor" [(ngModel)]="html" (keyup)="autoSaveDelay()" [disabled]="!edit"
-          [placeholder]="'Type here'"></ngx-editor>
+          [placeholder]="'Type here'"></ngx-editor> -->
+        <ckeditor #editor [data]="editorData" editorUrl="https://cdn.ckeditor.com/4.16.0/full-all/ckeditor.js">
+        </ckeditor>
       </div>
     </div>
 
     <div class="divider__right">
       <section>
         <div *ngIf="workItem.status !== 'Returned'"
-          [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned', 'published': workItem.status === 'Published', 'submitted': workItem.status}">
+          [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'returned': workItem.status === 'Returned', 'published': workItem.status === 'Published', 'submitted': workItem.status === 'Submitted'}">
           {{workItem.status}}
         </div>
       </section>
@@ -68,11 +70,8 @@
           data-target="#addUserModal">Add</button>
       </section>
       <section class="border-0" *ngIf="workItem.status != 'Published'">
-        <div class="btn btn__secondary w-100" *ngIf="!edit" (click)="edit = true;">
-          <span>Edit document</span>
-        </div>
-        <div class="btn btn__secondary w-100" *ngIf="edit" (click)="edit = false;">
-          Save
+        <div class="btn btn__secondary w-100" (click)="saveUpdateToDatabase()">
+          {{  messageBtn }}
         </div>
         <div class="btn btn__primary w-100 mt-2" *ngIf="!edit && workItem.status !== 'Submitted'" data-toggle="modal"
           data-target="#requestValidationModal">
@@ -218,7 +217,7 @@
                 class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
                 <option selected>Select a validator</option>
                 <option value="GVleza8kVYOMe0K8ji3jQTGSg6S2">Research Instructor A</option>
-                </select>
+              </select>
               <label for="floatingSelect">College</label>
             </div>
             <div class="form-floating mb-3">
@@ -232,9 +231,10 @@
         </main>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" [disabled]="!validationForm.valid && requestValidation.validator === null"
-          (click)="createValidationRequest()" data-dismiss="modal" aria-label="Close" data-toggle="modal"
-          data-target="#successMessageModal">Send request</button>
+        <button type="button" class="btn btn__primary"
+          [disabled]="!validationForm.valid && requestValidation.validator === null" (click)="createValidationRequest()"
+          data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#successMessageModal">Send
+          request</button>
       </div>
     </div>
   </div>
@@ -266,7 +266,8 @@
         <p>{{ evaluationData.comment }}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn__primary" data-dismiss="modal" aria-label="Close" (click)="clearHistory()">Confirm</button>
+        <button type="button" class="btn btn__primary" data-dismiss="modal" aria-label="Close"
+          (click)="clearHistory()">Confirm</button>
       </div>
     </div>
   </div>
@@ -288,7 +289,8 @@
         </svg>
       </div>
       <div class="modal-body">
-        <div class="small" style="border-bottom: 1px solid whitesmoke; display: flex; justify-content: space-between;" *ngFor="let item of historyItem">
+        <div class="small" style="border-bottom: 1px solid whitesmoke; display: flex; justify-content: space-between;"
+          *ngFor="let item of historyItem">
           <div style="margin: auto 0;">
             <strong>{{ item.message }}</strong>
             <strong>Comment:</strong>
@@ -311,10 +313,10 @@
 <!--
   SUCCESS MODAL
 -->
-<div class="modal fade bd-example-modal w-50 m-auto" id="successMessageModal" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal m-auto" id="successMessageModal" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content d-flex justify-content-center m-auto" id="successModal">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content d-flex w-50 justify-content-center m-auto" id="successModal">
       <!-- <div class="modal-header">
         <p class="modal-title" id="exampleModalLongTitle">Request validation</p>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
