@@ -20,7 +20,9 @@
         <div class="information">
           <span>
             <strong>{{user.name}}</strong>
-            <small>ID {{user.studentId}}</small>
+            <small>@ {{ userId }} 
+              <span (click)="copyMessage()" style="float: right;  margin: auto 10px; text-decoration: underline; cursor: pointer;">Copy</span>
+            </small> 
           </span>
         </div>
       </div>

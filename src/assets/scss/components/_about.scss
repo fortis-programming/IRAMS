@@ -1,0 +1,97 @@
+.about-irams {
+  padding: 18px 15px;
+  font-size: 0.9rem;
+  overflow-y: scroll;
+  height: 92vh;
+
+  .information {
+
+    p {
+      margin-bottom: 20px;
+    }
+  }
+
+  .researchers {  
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: auto;
+    
+    div {
+      gap: 30px;
+      display: flex;
+      margin: auto;
+      justify-content: center;
+    }
+
+    .member {
+      padding: 8px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid whitesmoke;
+      border-radius: 4px;
+      gap: 0;
+      img, strong {
+        margin: 0px auto;
+      }  
+      
+      span {
+        color: $black-1;
+      }
+
+      img {
+        margin: 0px auto;
+        height: 30px;
+        width: 30px;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .about-irams {
+    height: 82vh;
+    overflow-x: hidden;
+
+    .researchers {  
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      width: auto;
+      
+      div {
+        gap: 30px;
+        display: flex;
+        margin: auto;
+        justify-content: center;
+        flex-direction: column;
+      }
+  
+      .member {
+        padding: 8px;
+        font-size: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid whitesmoke;
+        border-radius: 4px;
+        gap: 0;
+        img, strong {
+          margin: 0px auto;
+        }  
+        
+        span {
+          color: $black-1;
+        }
+  
+        img {
+          margin: 0px auto;
+          height: 30px;
+          width: 30px;
+          border-radius: 50px;
+        }
+      }
+    }
+  }
+}

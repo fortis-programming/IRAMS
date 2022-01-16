@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/main/header/header.service';
 import { RepositoryService } from 'src/app/services/repository.service';
@@ -12,16 +12,16 @@ import { WorksModel } from 'src/app/_shared/models/works.model';
   templateUrl: './works.component.html',
   styleUrls: ['./works.component.scss']
 })
-export class WorksComponent implements OnInit {
+export class WorksComponent implements OnInit, AfterViewInit {
   projectModel: ProjectModel = {
     title: '',
     type: 'Developmental',
-    college: 'CIT',
+    college: 'PIE',
     members: [],
     status: 'Ongoing',
     projectId: ''
   }
-  
+
   constructor(
     private headerService: HeaderService,
     private worksService: WorksService,
@@ -42,9 +42,6 @@ export class WorksComponent implements OnInit {
   empty = true;
   ngAfterViewInit(): void {
     this.fetchData();
-    this.repositoryService.checkForUpdates().then((response) => {
-      // this.fetchData();
-    });
   }
 
   public refreshComponent(): void {
@@ -54,20 +51,28 @@ export class WorksComponent implements OnInit {
 
   fetchData(): void {
     this.loading = true;
-    this.repositoryService.getWorks().then((data) => {
-      this.yourRepositories.splice(0, this.yourRepositories.length);
-      this.yourRepositories = data;
+    this.repositoryService.getRepositories().then((response) => {
+      console.log(response)
+      this.yourRepositories = response;
       setTimeout(() => {
         this.loading = false;
         (this.yourRepositories.length === 0) ? this.empty = true : this.empty = false;
       }, 2000);
     });
+    // this.repositoryService.getWorks().then((data) => {
+    //   this.yourRepositories.splice(0, this.yourRepositories.length);
+    //   this.yourRepositories = data;
+    //   setTimeout(() => {
+    //     this.loading = false;
+    //     (this.yourRepositories.length === 0) ? this.empty = true : this.empty = false;
+    //   }, 2000);cccccccc
+    // });
   }
-  
+
   // getLoadingStatus(): boolean {
   //   return this.repositoryService.loading;
   // }
-  
+
   //  CREATE PROJECT 
   processing = false;
   createProject(): void {

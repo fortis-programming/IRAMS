@@ -4,7 +4,7 @@
   padding: 5px 12px;
   font-weight: 600;
   font-size: 12px;
-  border-radius: 50px;
+  border-radius: 4px;
   text-align: center;
 }
 
@@ -12,7 +12,7 @@
   color: green;
   background-color: rgba(0, 128, 0, 0.075);
   padding: 5px 12px;
-  border-radius: 50px;
+  border-radius: 4px;
   font-weight: 600;
   font-size: 12px;
   text-align: center;
@@ -21,7 +21,7 @@
 .returned {
   color: black;
   padding: 5px 12px;
-  border-radius: 50px;
+  border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.075);
   font-weight: 600;
   font-size: 12px;
@@ -32,6 +32,25 @@
   color: black;
   padding: 5px 12px;
   font-weight: 600;
+  border-radius: 4px;
   font-size: 12px;
   text-align: center;
+}
+
+.submitted {
+  border-radius: 4px;
+  color: black;
+  padding: 5px 12px;
+  background-color: whitesmoke;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }

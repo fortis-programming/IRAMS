@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../main/header/header.service';
 
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss']
 })
-export class ExploreComponent implements OnInit {
+export class AboutComponent implements OnInit {
 
   constructor(
     private headerService: HeaderService
   ) { }
 
   ngOnInit(): void {
-    this.headerService.setTitle('Explore')
+    this.headerService.setTitle('About')
   }
+
 }

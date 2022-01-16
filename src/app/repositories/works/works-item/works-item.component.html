@@ -1,7 +1,7 @@
 <div class="project-card" (click)="openRepository()">
     <!-- [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed'}" -->
     <div class="d-flex mb-2">
-        <span [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed'}">
+        <span [ngClass]="{'ongoing': workItem.status === 'Ongoing', 'completed': workItem.status === 'Completed', 'submitted': workItem.status === 'Submitted'}">
             {{ workItem.status }}
         </span>
     </div>

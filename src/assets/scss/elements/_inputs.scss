@@ -132,6 +132,7 @@ span {
     color: gray;
     height: 22px;
     margin: auto 0;
+    cursor: pointer;
   }
   
   div {
@@ -141,6 +142,6 @@ span {
 
 @media screen and (max-width: 900px) {
   .search-bar {
-    width: 91%;
+    width: auto;
   }
 }

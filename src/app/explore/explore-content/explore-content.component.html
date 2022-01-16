@@ -6,35 +6,37 @@
           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
           clipRule="evenodd" />
       </svg>
-      <input type="text" placeholder="Search" style="font-size: 12px;" [(ngModel)]="searchQuery" (keyup)="searchProject()">
+      <input type="text" placeholder="Search by {{ filterBy }}" style="font-size: 12px;" [(ngModel)]="searchQuery"
+        (keyup)="searchProject()">
     </div>
-    <svg (click)="clear()" *ngIf="searchQuery !== ''" style="margin-right: 4px; justify-self: flex-end; display: flex; float: right" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+    <svg (click)="clear()" *ngIf="searchQuery !== ''"
+      style="margin-right: 4px; justify-self: flex-end; display: flex; float: right" xmlns="http://www.w3.org/2000/svg"
+      className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clipRule="evenodd" />
     </svg>
     <div style="justify-self: flex-end; display: flex; float: right">
       <div class="dropdown filter p-1">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-bs-toggle="dropdown" aria-expanded="false"  height="25px" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-bs-toggle="dropdown" aria-expanded="false"
+          height="25px" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
         </svg>
         <ul class="dropdown-menu" aria-labelledby="filterDropdownMenu">
-          <li><a class="dropdown-item" (click)="filter('All')">All</a></li>
-          <li><a class="dropdown-item" (click)="filter('keywords')">Keywords</a></li>
+          <li><a class="dropdown-item" (click)="filter('title')">All</a></li>
+          <li><a class="dropdown-item" (click)="filter('keyword')">Keywords</a></li>
         </ul>
       </div>
     </div>
   </div>
-  
-  <div class="d-flex justify-content-center p-3" *ngIf="!loading">
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only"></span>
-    </div>
-  </div>
-  
+
   <div class="item-drawer">
     <app-explore-items *ngFor="let research of researches; let i = index" [researchItem]="research"></app-explore-items>
-    
+
     <div class="card d-flex flex-row p-3 mb-3" *ngIf="researches.length === 0 && loading">
-      <svg xmlns="http://www.w3.org/2000/svg" class="p-2" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" height="50px" style="margin-right: 5px; background-color: #f2f2f2; border-radius: 50%">
+      <svg xmlns="http://www.w3.org/2000/svg" class="p-2" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor" height="50px" style="margin-right: 5px; background-color: #f2f2f2; border-radius: 50%">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
@@ -43,5 +45,12 @@
       </p>
     </div>
     <button class="btn btn__ghost d-flex m-auto" *ngIf="researches.length > 10">Load more</button>
+  </div>
+
+  <div class="d-flex justify-content-center p-3"
+    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" *ngIf="!loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"></span>
+    </div>
   </div>
 </div>

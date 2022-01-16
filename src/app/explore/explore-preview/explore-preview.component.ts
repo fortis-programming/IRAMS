@@ -44,11 +44,14 @@ export class ExplorePreviewComponent implements OnInit {
   };
 
   loading = true;
-
+  added = false;
   getDocumentData(docId: string): void {
     this.exploreService.getDocumentData(docId).then((data) => {
       this.documentObject = JSON.parse(JSON.stringify(data));
       this.getUsersData();
+      this.repositoryService.checkIfBookmarkExist(this.documentObject.id).then((response) => {
+        this.added = response;
+      })
       this.loading = false;
     })
   }
@@ -64,11 +67,17 @@ export class ExplorePreviewComponent implements OnInit {
     this.router.navigate(['../app/explore']);
   }
 
-  added = false;
+
   addToBookmark(): void {
-    this.toastr.success('', 'Added to bookmark');
-    this.repositoryService.saveBookmark(this.documentObject.id, this.documentObject.title).then(() => {
-      this.added = true;
-    });
+    this.repositoryService.saveBookmark(this.documentObject.id, this.documentObject.title).then((response) => {
+      if(response) {
+        this.added = true;
+        this.toastr.success('', 'Added to bookmarks');
+      } else {
+        this.toastr.warning('', 'Document already added')
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }

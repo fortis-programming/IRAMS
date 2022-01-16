@@ -1,6 +1,14 @@
 <div class="explore-document" *ngIf="!loading">
-    <header class="p-3">
-      <div class="navigation-header small">
+    
+  <header class="p-3">
+      <div class="navigation-header__mobile" (click)="closeDocument()">
+        <svg height="28px" class="back-mobile" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        <label class="my-auto" style="margin-left: 5px;">Back</label>
+      </div>
+      
+      <div class="navigation-header__desktop small">
         <p class="back" (click)="closeDocument()">Explore</p>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd"
@@ -11,6 +19,7 @@
       </div>
   
       <div class="title-section">
+       
         <div class="small mb-2 d-flex w-auto justify-content-between">
           <div>
             <span class="border-r">{{ documentObject.type }} </span>
@@ -28,14 +37,14 @@
             <label class="small">{{ member.name }}</label>
           </div>
           <div class="evaluated-card small">
-            <label>Evaluated by {{ documentObject.evaluator }}</label>
+            <label><strong>Evaluated by</strong> {{ documentObject.evaluator }}</label>
           </div>
           <div class="evaluated-card ml-2 small">
-            <label>Published {{ documentObject.published }}</label>
+            <label><strong>Published</strong> {{ documentObject.published }}</label>
           </div>
-        </div>
-  
+        </div>  
       </div>
+    
     </header>
   
     <main>
@@ -47,7 +56,7 @@
   
   </div>
 
-  <div class="d-flex justify-content-center p-3" *ngIf="loading">
+  <div class="d-flex justify-content-center p-3" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" *ngIf="loading">
     <div class="spinner-border text-primary" role="status">
       <span class="sr-only"></span>
     </div>

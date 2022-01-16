@@ -3,9 +3,15 @@
   cursor: default;
   margin: auto 15px;
 
+  &:hover {
+    cursor: pointer;
+    background-color: #d6d6d621;
+  }
+
   .title {
     margin: 8px 0;
     font-size: 1.2rem;
+    text-decoration: underline;
   }
   
   .keywords {
@@ -30,6 +36,7 @@
     padding: 0;
 
     .divider {
+      overflow-y: hidden;
 
       &__right {
         display: flex;
@@ -92,6 +99,7 @@
 
     .back {
       cursor: pointer;
+      text-decoration: underline;
     }
   }
 

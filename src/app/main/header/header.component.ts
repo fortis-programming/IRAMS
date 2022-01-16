@@ -42,5 +42,9 @@ export class HeaderComponent implements OnInit {
   routeToAccountSettings(): void {
     this.router.navigate(['../app/account-settings']);
   }
+
+  routeToAbout(): void {
+    this.router.navigate(['../app/about']);
+  }
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { GoogleAuthProvider, reauthenticateWithCredential, signInWithPopup, getAuth, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword, User } from "firebase/auth";
+import { GoogleAuthProvider, EmailAuthProvider, signInWithPopup, linkWithCredential, getAuth, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword, User } from "firebase/auth";
 import { firebaseConfig } from '../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -71,8 +71,22 @@ export class AuthService {
 
   //  SIGN IN WITH CREDENTIALS
   async loginWithCredentials(email: string, password: string): Promise<boolean> {
+    const credential = EmailAuthProvider.credential(email, password);
+    console.log(credential)
+
     let process = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+
+        linkWithCredential(auth.currentUser as User, credential)
+          .then((usercred) => {
+            const user = usercred.user;
+            console.log("Account linking success", user);
+          }).catch((error) => {
+            console.log("Account linking error", error);
+          });
+
+
+
         sessionStorage.setItem('photo', JSON.parse(JSON.stringify(userCredential.user.photoURL)));
         sessionStorage.setItem('_email', JSON.parse(JSON.stringify(userCredential.user.email)));
         this.setSessions([userCredential.user.refreshToken, JSON.parse(JSON.stringify(userCredential.user.uid))]);

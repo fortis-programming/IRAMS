@@ -10,7 +10,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 // EDITOR OPTIONS
-import { CKEditorModule } from 'ngx-ckeditor';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxEditorModule } from 'ngx-editor';
 
@@ -31,7 +30,6 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { ExploreContentComponent } from './explore/explore-content/explore-content.component';
 import { WorkPreviewComponent } from './repositories/work-preview/work-preview.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
-import { LoadingComponent } from './loading/loading.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { GeneralSettingsComponent } from './account-settings/general-settings/general-settings.component';
 import { SecuritySettingsComponent } from './account-settings/security-settings/security-settings.component';
@@ -41,6 +39,8 @@ import { WorksComponent } from './repositories/works/works.component';
 import { WorksItemComponent } from './repositories/works/works-item/works-item.component';
 import { ExplorePreviewComponent } from './explore/explore-preview/explore-preview.component';
 import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.component';
+import { AboutComponent } from './about/about.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -56,7 +56,6 @@ import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.c
     // WorksItemsComponent,
     WorkPreviewComponent,
     RepositoriesComponent,
-    LoadingComponent,
     AccountSettingsComponent,
     GeneralSettingsComponent,
     SecuritySettingsComponent,
@@ -65,7 +64,8 @@ import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.c
     WorksComponent,
     WorksItemComponent,
     ExplorePreviewComponent,
-    BookmarkItemComponent
+    BookmarkItemComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
